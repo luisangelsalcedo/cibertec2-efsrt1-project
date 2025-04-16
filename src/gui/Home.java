@@ -114,7 +114,7 @@ public class Home extends JFrame implements ActionListener {
 		Object source = e.getSource();
 		
 		if(source == mntmSalir) {
-			this.alertMessage("Salir");
+			System.exit(0);
 		}
 		if(source == mntmConsultar) {
 			this.alertMessage("Consultar producto");
