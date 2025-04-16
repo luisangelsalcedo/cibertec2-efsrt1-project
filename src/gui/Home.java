@@ -53,7 +53,8 @@ public class Home extends JFrame implements ActionListener {
 	 */
 	public Home() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setSize(450, 300);
+		setLocationRelativeTo(null);
 		
 		// set menu Items
 		mntmSalir = new JMenuItem("Salir");
