@@ -55,10 +55,13 @@ public class Home extends JFrame implements ActionListener {
 	/**
 	 * Create the frame.
 	 */
-	public Home() {
+	public Home() {		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(450, 300);
 		setLocationRelativeTo(null);
+		setIconImage(
+			Toolkit.getDefaultToolkit().getImage(AppData.sourcePath + "favicon.png")
+		);
 		
 		// set menu Items
 		mntmSalir = new JMenuItem("Salir");
@@ -120,6 +123,9 @@ public class Home extends JFrame implements ActionListener {
 		
 		MainDialog dialog = new MainDialog();
 		dialog.setLocationRelativeTo(this);
+		dialog.setIconImage(
+			Toolkit.getDefaultToolkit().getImage(AppData.sourcePath + "favicon.png")
+		);
 		
 		if(source == mntmSalir) {
 			System.exit(0);
