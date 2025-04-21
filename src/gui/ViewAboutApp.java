@@ -9,6 +9,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.border.EmptyBorder;
+
+import models.AppData;
+
 import javax.swing.JTextPane;
 import java.awt.Color;
 
@@ -31,7 +34,7 @@ public class ViewAboutApp extends JPanel {
 
 	public ViewAboutApp() {
 		
-		String sourcePath = "C:\\Users\\seemc\\Work\\cibertec\\cibertec1-iaa-project\\assets\\";
+		String sourcePath = AppData.sourcePath;
 		
 //		logo image
 		logo = new ImageIcon(sourcePath + "logo.png");

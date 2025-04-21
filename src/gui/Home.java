@@ -4,16 +4,20 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import models.AppData;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import java.awt.Toolkit;
 
 public class Home extends JFrame implements ActionListener {
-
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -111,40 +115,50 @@ public class Home extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub  
 		Object source = e.getSource();
+		
+		MainDialog dialog = new MainDialog();
+		dialog.setLocationRelativeTo(this);
 		
 		if(source == mntmSalir) {
 			System.exit(0);
 		}
 		if(source == mntmConsultar) {
-			this.alertMessage("Consultar producto");
+			ViewGetProduct getProductPanel = new ViewGetProduct();
+			dialog.setTitle("Consultar");
+			dialog.showView(getProductPanel);
 		}
 		if(source == mntmModificar) {
-			this.alertMessage("Modificar producto");
+			ViewSetProduct setProductPanel = new ViewSetProduct();
+			dialog.setTitle("Modificar");
+			dialog.showView(setProductPanel);
 		}
 		if(source == mntmListar) {
-			this.alertMessage("Listar productos");
+			ViewGetAllProducts getAllProductsPanel = new ViewGetAllProducts();
+			dialog.setTitle("Listar");
+			dialog.showView(getAllProductsPanel);
 		}
 		if(source == mntmVender) {
-			this.alertMessage("Vender");		
+			ViewSellProduct sellProductPanel = new ViewSellProduct();
+			dialog.setTitle("Vender");
+			dialog.showView(sellProductPanel);
 		}
 		if(source == mntmConfigurarDescuentos) {
-			this.alertMessage("configurar descuentos");
+			ViewDiscountsConfiguration discountsConfigurationPanel = new ViewDiscountsConfiguration();
+			dialog.setTitle("Configurar Descuentos");
+			dialog.showView(discountsConfigurationPanel);
+		}
+		if(source == mntmConfigurarObsequios) {			
+			ViewGiftsConfiguration giftsConfigurationPanel = new ViewGiftsConfiguration();
+			dialog.setTitle("Configurar Obsequios");
+			dialog.showView(giftsConfigurationPanel);
 		}
 		if(source == mntmAcercaDeTienda) {
-			this.alertMessage("Acerca de Tienda");
+			ViewAboutApp aboutAppPanel = new ViewAboutApp();
+			dialog.setTitle("Acerca de la Aplicacion");
+			dialog.showView(aboutAppPanel);
 		}
 	}
-	
-	private void alertMessage(String name) {
-		JOptionPane.showMessageDialog(
-            null,
-            "Has seleccionado: " + name,
-            name,
-            JOptionPane.INFORMATION_MESSAGE
-        );
-	}
-
 }
 
