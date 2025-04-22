@@ -28,7 +28,6 @@ public class ViewGetProduct extends JPanel {
 	public ViewGetProduct(JDialog parent) {
 		
 		graphicPanel = new ViewGraphics();
-		graphicPanel.setSize(500,500);
 		graphicPanel.setVisible(false);
 		
 		String[] promosList = new String[] {
@@ -47,7 +46,7 @@ public class ViewGetProduct extends JPanel {
 		// ActionListener
 		cmbPromo.addActionListener(e->{
 			String selected = (String) cmbPromo.getSelectedItem();
-			graphicPanel.setPreferredSize(new Dimension(400, 200));
+			graphicPanel.setPreferredSize(new Dimension(430, 200));
 			
 			if(selected == "Selecciona un producto") {
 				txtPrice.setText(null);
