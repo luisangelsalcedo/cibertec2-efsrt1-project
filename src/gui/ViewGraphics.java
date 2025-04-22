@@ -79,7 +79,6 @@ public class ViewGraphics extends JPanel {
 		ellipseImage1 = new JLabel();
 		ellipseImage1.setBounds(44, 37, 112, 112);
 		ellipseImage1.setIcon(ellipseSrc);
-		ellipseImage1.setVisible(false);
 
 		ellipseImage2 = new JLabel();
 		ellipseImage2.setBounds(170, 37, 112, 112);
@@ -88,7 +87,6 @@ public class ViewGraphics extends JPanel {
 		ellipseImage3 = new JLabel();
 		ellipseImage3.setBounds(294, 37, 112, 112);
 		ellipseImage3.setIcon(ellipseSrc);
-		ellipseImage3.setVisible(false);
 
 		setLayout(null);
 		setBackground(new Color(2, 22, 137));
