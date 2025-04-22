@@ -67,12 +67,18 @@ public class ViewAboutApp extends JPanel {
 		
 //		set buttons
 		showDesignBtn = new JButton();
+		showDesignBtn.setBackground(AppData.$secondaryColor);
+		showDesignBtn.setForeground(AppData.$primaryColor);
 		showDesignBtn.setText("Ver diseno");
 		
 		showCodeBtn = new JButton();
+		showCodeBtn.setBackground(AppData.$secondaryColor);
+		showCodeBtn.setForeground(AppData.$primaryColor);
 		showCodeBtn.setText("Ver Codigo");
 		
 		showDocumentsBtn = new JButton();
+		showDocumentsBtn.setBackground(AppData.$secondaryColor);
+		showDocumentsBtn.setForeground(AppData.$primaryColor);
 		showDocumentsBtn.setText("Ver Informe");
 		
 //		set panels
@@ -108,7 +114,6 @@ public class ViewAboutApp extends JPanel {
 		add(topPanel, BorderLayout.NORTH);
 		add(centerPanel, BorderLayout.CENTER);
 		add(bottomPanel, BorderLayout.SOUTH);
-		
 	}
 
 }
