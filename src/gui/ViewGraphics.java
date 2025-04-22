@@ -108,30 +108,39 @@ public class ViewGraphics extends JPanel {
 		
 		if(count > 0) {			
 			burgerImagePath = new ImageIcon(sourcePath + image);
-			burgerImage.setIcon(burgerImagePath);
 			burgerCount.setText(String.valueOf(count));		
 			burgerDescription.setText(name + "\n" + size);
-		} else this.cleanBurger();
+		} else {
+			this.cleanBurger();
+			burgerImagePath = new ImageIcon(sourcePath + "default-burger.png");
+		}
+		burgerImage.setIcon(burgerImagePath);
 	}
 
 	public void setPotatoe(int count, String size) {
 		
 		if(count > 0) {	
 			potatoesImagePath = new ImageIcon(sourcePath + "papitas.png");
-			potatoeImage.setIcon(potatoesImagePath);
 			potatoeDescription.setText(size);
 			potatoeCount.setText(String.valueOf(count));
-		} else this.cleanPotatoes();
+		} else {
+			this.cleanPotatoes();
+			potatoesImagePath = new ImageIcon(sourcePath + "default-papitas.png");
+		}
+		potatoeImage.setIcon(potatoesImagePath);
 	}
 
 	public void setSoda(int count, String image, String name) {
 		
 		if(count > 0) {	
-			sodaImagePath = new ImageIcon(sourcePath + image);
-			sodaImage.setIcon(sodaImagePath);
+			sodaImagePath = new ImageIcon(sourcePath + image);			
 			sodaCount.setText(String.valueOf(count));
 			sodaDescription.setText(name);
-		} else this.cleanSoda();
+		} else {
+			this.cleanSoda();
+			sodaImagePath = new ImageIcon(sourcePath + "default-soda.png");
+		}
+		sodaImage.setIcon(sodaImagePath);
 	}
 	
 	public void clean() {
