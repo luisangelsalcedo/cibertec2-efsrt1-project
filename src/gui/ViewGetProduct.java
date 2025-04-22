@@ -2,7 +2,6 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-
 import models.AppData;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -43,6 +42,7 @@ public class ViewGetProduct extends JPanel {
 		lblPromo.setForeground(AppData.$white);
 		cmbPromo = new JComboBox(promosList);
 
+		
 		// ActionListener
 		cmbPromo.addActionListener(e->{
 			String selected = (String) cmbPromo.getSelectedItem();
@@ -56,7 +56,7 @@ public class ViewGetProduct extends JPanel {
 			}
 			
 			if(selected == AppData.productName1) {
-				txtPrice.setText(String.valueOf(AppData.price1));
+				txtPrice.setText("S/. " + String.valueOf(AppData.price1));
 				// load Burger
 				graphicPanel.setBurger(
 					AppData.burgerCount1, 
@@ -78,7 +78,7 @@ public class ViewGetProduct extends JPanel {
 				graphicPanel.setVisible(true);
 			}
 			if(selected == AppData.productName2) {
-				txtPrice.setText(String.valueOf(AppData.price2));
+				txtPrice.setText("S/. " + String.valueOf(AppData.price2));
 				// load Burger
 				graphicPanel.setBurger(
 					AppData.burgerCount2, 
@@ -101,7 +101,7 @@ public class ViewGetProduct extends JPanel {
 				
 			}
 			if(selected == AppData.productName3) {
-				txtPrice.setText(String.valueOf(AppData.price3));
+				txtPrice.setText("S/. " + String.valueOf(AppData.price3));
 				// load Burger
 				graphicPanel.setBurger(
 					AppData.burgerCount3, 
@@ -123,7 +123,7 @@ public class ViewGetProduct extends JPanel {
 				graphicPanel.setVisible(true);
 			}
 			if(selected == AppData.productName4) {
-				txtPrice.setText(String.valueOf(AppData.price4));
+				txtPrice.setText("S/. " + String.valueOf(AppData.price4));
 				// load Burger
 				graphicPanel.setBurger(
 					AppData.burgerCount4, 
@@ -145,7 +145,7 @@ public class ViewGetProduct extends JPanel {
 				graphicPanel.setVisible(true);
 			}
 			if(selected == AppData.productName5) {
-				txtPrice.setText(String.valueOf(AppData.price5));
+				txtPrice.setText("S/. " + String.valueOf(AppData.price5));
 				// load Burger
 				graphicPanel.setBurger(
 					AppData.burgerCount5, 
@@ -167,7 +167,7 @@ public class ViewGetProduct extends JPanel {
 				graphicPanel.setVisible(true);
 			}
 			if(selected == AppData.productName6) {
-				txtPrice.setText(String.valueOf(AppData.price6));
+				txtPrice.setText("S/. " + String.valueOf(AppData.price6));
 				// load Burger
 				graphicPanel.setBurger(
 					AppData.burgerCount6, 
@@ -194,9 +194,10 @@ public class ViewGetProduct extends JPanel {
 		
 		lblPrice = new JLabel("Precio:");
 		lblPrice.setForeground(AppData.$white);
-		txtPrice = new JTextField();		
+		txtPrice = new JTextField();
 		txtPrice.setEditable(false);
 
+		
 		JPanel topPanel = new JPanel();
 		topPanel.setLayout(new BorderLayout(10, 10));
 		topPanel.setOpaque(false);
@@ -205,18 +206,20 @@ public class ViewGetProduct extends JPanel {
 		
 		
 		JPanel centerPanel = new JPanel();
-		centerPanel.setLayout(new BorderLayout(10, 10));
+		centerPanel.setLayout(new BorderLayout(82, 10));
 		centerPanel.setOpaque(false);
 		centerPanel.add(lblPrice, BorderLayout.WEST);
 		centerPanel.add(txtPrice, BorderLayout.CENTER);
 		centerPanel.add(graphicPanel, BorderLayout.SOUTH);
-				
+		
+		
 		JButton closeBtn = new JButton("Cerrar");
 		closeBtn.setBackground(AppData.$secondaryColor);
 		closeBtn.setForeground(AppData.$primaryColor);
 		closeBtn.addActionListener(e->{
 			parent.dispose();
 		});		
+		
 		
 		setLayout(new BorderLayout(10, 10));
 		setBorder(new EmptyBorder(15,15,15,15));
@@ -225,5 +228,4 @@ public class ViewGetProduct extends JPanel {
 		add(centerPanel, BorderLayout.CENTER);
 		add(closeBtn, BorderLayout.SOUTH);
 	}
-
 }
