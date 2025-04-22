@@ -9,7 +9,7 @@ import java.awt.Color;
 public class MainDialog extends JDialog {
 	
 	public MainDialog() {
-		setSize(450, 300);
+		setSize(500, 245);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		getContentPane().setBackground(AppData.$primaryColor);
