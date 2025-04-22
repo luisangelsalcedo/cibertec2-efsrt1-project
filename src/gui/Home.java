@@ -1,11 +1,13 @@
 package gui;
 
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -16,6 +18,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import java.awt.Toolkit;
+import java.awt.Color;
 
 public class Home extends JFrame implements ActionListener {
 
@@ -35,6 +38,8 @@ public class Home extends JFrame implements ActionListener {
 	private JMenuItem mntmConfigurarDescuentos;
 	private JMenuItem mntmConfigurarObsequios;
 	private JMenuItem mntmAcercaDeTienda;
+	private JLabel lblBackground;
+	private ImageIcon backgroundImage;
 
 	/**
 	 * Launch the application.
@@ -56,8 +61,9 @@ public class Home extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public Home() {		
+		setTitle("Bembos App: Mantenimiento de Menu");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(450, 300);
+		setSize(500, 350);
 		setLocationRelativeTo(null);
 		setIconImage(
 			Toolkit.getDefaultToolkit().getImage(AppData.sourcePath + "favicon.png")
@@ -85,25 +91,31 @@ public class Home extends JFrame implements ActionListener {
 		
 		// set menus
 		mnArchivo = new JMenu("Archivo");
+		mnArchivo.setForeground(AppData.$primaryColor);
 		mnArchivo.add(mntmSalir);		
 		
 		mnMantenimiento = new JMenu("Mantenimiento");
+		mnMantenimiento.setForeground(AppData.$primaryColor);
 		mnMantenimiento.add(mntmConsultar);
 		mnMantenimiento.add(mntmModificar);		
 		mnMantenimiento.add(mntmListar);
 		
-		mnVentas = new JMenu("Ventas");		
+		mnVentas = new JMenu("Ventas");
+		mnVentas.setForeground(AppData.$primaryColor);
 		mnVentas.add(mntmVender);
 		
-		mnConfiguracion = new JMenu("Configuracion");		
+		mnConfiguracion = new JMenu("Configuracion");
+		mnConfiguracion.setForeground(AppData.$primaryColor);
 		mnConfiguracion.add(mntmConfigurarDescuentos);		
 		mnConfiguracion.add(mntmConfigurarObsequios);
 		
-		mnAyuda = new JMenu("Ayuda");		
+		mnAyuda = new JMenu("Ayuda");
+		mnAyuda.setForeground(AppData.$primaryColor);
 		mnAyuda.add(mntmAcercaDeTienda);
 		
 		// set menu bar
 		menuBar = new JMenuBar();
+		menuBar.setBackground(AppData.$secondaryColor);
 		menuBar.add(mnArchivo);
 		menuBar.add(mnMantenimiento);
 		menuBar.add(mnVentas);
@@ -111,8 +123,14 @@ public class Home extends JFrame implements ActionListener {
 		menuBar.add(mnAyuda);
 		setJMenuBar(menuBar);
 		
+		// background		
+		backgroundImage = new ImageIcon(AppData.sourcePath + "background.png");
+		lblBackground = new JLabel();
+		lblBackground.setIcon(backgroundImage);		
+		
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));		
+		contentPane.setBackground(AppData.$primaryColor);
+		contentPane.add(lblBackground,BorderLayout.CENTER);
 		setContentPane(contentPane);
 	}
 
@@ -131,7 +149,7 @@ public class Home extends JFrame implements ActionListener {
 			System.exit(0);
 		}
 		if(source == mntmConsultar) {
-			ViewGetProduct getProductPanel = new ViewGetProduct();
+			ViewGetProduct getProductPanel = new ViewGetProduct(dialog);
 			dialog.setTitle("Consultar");
 			dialog.showView(getProductPanel);
 		}
