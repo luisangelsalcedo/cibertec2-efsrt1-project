@@ -50,7 +50,6 @@ public class ViewAboutApp extends JPanel {
 //		text general description
 		String description = "Esta aplicación ha sido desarrollada con fines de estudio del curso de\nIntroducción a la Algoritmia en el Instituto Cibertec. El objetivo de este\nproyecto es aplicar conceptos básicos de programación y algoritmos\nen la creación de una aplicación funcional.";
 		textDescription = new JTextPane();
-		textDescription.setBackground(new Color(255, 255, 255));
 		textDescription.setEnabled(false);
 		textDescription.setEditable(false);
 		textDescription.setOpaque(false);
@@ -84,14 +83,14 @@ public class ViewAboutApp extends JPanel {
 //		set panels
 		topPanel = new JPanel();
 		topPanel.setLayout(new FlowLayout());
-		topPanel.setBackground(new Color(2, 22, 137));
 		topPanel.setBorder(new EmptyBorder(10,10,10,10));
+		topPanel.setOpaque(false);
 		topPanel.add(lblLogo);	
 		
 		authorPanel = new JPanel();
 		authorPanel.setLayout(new FlowLayout());
-		authorPanel.setBackground(new Color(2, 22, 137));
 		authorPanel.setBorder(new EmptyBorder(15,15,15,15));
+		authorPanel.setOpaque(false);
 		authorPanel.add(lblAvatar);
 		authorPanel.add(textAuthor);
 		
@@ -108,9 +107,7 @@ public class ViewAboutApp extends JPanel {
 		bottomPanel.add(showCodeBtn);
 		bottomPanel.add(showDocumentsBtn);
 		
-		setLayout(new BorderLayout());
-		setBorder(new EmptyBorder(15,15,15,15));
-		setBackground(new Color(2, 22, 137));
+		setLayout(new BorderLayout(0, 10));
 		add(topPanel, BorderLayout.NORTH);
 		add(centerPanel, BorderLayout.CENTER);
 		add(bottomPanel, BorderLayout.SOUTH);

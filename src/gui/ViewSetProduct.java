@@ -202,8 +202,6 @@ public class ViewSetProduct extends JPanel {
 
 		// this panel
 		setLayout(new BorderLayout(0, 10));
-		setBorder(new EmptyBorder(15, 15, 15, 15));
-		setOpaque(false);
 		add(panelTop, BorderLayout.NORTH);
 		add(panelCenter, BorderLayout.CENTER);
 		add(panelBottom, BorderLayout.SOUTH);

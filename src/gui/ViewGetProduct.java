@@ -51,9 +51,6 @@ public class ViewGetProduct extends JPanel {
 		
 		
 		setLayout(new BorderLayout(10, 10));
-		setBorder(new EmptyBorder(15,15,15,15));
-		setOpaque(false);
-//		add(topPanel, BorderLayout.NORTH);
 		add(cmbPromoPanel, BorderLayout.NORTH);
 		add(centerPanel, BorderLayout.CENTER);
 		add(closeBtn, BorderLayout.SOUTH);
