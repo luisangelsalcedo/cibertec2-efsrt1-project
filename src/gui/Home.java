@@ -154,7 +154,7 @@ public class Home extends JFrame implements ActionListener {
 			dialog.showView(getProductPanel);
 		}
 		if(source == mntmModificar) {
-			ViewSetProduct setProductPanel = new ViewSetProduct();
+			ViewSetProduct setProductPanel = new ViewSetProduct(dialog);
 			dialog.setTitle("Modificar");
 			dialog.showView(setProductPanel);
 		}
