@@ -159,7 +159,7 @@ public class Home extends JFrame implements ActionListener {
 			dialog.showView(setProductPanel);
 		}
 		if(source == mntmListar) {
-			ViewGetAllProducts getAllProductsPanel = new ViewGetAllProducts();
+			ViewGetAllProducts getAllProductsPanel = new ViewGetAllProducts(dialog);
 			dialog.setTitle("Listar");
 			dialog.showView(getAllProductsPanel);
 		}
