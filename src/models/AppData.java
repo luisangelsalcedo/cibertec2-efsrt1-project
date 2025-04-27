@@ -69,6 +69,17 @@ public class AppData {
 	public static int sodaName6 = 3;
 	public static int sodaCount6 = 1;
 	public static double price6 = 22.70;
+
+//	discounts
+	public static double discount1 = 7.5;
+	public static double discount2 = 10.0;
+	public static double discount3 = 12.5;
+	public static double discount4 = 15.0;
+
+// 	gifts
+	public static String gift1 = "Cafetera";
+	public static String gift2 = "Licuadora";
+	public static String gift3 = "Extractor";
 	
 	
 	public static String[] burgers = {
