@@ -4,16 +4,15 @@ import javax.swing.JPanel;
 import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.BorderLayout;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.border.EmptyBorder;
-
 import models.AppData;
-
 import javax.swing.JTextPane;
 import java.awt.Color;
+import java.awt.Desktop;
+import java.net.URI;
 
 
 public class ViewAboutApp extends JPanel {
@@ -29,7 +28,7 @@ public class ViewAboutApp extends JPanel {
 	private JTextPane textAuthor;
 	private JButton showDesignBtn;
 	private JButton showCodeBtn;
-	private JButton showDocumentsBtn;
+//	private JButton showDocumentsBtn;
 
 
 	public ViewAboutApp() {
@@ -69,16 +68,30 @@ public class ViewAboutApp extends JPanel {
 		showDesignBtn.setBackground(AppData.$secondaryColor);
 		showDesignBtn.setForeground(AppData.$primaryColor);
 		showDesignBtn.setText("Ver diseno");
+		showDesignBtn.addActionListener(e->{
+			try {
+				Desktop.getDesktop().browse(new URI("https://www.figma.com/design/og3bf3oQxkjahuaH1yghme/cibertec1-iaa-project?node-id=0-1&t=OKpfs7KpUQedbDS4-1"));
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		});
 		
 		showCodeBtn = new JButton();
 		showCodeBtn.setBackground(AppData.$secondaryColor);
 		showCodeBtn.setForeground(AppData.$primaryColor);
 		showCodeBtn.setText("Ver Codigo");
+		showCodeBtn.addActionListener(e->{
+			try {
+				Desktop.getDesktop().browse(new URI("https://github.com/luisangelsalcedo/cibertec1-iaa-project"));
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		});
 		
-		showDocumentsBtn = new JButton();
-		showDocumentsBtn.setBackground(AppData.$secondaryColor);
-		showDocumentsBtn.setForeground(AppData.$primaryColor);
-		showDocumentsBtn.setText("Ver Informe");
+//		showDocumentsBtn = new JButton();
+//		showDocumentsBtn.setBackground(AppData.$secondaryColor);
+//		showDocumentsBtn.setForeground(AppData.$primaryColor);
+//		showDocumentsBtn.setText("Ver Informe");
 		
 //		set panels
 		topPanel = new JPanel();
@@ -105,7 +118,7 @@ public class ViewAboutApp extends JPanel {
 		bottomPanel.setOpaque(false);
 		bottomPanel.add(showDesignBtn);
 		bottomPanel.add(showCodeBtn);
-		bottomPanel.add(showDocumentsBtn);
+//		bottomPanel.add(showDocumentsBtn);
 		
 		setLayout(new BorderLayout(0, 10));
 		add(topPanel, BorderLayout.NORTH);
