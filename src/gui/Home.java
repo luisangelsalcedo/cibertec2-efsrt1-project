@@ -140,7 +140,6 @@ public class Home extends JFrame implements ActionListener {
 		Object source = e.getSource();
 		
 		MainDialog dialog = new MainDialog();
-		dialog.setLocationRelativeTo(this);
 		dialog.setIconImage(
 			Toolkit.getDefaultToolkit().getImage(AppData.sourcePath + "favicon.png")
 		);
@@ -164,7 +163,7 @@ public class Home extends JFrame implements ActionListener {
 			dialog.showView(getAllProductsPanel);
 		}
 		if(source == mntmVender) {
-			ViewSellProduct sellProductPanel = new ViewSellProduct();
+			ViewSellProduct sellProductPanel = new ViewSellProduct(dialog);
 			dialog.setTitle("Vender");
 			dialog.showView(sellProductPanel);
 		}
@@ -183,6 +182,8 @@ public class Home extends JFrame implements ActionListener {
 			dialog.setTitle("Acerca de la Aplicacion");
 			dialog.showView(aboutAppPanel);
 		}
+	
+		dialog.setLocationRelativeTo(this);
 	}
 }
 
