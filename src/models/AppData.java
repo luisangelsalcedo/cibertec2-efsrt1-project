@@ -80,6 +80,15 @@ public class AppData {
 	public static String gift1 = "Cafetera";
 	public static String gift2 = "Licuadora";
 	public static String gift3 = "Extractor";
+
+// sell variables
+	public static int generalSalesCount = 0;
+	public static double generalSalesAmount = 0.0;
+	public static double daily = 50000.0;
+	
+	public static double calculatePercentageDailyQuota() {
+		return (100 * generalSalesAmount) / daily;
+	}
 	
 	
 	public static String[] burgers = {
@@ -136,6 +145,7 @@ public class AppData {
 	};
 	
 	public static String sourcePath = "C:\\Users\\seemc\\Work\\cibertec\\cibertec1-iaa-project\\assets\\";
+	public static String favicon = "favicon.png";
 	
 	public static Color $primaryColor = new Color(2, 22, 137);
 	public static Color $secondaryColor = new Color(255, 182, 0);

@@ -34,6 +34,8 @@ public class ViewSellProduct extends JPanel {
 	JTextArea txtResponse;
 	JScrollPane scrollPane;
 	String selectedItem;
+	
+	MainAlert alert;
 
 	public ViewSellProduct(JDialog parent) {
 		
@@ -278,7 +280,7 @@ public class ViewSellProduct extends JPanel {
 			paymentAmount = buyAmount - discountAmount;
 			gifts = calculateGifts(productCount);
 			
-			txtResponse.setText("BOLETA DE VENTA\n");
+			txtResponse.setText("BOLETA DE VENTA\n----------------------------");
 			txtResponse.append("\nPromocion: " + productName);
 			txtResponse.append("\nPrecio: " + productPrice);
 			txtResponse.append("\nCantidad: " + productCount);
@@ -286,6 +288,9 @@ public class ViewSellProduct extends JPanel {
 			txtResponse.append("\nImporte Descuento: " + String.format("%,5.2f", discountAmount));
 			txtResponse.append("\nImporte a Pagar: " + String.format("%,5.2f", paymentAmount));
 			txtResponse.append("\nObsequio: 1 " + gifts);
+			
+			// add sale
+			calculateSales(paymentAmount);
 			
 		} catch (Exception e) {
 			txtResponse.setText("Ingresa una cantidad valida");
@@ -323,5 +328,20 @@ public class ViewSellProduct extends JPanel {
 		
 		else 
 			return AppData.gift3;
+	}
+	
+	private void calculateSales(double paymentAmount) {
+		AppData.generalSalesCount++;
+		AppData.generalSalesAmount += paymentAmount;
+		
+		if(AppData.generalSalesCount % 5 == 0) {
+			String message = "Venta Nro " + AppData.generalSalesCount;
+			message += "\nImporte total general acomulado: S/." + String.format("%,5.2f", AppData.generalSalesAmount);
+			message += "\nPorcentaje de la cuota diaria: " + String.format("%,5.2f", AppData.calculatePercentageDailyQuota()) + "%";
+			
+			alert = new MainAlert(message);
+			alert.setTitle("Avance de ventas");
+			alert.setVisible(true);
+		}
 	}
 }

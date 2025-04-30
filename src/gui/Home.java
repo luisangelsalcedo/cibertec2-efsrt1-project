@@ -66,7 +66,7 @@ public class Home extends JFrame implements ActionListener {
 		setSize(500, 350);
 		setLocationRelativeTo(null);
 		setIconImage(
-			Toolkit.getDefaultToolkit().getImage(AppData.sourcePath + "favicon.png")
+			Toolkit.getDefaultToolkit().getImage(AppData.sourcePath + AppData.favicon)
 		);
 		
 		// set menu Items
@@ -141,7 +141,7 @@ public class Home extends JFrame implements ActionListener {
 		
 		MainDialog dialog = new MainDialog();
 		dialog.setIconImage(
-			Toolkit.getDefaultToolkit().getImage(AppData.sourcePath + "favicon.png")
+			Toolkit.getDefaultToolkit().getImage(AppData.sourcePath + AppData.favicon)
 		);
 		
 		if(source == mntmSalir) {
