@@ -2,8 +2,10 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -19,6 +21,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import java.awt.Toolkit;
 import java.awt.Color;
+import javax.swing.SwingConstants;
+import java.awt.Font;
 
 public class Home extends JFrame implements ActionListener {
 
@@ -40,6 +44,8 @@ public class Home extends JFrame implements ActionListener {
 	private JMenuItem mntmAcercaDeTienda;
 	private JLabel lblBackground;
 	private ImageIcon backgroundImage;
+	private URL favicon = getClass().getResource(AppData.sourcePath + AppData.favicon);
+	private Font fontMenu = new Font("Dialog", Font.BOLD, 14);
 
 	/**
 	 * Launch the application.
@@ -61,12 +67,13 @@ public class Home extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public Home() {		
+		
 		setTitle("Bembos App: Mantenimiento de Menu");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(500, 350);
+		setSize(500, 360);
 		setLocationRelativeTo(null);
 		setIconImage(
-			Toolkit.getDefaultToolkit().getImage(getClass().getResource(AppData.sourcePath + AppData.favicon))
+			Toolkit.getDefaultToolkit().getImage(favicon)
 		);
 		
 		// set menu Items
@@ -78,6 +85,16 @@ public class Home extends JFrame implements ActionListener {
 		mntmConfigurarDescuentos 	= new JMenuItem("Configurar descuentos");
 		mntmConfigurarObsequios 	= new JMenuItem("Configurar obsequios");
 		mntmAcercaDeTienda 			= new JMenuItem("Acerca de Tienda");
+		
+		// set submenu font
+		mntmSalir.setFont(fontMenu);
+		mntmConsultar.setFont(fontMenu);
+		mntmModificar.setFont(fontMenu);
+		mntmListar.setFont(fontMenu);
+		mntmVender.setFont(fontMenu);
+		mntmConfigurarDescuentos.setFont(fontMenu);
+		mntmConfigurarObsequios.setFont(fontMenu);
+		mntmAcercaDeTienda.setFont(fontMenu);
 		
 		// set action events
 		mntmSalir.addActionListener(this);
@@ -91,25 +108,30 @@ public class Home extends JFrame implements ActionListener {
 		
 		// set menus
 		mnArchivo = new JMenu("Archivo");
+		mnArchivo.setFont(fontMenu);
 		mnArchivo.setForeground(AppData.$primaryColor);
 		mnArchivo.add(mntmSalir);		
 		
 		mnMantenimiento = new JMenu("Mantenimiento");
+		mnMantenimiento.setFont(fontMenu);
 		mnMantenimiento.setForeground(AppData.$primaryColor);
 		mnMantenimiento.add(mntmConsultar);
 		mnMantenimiento.add(mntmModificar);		
 		mnMantenimiento.add(mntmListar);
 		
 		mnVentas = new JMenu("Ventas");
+		mnVentas.setFont(fontMenu);
 		mnVentas.setForeground(AppData.$primaryColor);
 		mnVentas.add(mntmVender);
 		
 		mnConfiguracion = new JMenu("Configuracion");
+		mnConfiguracion.setFont(fontMenu);
 		mnConfiguracion.setForeground(AppData.$primaryColor);
 		mnConfiguracion.add(mntmConfigurarDescuentos);		
 		mnConfiguracion.add(mntmConfigurarObsequios);
 		
 		mnAyuda = new JMenu("Ayuda");
+		mnAyuda.setFont(fontMenu);
 		mnAyuda.setForeground(AppData.$primaryColor);
 		mnAyuda.add(mntmAcercaDeTienda);
 		
@@ -126,11 +148,13 @@ public class Home extends JFrame implements ActionListener {
 		// background		
 		backgroundImage = new ImageIcon(getClass().getResource(AppData.sourcePath + "background.png"));
 		lblBackground = new JLabel();
+		lblBackground.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBackground.setIcon(backgroundImage);		
 		
 		contentPane = new JPanel();
 		contentPane.setBackground(AppData.$primaryColor);
-		contentPane.add(lblBackground,BorderLayout.CENTER);
+		contentPane.setLayout(new GridLayout(1, 1, 0, 0));
+		contentPane.add(lblBackground);
 		setContentPane(contentPane);
 	}
 
@@ -141,7 +165,7 @@ public class Home extends JFrame implements ActionListener {
 		
 		MainDialog dialog = new MainDialog();
 		dialog.setIconImage(
-			Toolkit.getDefaultToolkit().getImage(getClass().getResource(AppData.sourcePath + AppData.favicon))
+			Toolkit.getDefaultToolkit().getImage(favicon)
 		);
 		
 		if(source == mntmSalir) {
