@@ -29,7 +29,7 @@ public class MainAlert extends JDialog {
 	public MainAlert(String alertMessage) {		
 		
 		lblIcon = new JLabel();
-		lblIcon.setIcon(new ImageIcon(AppData.sourcePath + "burgerIcon.png"));
+		lblIcon.setIcon(new ImageIcon(getClass().getResource(AppData.sourcePath + "burgerIcon.png")));
 		
 		txtContent = new JTextPane();
 		txtContent.setEditable(false);
@@ -65,7 +65,7 @@ public class MainAlert extends JDialog {
 		getContentPane().setLayout(new GridLayout(1,1));
 		getContentPane().add(contentPanel);
 		setIconImage(
-			Toolkit.getDefaultToolkit().getImage(AppData.sourcePath + AppData.favicon)
+			Toolkit.getDefaultToolkit().getImage(getClass().getResource(AppData.sourcePath + AppData.favicon))
 		);
 		pack();
 		setLocationRelativeTo(null);

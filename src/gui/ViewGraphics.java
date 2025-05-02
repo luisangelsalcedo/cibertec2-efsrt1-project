@@ -74,7 +74,7 @@ public class ViewGraphics extends JPanel {
 		sodaCount.setBounds(306, 160, 35, 35);
 		sodaCount.setFont(new Font("Tahoma", Font.BOLD, 20));
 
-		ellipseSrc = new ImageIcon(sourcePath + "ellipse.png");
+		ellipseSrc = new ImageIcon(getClass().getResource(sourcePath + "ellipse.png"));
 		
 		ellipseImage1 = new JLabel();
 		ellipseImage1.setBounds(44, 37, 112, 112);
@@ -107,12 +107,12 @@ public class ViewGraphics extends JPanel {
 	public void setBurger(int count, String image, String name, String size) {
 		
 		if(count > 0) {			
-			burgerImagePath = new ImageIcon(sourcePath + image);
+			burgerImagePath = new ImageIcon(getClass().getResource(sourcePath + image));
 			burgerCount.setText(String.valueOf(count));		
 			burgerDescription.setText(name + "\n" + size);
 		} else {
 			this.cleanBurger();
-			burgerImagePath = new ImageIcon(sourcePath + "default-burger.png");
+			burgerImagePath = new ImageIcon(getClass().getResource(sourcePath + "default-burger.png"));
 		}
 		burgerImage.setIcon(burgerImagePath);
 	}
@@ -120,12 +120,12 @@ public class ViewGraphics extends JPanel {
 	public void setPotatoe(int count, String size) {
 		
 		if(count > 0) {	
-			potatoesImagePath = new ImageIcon(sourcePath + "papitas.png");
+			potatoesImagePath = new ImageIcon(getClass().getResource(sourcePath + "papitas.png"));
 			potatoeDescription.setText(size);
 			potatoeCount.setText(String.valueOf(count));
 		} else {
 			this.cleanPotatoes();
-			potatoesImagePath = new ImageIcon(sourcePath + "default-papitas.png");
+			potatoesImagePath = new ImageIcon(getClass().getResource(sourcePath + "default-papitas.png"));
 		}
 		potatoeImage.setIcon(potatoesImagePath);
 	}
@@ -133,12 +133,12 @@ public class ViewGraphics extends JPanel {
 	public void setSoda(int count, String image, String name) {
 		
 		if(count > 0) {	
-			sodaImagePath = new ImageIcon(sourcePath + image);			
+			sodaImagePath = new ImageIcon(getClass().getResource(sourcePath + image));			
 			sodaCount.setText(String.valueOf(count));
 			sodaDescription.setText(name);
 		} else {
 			this.cleanSoda();
-			sodaImagePath = new ImageIcon(sourcePath + "default-soda.png");
+			sodaImagePath = new ImageIcon(getClass().getResource(sourcePath + "default-soda.png"));
 		}
 		sodaImage.setIcon(sodaImagePath);
 	}

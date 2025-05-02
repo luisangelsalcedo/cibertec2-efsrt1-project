@@ -66,18 +66,18 @@ public class Home extends JFrame implements ActionListener {
 		setSize(500, 350);
 		setLocationRelativeTo(null);
 		setIconImage(
-			Toolkit.getDefaultToolkit().getImage(AppData.sourcePath + AppData.favicon)
+			Toolkit.getDefaultToolkit().getImage(getClass().getResource(AppData.sourcePath + AppData.favicon))
 		);
 		
 		// set menu Items
-		mntmSalir = new JMenuItem("Salir");
-		mntmConsultar = new JMenuItem("Consultar producto");
-		mntmModificar = new JMenuItem("Modificar producto");
-		mntmListar = new JMenuItem("Listar productos");
-		mntmVender = new JMenuItem("Vender");
-		mntmConfigurarDescuentos = new JMenuItem("Configurar descuentos");
-		mntmConfigurarObsequios = new JMenuItem("Configurar obsequios");
-		mntmAcercaDeTienda = new JMenuItem("Acerca de Tienda");
+		mntmSalir 					= new JMenuItem("Salir");
+		mntmConsultar 				= new JMenuItem("Consultar producto");
+		mntmModificar 				= new JMenuItem("Modificar producto");
+		mntmListar 					= new JMenuItem("Listar productos");
+		mntmVender 					= new JMenuItem("Vender");
+		mntmConfigurarDescuentos 	= new JMenuItem("Configurar descuentos");
+		mntmConfigurarObsequios 	= new JMenuItem("Configurar obsequios");
+		mntmAcercaDeTienda 			= new JMenuItem("Acerca de Tienda");
 		
 		// set action events
 		mntmSalir.addActionListener(this);
@@ -124,7 +124,7 @@ public class Home extends JFrame implements ActionListener {
 		setJMenuBar(menuBar);
 		
 		// background		
-		backgroundImage = new ImageIcon(AppData.sourcePath + "background.png");
+		backgroundImage = new ImageIcon(getClass().getResource(AppData.sourcePath + "background.png"));
 		lblBackground = new JLabel();
 		lblBackground.setIcon(backgroundImage);		
 		
@@ -141,7 +141,7 @@ public class Home extends JFrame implements ActionListener {
 		
 		MainDialog dialog = new MainDialog();
 		dialog.setIconImage(
-			Toolkit.getDefaultToolkit().getImage(AppData.sourcePath + AppData.favicon)
+			Toolkit.getDefaultToolkit().getImage(getClass().getResource(AppData.sourcePath + AppData.favicon))
 		);
 		
 		if(source == mntmSalir) {

@@ -36,13 +36,13 @@ public class ViewAboutApp extends JPanel {
 		String sourcePath = AppData.sourcePath;
 		
 //		logo image
-		logo = new ImageIcon(sourcePath + "logo.png");
+		logo = new ImageIcon(getClass().getResource(sourcePath + "logo.png"));
 		Image smallLogo = logo.getImage().getScaledInstance(56, 83, Image.SCALE_SMOOTH);
 		lblLogo = new JLabel();
 		lblLogo.setIcon(new ImageIcon(smallLogo));
 		
 //		avatar image
-		avatar = new ImageIcon(sourcePath + "avatar.png");
+		avatar = new ImageIcon(getClass().getResource(sourcePath + "avatar.png"));
 		lblAvatar = new JLabel();
 		lblAvatar.setIcon(avatar);
 		

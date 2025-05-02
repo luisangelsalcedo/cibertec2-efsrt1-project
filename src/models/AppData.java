@@ -144,7 +144,7 @@ public class AppData {
 			"fanta" //3 
 	};
 	
-	public static String sourcePath = "C:\\Users\\seemc\\Work\\cibertec\\cibertec1-iaa-project\\assets\\";
+	public static String sourcePath = "/assets/";
 	public static String favicon = "favicon.png";
 	
 	public static Color $primaryColor = new Color(2, 22, 137);
