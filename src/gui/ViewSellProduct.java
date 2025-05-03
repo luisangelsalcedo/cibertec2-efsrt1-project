@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -293,7 +294,12 @@ public class ViewSellProduct extends JPanel {
 			calculateSales(paymentAmount);
 			
 		} catch (Exception e) {
-			txtResponse.setText("Ingresa una cantidad valida");
+			JOptionPane.showMessageDialog(
+	            null,
+	            "Ingresa una cantidad valida",
+	            "Error",
+	            JOptionPane.ERROR_MESSAGE
+	        );
 			txtCount.requestFocus();
 		}		
 	}

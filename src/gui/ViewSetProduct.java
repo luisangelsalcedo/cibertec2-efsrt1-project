@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -55,12 +56,15 @@ public class ViewSetProduct extends JPanel {
 	double price;
 
 	String selectedItem;
+	
+	Boolean error = false;
+	String errorMessage = "";
 
 	public ViewSetProduct(JDialog parent) {
 		
 		this.parent = parent;
 		// set
-		setAllToDefaultValues();
+		resetAllValues();
 
 		cmbPromoPanel = new ComboBoxPromo(item -> ComboBoxPromoAction(item));
 		cmbPromoPanel.setLayout(new GridLayout(1, 2, 0, 0));
@@ -71,22 +75,22 @@ public class ViewSetProduct extends JPanel {
 		lblBurgerSize.setForeground(AppData.$white);
 		lblBurgerCount = new JLabel("Cantidad");
 		lblBurgerCount.setForeground(AppData.$white);
-		cmbBurgerName = new JComboBox(AppData.burgers);
-		cmbBurgerSize = new JComboBox(AppData.sizeProducts);
+		cmbBurgerName = new JComboBox<String>(AppData.burgers);
+		cmbBurgerSize = new JComboBox<String>(AppData.sizeProducts);
 		txtBurgerCount = new JTextField();
 
 		lblPotatoesSize = new JLabel("Papas fritas");
 		lblPotatoesSize.setForeground(AppData.$white);
 		lblPotatoesCount = new JLabel("Cantidad");
 		lblPotatoesCount.setForeground(AppData.$white);
-		cmbPotatoesSize = new JComboBox(AppData.sizeProducts);
+		cmbPotatoesSize = new JComboBox<String>(AppData.sizeProducts);
 		txtPotatoesCount = new JTextField();
 
 		lblSodaName = new JLabel("Gaseosa");
 		lblSodaName.setForeground(AppData.$white);
 		lblSodaCount = new JLabel("Cantidad");
 		lblSodaCount.setForeground(AppData.$white);
-		cmbSodaName = new JComboBox(AppData.sodas);
+		cmbSodaName = new JComboBox<String>(AppData.sodas);
 		txtSodaCount = new JTextField();
 
 		lblPrice = new JLabel("Precio (S/.)");
@@ -215,7 +219,7 @@ public class ViewSetProduct extends JPanel {
 		
 		if(selectedItem == "Selecciona un producto") {
 			
-			setAllToDefaultValues();
+			resetAllValues();
 			panelCenter.setVisible(false);
 			panelBottom.setVisible(false);
 			
@@ -282,43 +286,13 @@ public class ViewSetProduct extends JPanel {
 		}
 		
 		// set values in components		
-		setAllNewValues();
+		loadNewValues();
 		
 		// resize jdialog
 		this.parent.pack();
 	}
-
-	private void onSubmit(ActionEvent event) {	
-		JButton action = (JButton) event.getSource();
-		
-		// get values		
-		getAllNewValues();
-
-		// save values
-		saveAllValues();
-		
-		System.out.print("\nHamburguesa: " + AppData.burgers[this.burgerName] + " - " + AppData.sizeProducts[this.burgerSize]);
-		System.out.print("\nCantidad: " + this.burgerCount);
-		System.out.print("\nPapitas: " + AppData.sizeProducts[this.potatoesSize]);
-		System.out.print("\nCantidad: " + this.potatoesCount);
-		System.out.print("\nGaseosa: " + AppData.sodas[this.sodaName]);
-		System.out.print("\nCantidad: " + this.sodaCount);
-		System.out.print("\nPrecio: " + this.price);
-		System.out.print("\n--------------\n\n");
-	}
 	
-	private void setAllToDefaultValues() {		
-		burgerName = 0;
-		burgerSize = 0;
-		burgerCount = 0;
-		potatoesSize = 0;
-		potatoesCount = 0;
-		sodaName = 0;
-		sodaCount = 0;
-		price = 0.0;
-	}
-	
-	private void setAllNewValues() {
+	private void loadNewValues() {
 		cmbBurgerName.setSelectedIndex(burgerName);
 		cmbBurgerSize.setSelectedIndex(burgerSize);
 		txtBurgerCount.setText(String.valueOf(burgerCount));
@@ -328,16 +302,83 @@ public class ViewSetProduct extends JPanel {
 		txtSodaCount.setText(String.valueOf(sodaCount));
 		txtPrice.setText(String.valueOf(price));
 	}
+
+	private void onSubmit(ActionEvent event) {	
+		// get values		
+		getAllNewValues();
+
+		// save values
+		if(!error) {
+			saveAllValues();
+			JOptionPane.showMessageDialog(
+	            null,
+	            "¡En hora buena! \nLos datos fueron guardados correctamente.",
+	            "Mensaje",
+	            JOptionPane.INFORMATION_MESSAGE
+	        );
+//			System.out.print("\nHamburguesa: " + AppData.burgers[this.burgerName] + " - " + AppData.sizeProducts[this.burgerSize]);
+//			System.out.print("\nCantidad: " + this.burgerCount);
+//			System.out.print("\nPapitas: " + AppData.sizeProducts[this.potatoesSize]);
+//			System.out.print("\nCantidad: " + this.potatoesCount);
+//			System.out.print("\nGaseosa: " + AppData.sodas[this.sodaName]);
+//			System.out.print("\nCantidad: " + this.sodaCount);
+//			System.out.print("\nPrecio: " + this.price);
+//			System.out.print("\n--------------\n\n");
+		}
+		else {
+			JOptionPane.showMessageDialog(
+	            null,
+	            errorMessage,
+	            "Error",
+	            JOptionPane.ERROR_MESSAGE
+	        );
+		}
+		
+	}
 	
 	private void getAllNewValues() {
 		burgerName = cmbBurgerName.getSelectedIndex();
 		burgerSize = cmbBurgerSize.getSelectedIndex();
-		burgerCount = Integer.parseInt(txtBurgerCount.getText());
 		potatoesSize = cmbPotatoesSize.getSelectedIndex();
-		potatoesCount = Integer.parseInt(txtPotatoesCount.getText());
 		sodaName = cmbSodaName.getSelectedIndex();
-		sodaCount = Integer.parseInt(txtSodaCount.getText());
-		price = Double.parseDouble(txtPrice.getText());
+		
+		// reset errors vars
+		error = false;
+		errorMessage = "";
+		
+		// valitation		
+		try {
+			burgerCount = Integer.parseInt(txtBurgerCount.getText());
+		} catch (Exception e) {
+			error = true;
+			errorMessage += "\nLa cantidad de hamburguesas no es válida.";
+			txtBurgerCount.setText("");
+			txtBurgerCount.requestFocus();
+		}
+		try {
+			potatoesCount = Integer.parseInt(txtPotatoesCount.getText());
+		} catch (Exception e) {
+			error = true;
+			errorMessage += "\nLa cantidad de papas fritas no es válida.";
+			txtPotatoesCount.setText("");
+			txtPotatoesCount.requestFocus();
+		}
+		try {
+			sodaCount = Integer.parseInt(txtSodaCount.getText());
+		} catch (Exception e) {
+			error = true;
+			errorMessage += "\nLa cantidad de gaseosa no es válida.";
+			txtSodaCount.setText("");
+			txtSodaCount.requestFocus();
+		}
+		try {
+			price = Double.parseDouble(txtPrice.getText());
+		} catch (Exception e) {
+			error = true;
+			errorMessage += "\nEl precio que ingresaste no es válido.";
+			txtPrice.setText("");
+			txtPrice.requestFocus();
+		}
 	}
 	
 	private void saveAllValues() {
@@ -404,5 +445,22 @@ public class ViewSetProduct extends JPanel {
 			AppData.price6 = price;
 		}
 	}
+	
+	private void resetAllValues() {		
+		burgerName = 0;
+		burgerSize = 0;
+		burgerCount = 0;
+		potatoesSize = 0;
+		potatoesCount = 0;
+		sodaName = 0;
+		sodaCount = 0;
+		price = 0.0;
+	}
+	
+	
+	
+	
+	
+	
 	
 }
