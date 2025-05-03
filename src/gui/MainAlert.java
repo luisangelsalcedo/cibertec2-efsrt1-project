@@ -84,5 +84,6 @@ public class MainAlert extends JDialog {
 		);
 		pack();
 		setLocationRelativeTo(null);
+		setModal(true);
 	}
 }
