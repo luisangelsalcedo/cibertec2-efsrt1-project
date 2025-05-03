@@ -295,12 +295,10 @@ public class ViewSellProduct extends JPanel {
 			calculateSales(paymentAmount);
 			
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(
-	            null,
-	            "Ingresa una cantidad valida",
-	            "Error",
-	            JOptionPane.ERROR_MESSAGE
-	        );
+			alert = new MainAlert("Ingresa una cantidad valida", "error");
+			alert.setTitle("Error");
+			alert.setVisible(true);
+			
 			txtCount.requestFocus();
 		}		
 	}
@@ -346,7 +344,7 @@ public class ViewSellProduct extends JPanel {
 			message += "\nImporte total general acomulado: S/." + String.format("%,5.2f", AppData.generalSalesAmount);
 			message += "\nPorcentaje de la cuota diaria: " + String.format("%,5.2f", AppData.calculatePercentageDailyQuota()) + "%";
 			
-			alert = new MainAlert(message);
+			alert = new MainAlert(message, null);
 			alert.setTitle("Avance de ventas");
 			alert.setVisible(true);
 		}

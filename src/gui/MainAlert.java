@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -26,10 +27,24 @@ public class MainAlert extends JDialog {
 	private JLabel lblIcon;
 	private JTextPane txtContent;
 	
-	public MainAlert(String alertMessage) {		
+	public MainAlert(String alertMessage, String type) {		
+		
+		URL burgerIcon = getClass().getResource(AppData.sourcePath + "burgerIcon.png");
+		URL successIcon = getClass().getResource(AppData.sourcePath + "successIcon.png");
+		URL errorIcon = getClass().getResource(AppData.sourcePath + "errorIcon.png");
+		URL noticeIcon = getClass().getResource(AppData.sourcePath + "infoIcon.png");
 		
 		lblIcon = new JLabel();
-		lblIcon.setIcon(new ImageIcon(getClass().getResource(AppData.sourcePath + "burgerIcon.png")));
+		
+		if(type == "success") {
+			lblIcon.setIcon(new ImageIcon(successIcon));
+		} else if (type == "error") {
+			lblIcon.setIcon(new ImageIcon(errorIcon));
+		} else if (type == "notice") {
+			lblIcon.setIcon(new ImageIcon(noticeIcon));
+		} else {
+			lblIcon.setIcon(new ImageIcon(burgerIcon));
+		}
 		
 		txtContent = new JTextPane();
 		txtContent.setEditable(false);
@@ -70,5 +85,4 @@ public class MainAlert extends JDialog {
 		pack();
 		setLocationRelativeTo(null);
 	}
-
 }

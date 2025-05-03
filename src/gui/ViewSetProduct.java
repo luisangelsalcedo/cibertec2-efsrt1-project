@@ -59,6 +59,8 @@ public class ViewSetProduct extends JPanel {
 	
 	Boolean error = false;
 	String errorMessage = "";
+	
+	MainAlert alert;
 
 	public ViewSetProduct(JDialog parent) {
 		
@@ -311,12 +313,10 @@ public class ViewSetProduct extends JPanel {
 		// save values
 		if(!error) {
 			saveAllValues();
-			JOptionPane.showMessageDialog(
-	            null,
-	            "¡En hora buena! \nLos datos fueron guardados correctamente.",
-	            "Mensaje",
-	            JOptionPane.INFORMATION_MESSAGE
-	        );
+			alert = new MainAlert("¡En hora buena! \nLos datos fueron guardados correctamente.", "success");
+			alert.setTitle("Mensaje");
+			alert.setVisible(true);
+			
 //			System.out.print("\nHamburguesa: " + AppData.burgers[this.burgerName] + " - " + AppData.sizeProducts[this.burgerSize]);
 //			System.out.print("\nCantidad: " + this.burgerCount);
 //			System.out.print("\nPapitas: " + AppData.sizeProducts[this.potatoesSize]);
@@ -327,12 +327,10 @@ public class ViewSetProduct extends JPanel {
 //			System.out.print("\n--------------\n\n");
 		}
 		else {
-			JOptionPane.showMessageDialog(
-	            null,
-	            errorMessage,
-	            "Error",
-	            JOptionPane.ERROR_MESSAGE
-	        );
+			alert = new MainAlert(errorMessage, "error");
+			alert.setTitle("Error");
+			alert.setVisible(true);
+			
 		}
 		
 	}
@@ -352,7 +350,7 @@ public class ViewSetProduct extends JPanel {
 			burgerCount = Integer.parseInt(txtBurgerCount.getText());
 		} catch (Exception e) {
 			error = true;
-			errorMessage += "\nLa cantidad de hamburguesas no es válida.";
+			errorMessage += "La cantidad de hamburguesas no es válida.\n";
 			txtBurgerCount.setText("");
 			txtBurgerCount.requestFocus();
 		}
@@ -360,7 +358,7 @@ public class ViewSetProduct extends JPanel {
 			potatoesCount = Integer.parseInt(txtPotatoesCount.getText());
 		} catch (Exception e) {
 			error = true;
-			errorMessage += "\nLa cantidad de papas fritas no es válida.";
+			errorMessage += "La cantidad de papas fritas no es válida.\n";
 			txtPotatoesCount.setText("");
 			txtPotatoesCount.requestFocus();
 		}
@@ -368,7 +366,7 @@ public class ViewSetProduct extends JPanel {
 			sodaCount = Integer.parseInt(txtSodaCount.getText());
 		} catch (Exception e) {
 			error = true;
-			errorMessage += "\nLa cantidad de gaseosa no es válida.";
+			errorMessage += "La cantidad de gaseosa no es válida.\n";
 			txtSodaCount.setText("");
 			txtSodaCount.requestFocus();
 		}
@@ -376,7 +374,7 @@ public class ViewSetProduct extends JPanel {
 			price = Double.parseDouble(txtPrice.getText());
 		} catch (Exception e) {
 			error = true;
-			errorMessage += "\nEl precio que ingresaste no es válido.";
+			errorMessage += "El precio que ingresaste no es válido.\n";
 			txtPrice.setText("");
 			txtPrice.requestFocus();
 		}
