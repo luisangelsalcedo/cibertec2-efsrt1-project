@@ -290,6 +290,7 @@ public class ViewSetProduct extends JPanel {
 		
 		// resize jdialog
 		this.parent.pack();
+		this.parent.setLocationRelativeTo(null);
 	}
 	
 	private void loadNewValues() {

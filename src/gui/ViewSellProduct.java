@@ -264,6 +264,7 @@ public class ViewSellProduct extends JPanel {
 		}
 		// resize jdialog		
 		this.parent.pack();
+		this.parent.setLocationRelativeTo(null);
 	}
 	
 	private void sellAction(ActionEvent event) {

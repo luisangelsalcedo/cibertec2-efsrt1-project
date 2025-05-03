@@ -201,5 +201,6 @@ public class ViewGetProduct extends JPanel {
 		}
 		// resize jdialog		
 		this.parent.pack();
+		this.parent.setLocationRelativeTo(null);
 	}
 }
