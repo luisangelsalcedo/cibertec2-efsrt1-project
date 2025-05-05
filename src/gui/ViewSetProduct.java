@@ -328,7 +328,7 @@ public class ViewSetProduct extends JPanel {
 		}
 		else {
 			alert = new MainAlert(errorMessage, "error");
-			alert.setTitle("Error");
+			alert.setTitle("Mensaje de error");
 			alert.setVisible(true);
 			
 		}

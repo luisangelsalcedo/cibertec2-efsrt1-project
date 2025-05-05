@@ -144,8 +144,10 @@ public class AppData {
 			"fanta" //3 
 	};
 	
+	public static String AppTitle = "Bembos App";
 	public static String sourcePath = "/assets/";
 	public static String favicon = "favicon.png";
+	public static String version = "1.0.0";
 	
 	public static Color $primaryColor = new Color(2, 22, 137);
 	public static Color $secondaryColor = new Color(255, 182, 0);

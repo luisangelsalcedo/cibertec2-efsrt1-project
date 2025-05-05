@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -44,6 +45,8 @@ public class Home extends JFrame implements ActionListener {
 	private JMenuItem mntmAcercaDeTienda;
 	private JLabel lblBackground;
 	private ImageIcon backgroundImage;
+	private JPanel versionPanel;
+	private JLabel txtVersion;
 	private URL favicon = getClass().getResource(AppData.sourcePath + AppData.favicon);
 	private Font fontMenu = new Font("Dialog", Font.BOLD, 14);
 
@@ -68,7 +71,7 @@ public class Home extends JFrame implements ActionListener {
 	 */
 	public Home() {		
 		
-		setTitle("Bembos App: Mantenimiento de Menu");
+		setTitle(AppData.AppTitle);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(500, 360);
 		setLocationRelativeTo(null);
@@ -84,7 +87,7 @@ public class Home extends JFrame implements ActionListener {
 		mntmVender 					= new JMenuItem("Vender");
 		mntmConfigurarDescuentos 	= new JMenuItem("Configurar descuentos");
 		mntmConfigurarObsequios 	= new JMenuItem("Configurar obsequios");
-		mntmAcercaDeTienda 			= new JMenuItem("Acerca de Tienda");
+		mntmAcercaDeTienda 			= new JMenuItem("Acerca de la aplicación");
 		
 		// set submenu font
 		mntmSalir.setFont(fontMenu);
@@ -124,7 +127,7 @@ public class Home extends JFrame implements ActionListener {
 		mnVentas.setForeground(AppData.$primaryColor);
 		mnVentas.add(mntmVender);
 		
-		mnConfiguracion = new JMenu("Configuracion");
+		mnConfiguracion = new JMenu("Configuración");
 		mnConfiguracion.setFont(fontMenu);
 		mnConfiguracion.setForeground(AppData.$primaryColor);
 		mnConfiguracion.add(mntmConfigurarDescuentos);		
@@ -145,11 +148,24 @@ public class Home extends JFrame implements ActionListener {
 		menuBar.add(mnAyuda);
 		setJMenuBar(menuBar);
 		
+		// version
+		txtVersion = new JLabel();
+		txtVersion.setText(AppData.version == null ? "" : "Versión " + AppData.version);
+		txtVersion.setForeground(AppData.$white);
+		versionPanel = new JPanel();
+		versionPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
+		versionPanel.setBorder(new EmptyBorder(0, 0, 15, 15));
+		versionPanel.setOpaque(false);
+		versionPanel.add(txtVersion);
+		
 		// background		
 		backgroundImage = new ImageIcon(getClass().getResource(AppData.sourcePath + "background.png"));
 		lblBackground = new JLabel();
 		lblBackground.setHorizontalAlignment(SwingConstants.CENTER);
-		lblBackground.setIcon(backgroundImage);		
+		lblBackground.setIcon(backgroundImage);	
+		lblBackground.setLayout(new BorderLayout());
+		lblBackground.add(versionPanel, BorderLayout.SOUTH);
+		
 		
 		contentPane = new JPanel();
 		contentPane.setBackground(AppData.$primaryColor);

@@ -296,9 +296,9 @@ public class ViewSellProduct extends JPanel {
 			
 		} catch (Exception e) {
 			alert = new MainAlert("Ingresa una cantidad valida", "error");
-			alert.setTitle("Error");
+			alert.setTitle("Mensaje de error");
 			alert.setVisible(true);
-			
+			txtCount.setText("");
 			txtCount.requestFocus();
 		}		
 	}

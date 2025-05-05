@@ -28,6 +28,8 @@ public class ViewAboutApp extends JPanel {
 	private JTextPane textAuthor;
 	private JButton showDesignBtn;
 	private JButton showCodeBtn;
+	private JLabel txtVersion;
+	private JPanel versionPanel;
 //	private JButton showDocumentsBtn;
 
 
@@ -67,7 +69,7 @@ public class ViewAboutApp extends JPanel {
 		showDesignBtn = new JButton();
 		showDesignBtn.setBackground(AppData.$secondaryColor);
 		showDesignBtn.setForeground(AppData.$primaryColor);
-		showDesignBtn.setText("Ver diseno");
+		showDesignBtn.setText("Ver diseño");
 		showDesignBtn.addActionListener(e->{
 			try {
 				Desktop.getDesktop().browse(new URI("https://www.figma.com/design/og3bf3oQxkjahuaH1yghme/cibertec1-iaa-project?node-id=0-1&t=OKpfs7KpUQedbDS4-1"));
@@ -79,7 +81,7 @@ public class ViewAboutApp extends JPanel {
 		showCodeBtn = new JButton();
 		showCodeBtn.setBackground(AppData.$secondaryColor);
 		showCodeBtn.setForeground(AppData.$primaryColor);
-		showCodeBtn.setText("Ver Codigo");
+		showCodeBtn.setText("Ver Código");
 		showCodeBtn.addActionListener(e->{
 			try {
 				Desktop.getDesktop().browse(new URI("https://github.com/luisangelsalcedo/cibertec1-iaa-project"));
@@ -96,7 +98,7 @@ public class ViewAboutApp extends JPanel {
 //		set panels
 		topPanel = new JPanel();
 		topPanel.setLayout(new FlowLayout());
-		topPanel.setBorder(new EmptyBorder(10,10,10,10));
+		topPanel.setBorder(new EmptyBorder(10, 0, 0, 0));
 		topPanel.setOpaque(false);
 		topPanel.add(lblLogo);	
 		
@@ -107,9 +109,19 @@ public class ViewAboutApp extends JPanel {
 		authorPanel.add(lblAvatar);
 		authorPanel.add(textAuthor);
 		
+		txtVersion = new JLabel();
+		txtVersion.setText(AppData.version == null ? "" : "Versión " + AppData.version);
+		txtVersion.setForeground(AppData.$white);
+		versionPanel = new JPanel();
+		versionPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		versionPanel.setBorder(new EmptyBorder(0, 0, 15, 0));
+		versionPanel.setOpaque(false);
+		versionPanel.add(txtVersion);
+		
 		centerPanel = new JPanel();
 		centerPanel.setLayout(new BorderLayout());
 		centerPanel.setOpaque(false);
+		centerPanel.add(versionPanel, BorderLayout.NORTH);
 		centerPanel.add(textDescription, BorderLayout.CENTER);
 		centerPanel.add(authorPanel, BorderLayout.SOUTH);
 		
