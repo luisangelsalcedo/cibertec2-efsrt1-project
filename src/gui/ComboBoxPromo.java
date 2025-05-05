@@ -1,4 +1,5 @@
 package gui;
+
 import java.awt.BorderLayout;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -8,12 +9,10 @@ import models.AppData;
 
 public class ComboBoxPromo extends JPanel {
 
-	private JLabel lblPromo;
-	private JComboBox<String> cmbPromo;
-	
-	
+	private static final long serialVersionUID = 1L;
+
 	public ComboBoxPromo(ComboBoxAction callback) {		
-		lblPromo = new JLabel("Promos exclusivas:");
+		JLabel lblPromo = new JLabel("Promos exclusivas:");
 		lblPromo.setForeground(AppData.$white);
 		
 		String[] promosList = new String[] {
@@ -25,7 +24,7 @@ public class ComboBoxPromo extends JPanel {
 			AppData.productName5,
 			AppData.productName6
 		};		
-		cmbPromo = new JComboBox(promosList);
+		JComboBox<String> cmbPromo = new JComboBox<String>(promosList);
 		cmbPromo.addActionListener(e->{
 			String selectedItem = (String) cmbPromo.getSelectedItem();
 			if (callback != null && selectedItem != null) {

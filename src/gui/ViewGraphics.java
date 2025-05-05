@@ -1,4 +1,5 @@
 package gui;
+
 import java.awt.Font;
 import java.awt.Color;
 import models.AppData;
@@ -9,12 +10,10 @@ import javax.swing.JTextPane;
 
 public class ViewGraphics extends JPanel {
 
+	private static final long serialVersionUID = 1L;	
 	private JLabel burgerImage;
 	private JLabel potatoeImage;
 	private JLabel sodaImage;
-	private JLabel ellipseImage1;
-	private JLabel ellipseImage2;
-	private JLabel ellipseImage3;
 	private JLabel burgerCount;
 	private JLabel potatoeCount;
 	private JLabel sodaCount;
@@ -23,9 +22,7 @@ public class ViewGraphics extends JPanel {
 	private JTextPane sodaDescription;
 	private ImageIcon burgerImagePath;
 	private ImageIcon potatoesImagePath;
-	private ImageIcon sodaImagePath;
-	private ImageIcon ellipseSrc;
-
+	private ImageIcon sodaImagePath;	
 	private String sourcePath = AppData.sourcePath;
 
 
@@ -74,17 +71,17 @@ public class ViewGraphics extends JPanel {
 		sodaCount.setBounds(306, 160, 35, 35);
 		sodaCount.setFont(new Font("Tahoma", Font.BOLD, 20));
 
-		ellipseSrc = new ImageIcon(getClass().getResource(sourcePath + "ellipse.png"));
+		ImageIcon ellipseSrc = new ImageIcon(getClass().getResource(sourcePath + "ellipse.png"));
 		
-		ellipseImage1 = new JLabel();
+		JLabel ellipseImage1 = new JLabel();
 		ellipseImage1.setBounds(44, 37, 112, 112);
 		ellipseImage1.setIcon(ellipseSrc);
 
-		ellipseImage2 = new JLabel();
+		JLabel ellipseImage2 = new JLabel();
 		ellipseImage2.setBounds(170, 37, 112, 112);
 		ellipseImage2.setIcon(ellipseSrc);
 		
-		ellipseImage3 = new JLabel();
+		JLabel ellipseImage3 = new JLabel();
 		ellipseImage3.setBounds(294, 37, 112, 112);
 		ellipseImage3.setIcon(ellipseSrc);
 

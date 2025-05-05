@@ -6,42 +6,23 @@ import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import javax.swing.border.EmptyBorder;
 import models.AppData;
 
 public class ViewSetProduct extends JPanel {
-	
+
+	private static final long serialVersionUID = 1L;	
 	private JDialog parent;
-	private ComboBoxPromo cmbPromoPanel;
-
-	private JLabel lblBurgerName;
 	private JComboBox<String> cmbBurgerName;
-	private JLabel lblBurgerSize;
 	private JComboBox<String> cmbBurgerSize;
-	private JLabel lblBurgerCount;
-	private JTextField txtBurgerCount;
-
-	private JLabel lblPotatoesSize;
 	private JComboBox<String> cmbPotatoesSize;
-	private JLabel lblPotatoesCount;
-	private JTextField txtPotatoesCount;
-
-	private JLabel lblSodaName;
 	private JComboBox<String> cmbSodaName;
-	private JLabel lblSodaCount;
+	private JTextField txtBurgerCount;
+	private JTextField txtPotatoesCount;
 	private JTextField txtSodaCount;
-
-	private JLabel lblPrice;
 	private JTextField txtPrice;
-
-	private JButton btnSave;
-	private JButton btnClose;
-
-	private JPanel panelTop;
 	private JPanel panelCenter;
 	private JPanel panelBottom;
 
@@ -55,56 +36,54 @@ public class ViewSetProduct extends JPanel {
 	int sodaCount;
 	double price;
 
-	String selectedItem;
-	
-	Boolean error = false;
-	String errorMessage = "";
-	
-	MainAlert alert;
+	private String selectedItem;
+	private Boolean error = false;
+	private String errorMessage = "";	
+	private MainAlert alert;
 
 	public ViewSetProduct(JDialog parent) {
 		
 		this.parent = parent;
 		// set
 		resetAllValues();
-
-		cmbPromoPanel = new ComboBoxPromo(item -> ComboBoxPromoAction(item));
+		
+		ComboBoxPromo cmbPromoPanel = new ComboBoxPromo(item -> ComboBoxPromoAction(item));
 		cmbPromoPanel.setLayout(new GridLayout(1, 2, 0, 0));
 
-		lblBurgerName = new JLabel("Hamburguesa");
+		JLabel lblBurgerName = new JLabel("Hamburguesa");
 		lblBurgerName.setForeground(AppData.$white);
-		lblBurgerSize = new JLabel("Tamaño");
+		JLabel lblBurgerSize = new JLabel("Tamaño");
 		lblBurgerSize.setForeground(AppData.$white);
-		lblBurgerCount = new JLabel("Cantidad");
+		JLabel lblBurgerCount = new JLabel("Cantidad");
 		lblBurgerCount.setForeground(AppData.$white);
 		cmbBurgerName = new JComboBox<String>(AppData.burgers);
 		cmbBurgerSize = new JComboBox<String>(AppData.sizeProducts);
 		txtBurgerCount = new JTextField();
 
-		lblPotatoesSize = new JLabel("Papas fritas");
+		JLabel lblPotatoesSize = new JLabel("Papas fritas");
 		lblPotatoesSize.setForeground(AppData.$white);
-		lblPotatoesCount = new JLabel("Cantidad");
+		JLabel lblPotatoesCount = new JLabel("Cantidad");
 		lblPotatoesCount.setForeground(AppData.$white);
 		cmbPotatoesSize = new JComboBox<String>(AppData.sizeProducts);
 		txtPotatoesCount = new JTextField();
 
-		lblSodaName = new JLabel("Gaseosa");
+		JLabel lblSodaName = new JLabel("Gaseosa");
 		lblSodaName.setForeground(AppData.$white);
-		lblSodaCount = new JLabel("Cantidad");
+		JLabel lblSodaCount = new JLabel("Cantidad");
 		lblSodaCount.setForeground(AppData.$white);
 		cmbSodaName = new JComboBox<String>(AppData.sodas);
 		txtSodaCount = new JTextField();
 
-		lblPrice = new JLabel("Precio (S/.)");
+		JLabel lblPrice = new JLabel("Precio (S/.)");
 		lblPrice.setForeground(AppData.$white);
 		txtPrice = new JTextField();
 
-		btnSave = new JButton("Guardar");
+		JButton btnSave = new JButton("Guardar");
 		btnSave.setBackground(AppData.$secondaryColor);
 		btnSave.setForeground(AppData.$primaryColor);
 		btnSave.addActionListener(e -> onSubmit(e));
 		
-		btnClose = new JButton("Cerrar");
+		JButton btnClose = new JButton("Cerrar");
 		btnClose.setBackground(AppData.$primaryLightColor);
 		btnClose.setForeground(AppData.$white);
 		btnClose.addActionListener(e -> {
@@ -186,7 +165,7 @@ public class ViewSetProduct extends JPanel {
 
 		
 		// Base panels
-		panelTop = new JPanel();
+		JPanel panelTop = new JPanel();
 		panelTop.setLayout(new BorderLayout(0, 0));
 		panelTop.setOpaque(false);
 		panelTop.add(cmbPromoPanel);

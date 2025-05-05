@@ -12,53 +12,41 @@ import models.AppData;
 import javax.swing.JTextPane;
 import java.awt.Color;
 import java.awt.Desktop;
+import java.awt.Dimension;
 import java.net.URI;
 
 
 public class ViewAboutApp extends JPanel {
-	private JPanel topPanel;
-	private JPanel centerPanel;
-	private JPanel bottomPanel;
-	private JPanel authorPanel;	
-	private ImageIcon logo;
-	private JLabel lblLogo;
-	private ImageIcon avatar;
-	private JLabel lblAvatar;
-	private JTextPane textDescription;
-	private JTextPane textAuthor;
-	private JButton showDesignBtn;
-	private JButton showCodeBtn;
-	private JLabel txtVersion;
-	private JPanel versionPanel;
-//	private JButton showDocumentsBtn;
 
+	private static final long serialVersionUID = 1L;
 
 	public ViewAboutApp() {
 		
 		String sourcePath = AppData.sourcePath;
 		
 //		logo image
-		logo = new ImageIcon(getClass().getResource(sourcePath + "logo.png"));
+		ImageIcon logo = new ImageIcon(getClass().getResource(sourcePath + "logo.png"));
 		Image smallLogo = logo.getImage().getScaledInstance(56, 83, Image.SCALE_SMOOTH);
-		lblLogo = new JLabel();
+		JLabel lblLogo = new JLabel();
 		lblLogo.setIcon(new ImageIcon(smallLogo));
 		
 //		avatar image
-		avatar = new ImageIcon(getClass().getResource(sourcePath + "avatar.png"));
-		lblAvatar = new JLabel();
+		ImageIcon avatar = new ImageIcon(getClass().getResource(sourcePath + "avatar.png"));
+		JLabel lblAvatar = new JLabel();
 		lblAvatar.setIcon(avatar);
 		
 //		text general description
-		String description = "Esta aplicación ha sido desarrollada con fines de estudio del curso de\nIntroducción a la Algoritmia en el Instituto Cibertec. El objetivo de este\nproyecto es aplicar conceptos básicos de programación y algoritmos\nen la creación de una aplicación funcional.";
-		textDescription = new JTextPane();
+		String description = "Esta aplicación ha sido desarrollada con fines educativos como parte del curso \"Introducción a la Algoritmia\", dictado por el docente Yan Carlos Bocanegra Pinchi en el Instituto Cibertec. El objetivo de este proyecto es aplicar conceptos básicos de programación y algoritmos en la creación de una aplicación funcional.";
+		JTextPane textDescription = new JTextPane();
 		textDescription.setEnabled(false);
 		textDescription.setEditable(false);
 		textDescription.setOpaque(false);
-		textDescription.setText(description);	
+		textDescription.setText(description);
+		textDescription.setPreferredSize(new Dimension(430, 100));
 		
 //		text author description
 		String authorDescription = "Creado por:\nLuis Angel Salcedo Gavidia\n2025";
-		textAuthor = new JTextPane();
+		JTextPane textAuthor = new JTextPane();
 		textAuthor.setEnabled(false);
 		textAuthor.setEditable(false);
 		textAuthor.setOpaque(false);
@@ -66,7 +54,7 @@ public class ViewAboutApp extends JPanel {
 		textAuthor.setText(authorDescription);
 		
 //		set buttons
-		showDesignBtn = new JButton();
+		JButton showDesignBtn = new JButton();
 		showDesignBtn.setBackground(AppData.$secondaryColor);
 		showDesignBtn.setForeground(AppData.$primaryColor);
 		showDesignBtn.setText("Ver diseño");
@@ -78,7 +66,7 @@ public class ViewAboutApp extends JPanel {
 			}
 		});
 		
-		showCodeBtn = new JButton();
+		JButton showCodeBtn = new JButton();
 		showCodeBtn.setBackground(AppData.$secondaryColor);
 		showCodeBtn.setForeground(AppData.$primaryColor);
 		showCodeBtn.setText("Ver Código");
@@ -90,42 +78,42 @@ public class ViewAboutApp extends JPanel {
 			}
 		});
 		
-//		showDocumentsBtn = new JButton();
+//		JButton showDocumentsBtn = new JButton();
 //		showDocumentsBtn.setBackground(AppData.$secondaryColor);
 //		showDocumentsBtn.setForeground(AppData.$primaryColor);
 //		showDocumentsBtn.setText("Ver Informe");
 		
 //		set panels
-		topPanel = new JPanel();
+		JPanel topPanel = new JPanel();
 		topPanel.setLayout(new FlowLayout());
 		topPanel.setBorder(new EmptyBorder(10, 0, 0, 0));
 		topPanel.setOpaque(false);
 		topPanel.add(lblLogo);	
 		
-		authorPanel = new JPanel();
+		JPanel authorPanel = new JPanel();
 		authorPanel.setLayout(new FlowLayout());
 		authorPanel.setBorder(new EmptyBorder(15,15,15,15));
 		authorPanel.setOpaque(false);
 		authorPanel.add(lblAvatar);
 		authorPanel.add(textAuthor);
 		
-		txtVersion = new JLabel();
+		JLabel txtVersion = new JLabel();
 		txtVersion.setText(AppData.version == null ? "" : "Versión " + AppData.version);
 		txtVersion.setForeground(AppData.$white);
-		versionPanel = new JPanel();
+		JPanel versionPanel = new JPanel();
 		versionPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		versionPanel.setBorder(new EmptyBorder(0, 0, 15, 0));
 		versionPanel.setOpaque(false);
 		versionPanel.add(txtVersion);
 		
-		centerPanel = new JPanel();
+		JPanel centerPanel = new JPanel();
 		centerPanel.setLayout(new BorderLayout());
 		centerPanel.setOpaque(false);
 		centerPanel.add(versionPanel, BorderLayout.NORTH);
 		centerPanel.add(textDescription, BorderLayout.CENTER);
 		centerPanel.add(authorPanel, BorderLayout.SOUTH);
 		
-		bottomPanel = new JPanel();
+		JPanel bottomPanel = new JPanel();
 		bottomPanel.setLayout(new FlowLayout());
 		bottomPanel.setOpaque(false);
 		bottomPanel.add(showDesignBtn);

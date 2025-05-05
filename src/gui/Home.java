@@ -7,34 +7,22 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import models.AppData;
-
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import java.awt.Toolkit;
-import java.awt.Color;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 
 public class Home extends JFrame implements ActionListener {
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private JMenuBar menuBar;
-	private JMenu mnArchivo;
-	private JMenu mnMantenimiento;
-	private JMenu mnVentas;
-	private JMenu mnConfiguracion;
-	private JMenu mnAyuda;
+	private static final long serialVersionUID = 1L;	
 	private JMenuItem mntmSalir;
 	private JMenuItem mntmConsultar;
 	private JMenuItem mntmModificar;
@@ -42,13 +30,8 @@ public class Home extends JFrame implements ActionListener {
 	private JMenuItem mntmVender;
 	private JMenuItem mntmConfigurarDescuentos;
 	private JMenuItem mntmConfigurarObsequios;
-	private JMenuItem mntmAcercaDeTienda;
-	private JLabel lblBackground;
-	private ImageIcon backgroundImage;
-	private JPanel versionPanel;
-	private JLabel txtVersion;
+	private JMenuItem mntmAcercaDeTienda;	
 	private URL favicon = getClass().getResource(AppData.sourcePath + AppData.favicon);
-	private Font fontMenu = new Font("Dialog", Font.BOLD, 14);
 
 	/**
 	 * Launch the application.
@@ -78,6 +61,8 @@ public class Home extends JFrame implements ActionListener {
 		setIconImage(
 			Toolkit.getDefaultToolkit().getImage(favicon)
 		);
+		
+		Font fontMenu = new Font("Dialog", Font.BOLD, 14);
 		
 		// set menu Items
 		mntmSalir 					= new JMenuItem("Salir");
@@ -110,36 +95,36 @@ public class Home extends JFrame implements ActionListener {
 		mntmAcercaDeTienda.addActionListener(this);
 		
 		// set menus
-		mnArchivo = new JMenu("Archivo");
+		JMenu mnArchivo = new JMenu("Archivo");
 		mnArchivo.setFont(fontMenu);
 		mnArchivo.setForeground(AppData.$primaryColor);
 		mnArchivo.add(mntmSalir);		
 		
-		mnMantenimiento = new JMenu("Mantenimiento");
+		JMenu mnMantenimiento = new JMenu("Mantenimiento");
 		mnMantenimiento.setFont(fontMenu);
 		mnMantenimiento.setForeground(AppData.$primaryColor);
 		mnMantenimiento.add(mntmConsultar);
 		mnMantenimiento.add(mntmModificar);		
 		mnMantenimiento.add(mntmListar);
 		
-		mnVentas = new JMenu("Ventas");
+		JMenu mnVentas = new JMenu("Ventas");
 		mnVentas.setFont(fontMenu);
 		mnVentas.setForeground(AppData.$primaryColor);
 		mnVentas.add(mntmVender);
 		
-		mnConfiguracion = new JMenu("Configuración");
+		JMenu mnConfiguracion = new JMenu("Configuración");
 		mnConfiguracion.setFont(fontMenu);
 		mnConfiguracion.setForeground(AppData.$primaryColor);
 		mnConfiguracion.add(mntmConfigurarDescuentos);		
 		mnConfiguracion.add(mntmConfigurarObsequios);
 		
-		mnAyuda = new JMenu("Ayuda");
+		JMenu mnAyuda = new JMenu("Ayuda");
 		mnAyuda.setFont(fontMenu);
 		mnAyuda.setForeground(AppData.$primaryColor);
 		mnAyuda.add(mntmAcercaDeTienda);
 		
 		// set menu bar
-		menuBar = new JMenuBar();
+		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBackground(AppData.$secondaryColor);
 		menuBar.add(mnArchivo);
 		menuBar.add(mnMantenimiento);
@@ -149,25 +134,25 @@ public class Home extends JFrame implements ActionListener {
 		setJMenuBar(menuBar);
 		
 		// version
-		txtVersion = new JLabel();
+		;
+		JLabel txtVersion = new JLabel();
 		txtVersion.setText(AppData.version == null ? "" : "Versión " + AppData.version);
 		txtVersion.setForeground(AppData.$white);
-		versionPanel = new JPanel();
+		JPanel versionPanel = new JPanel();
 		versionPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
 		versionPanel.setBorder(new EmptyBorder(0, 0, 15, 15));
 		versionPanel.setOpaque(false);
 		versionPanel.add(txtVersion);
 		
 		// background		
-		backgroundImage = new ImageIcon(getClass().getResource(AppData.sourcePath + "background.png"));
-		lblBackground = new JLabel();
+		ImageIcon backgroundImage = new ImageIcon(getClass().getResource(AppData.sourcePath + "background.png"));
+		JLabel lblBackground = new JLabel();
 		lblBackground.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBackground.setIcon(backgroundImage);	
 		lblBackground.setLayout(new BorderLayout());
 		lblBackground.add(versionPanel, BorderLayout.SOUTH);
 		
-		
-		contentPane = new JPanel();
+		JPanel contentPane = new JPanel();
 		contentPane.setBackground(AppData.$primaryColor);
 		contentPane.setLayout(new GridLayout(1, 1, 0, 0));
 		contentPane.add(lblBackground);

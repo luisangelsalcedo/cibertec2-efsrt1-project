@@ -3,29 +3,22 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-
 import models.AppData;
-import javax.swing.JScrollBar;
 
 public class ViewGetAllProducts extends JPanel {
 
-	JLabel lblProductList;
-	JTextArea txtProductList;
-	JScrollPane scrollPane;
-	JButton btnSave;
-	JButton btnClose;
-	JPanel buttonPanel;
+	private static final long serialVersionUID = 1L;
+	private JTextArea txtProductList;
 	
 	public ViewGetAllProducts(JDialog parent) {
 
-		lblProductList = new JLabel("Listado de promociones");
+		JLabel lblProductList = new JLabel("Listado de promociones");
 		lblProductList.setForeground(AppData.$white);
 		
 		txtProductList = new JTextArea();
@@ -35,16 +28,16 @@ public class ViewGetAllProducts extends JPanel {
 		txtProductList.setWrapStyleWord(false);
         txtProductList.setEditable(false);
 
-        scrollPane = new JScrollPane(txtProductList);
+        JScrollPane scrollPane = new JScrollPane(txtProductList);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); 
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); 
 
-		btnSave = new JButton("Listar");
+        JButton btnSave = new JButton("Listar");
 		btnSave.setBackground(AppData.$secondaryColor);
 		btnSave.setForeground(AppData.$primaryColor);
 		btnSave.addActionListener(e -> onSubmit(e));
 		
-		btnClose = new JButton("Cerrar");
+		JButton btnClose = new JButton("Cerrar");
 		btnClose.setBackground(AppData.$primaryLightColor);
 		btnClose.setForeground(AppData.$white);
 		btnClose.addActionListener(e -> {
@@ -52,7 +45,7 @@ public class ViewGetAllProducts extends JPanel {
 		});
 
 		// Button panel
-		buttonPanel = new JPanel();
+		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new GridLayout(1, 2, 10, 0));
 		buttonPanel.setOpaque(false);
 		buttonPanel.add(btnSave);

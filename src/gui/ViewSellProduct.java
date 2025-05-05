@@ -4,72 +4,61 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
 import models.AppData;
 
 public class ViewSellProduct extends JPanel {
 	
-	JDialog parent;
-	JPanel formPanel;
-	JPanel buttonsPanel;
-	JPanel formPanelLeft;
-	JPanel formPanelRight;
-	JPanel topPanel;
-	ViewGraphics graphicPanel;
-	ComboBoxPromo cmbPromoPanel;
-	JLabel lblPrice;
-	JLabel lblcount;
-	JButton sellBtn;
-	JButton closeBtn;
-	JTextField txtPrice;
-	JTextField txtCount;
-	JTextArea txtResponse;
-	JScrollPane scrollPane;
-	String selectedItem;
-	
-	MainAlert alert;
+	private static final long serialVersionUID = 1L;	
+	private JDialog parent;
+	private ViewGraphics graphicPanel;
+	private MainAlert alert;	
+	private JButton sellBtn;
+	private JButton closeBtn;	
+	private JTextField txtPrice;
+	private JTextField txtCount;
+	private JTextArea txtResponse;
+	private JScrollPane scrollPane;	
+	private String selectedItem;	
 
 	public ViewSellProduct(JDialog parent) {
 		
 		this.parent = parent;
 		
-		cmbPromoPanel = new ComboBoxPromo(item -> ComboBoxPromoAction(item));
+		ComboBoxPromo cmbPromoPanel = new ComboBoxPromo(item -> ComboBoxPromoAction(item));
 
 		graphicPanel = new ViewGraphics();
 		graphicPanel.setVisible(false);
 		
-		lblPrice = new JLabel("Precio (S/):");
+		JLabel lblPrice = new JLabel("Precio (S/):");
 		lblPrice.setForeground(AppData.$white);
 		txtPrice = new JTextField();
 		txtPrice.setEditable(false);
 		
-		lblcount = new JLabel("Cantidad:");
+		JLabel lblcount = new JLabel("Cantidad:");
 		lblcount.setForeground(AppData.$white);
 		txtCount = new JTextField();
 
 		// panels
-		formPanelLeft = new JPanel();
+		JPanel formPanelLeft = new JPanel();
 		formPanelLeft.setLayout(new GridLayout(2, 1, 0, 10));
 		formPanelLeft.setOpaque(false);
 		formPanelLeft.add(lblPrice);
 		formPanelLeft.add(lblcount);
 		
-		formPanelRight = new JPanel();
+		JPanel formPanelRight = new JPanel();
 		formPanelRight.setLayout(new GridLayout(2, 1, 0, 10));
 		formPanelRight.setOpaque(false);
 		formPanelRight.add(txtPrice);
 		formPanelRight.add(txtCount);
 		
-		formPanel = new JPanel();
+		JPanel formPanel = new JPanel();
 		formPanel.setLayout(new BorderLayout(60, 10));
 		formPanel.setOpaque(false);
 		formPanel.add(cmbPromoPanel, BorderLayout.NORTH);
@@ -86,13 +75,13 @@ public class ViewSellProduct extends JPanel {
 		closeBtn.setBackground(AppData.$secondaryColor);
 		closeBtn.setForeground(AppData.$primaryColor);
 
-		buttonsPanel = new JPanel();
+		JPanel buttonsPanel = new JPanel();
 		buttonsPanel.setLayout(new GridLayout(2, 1, 0, 15));
 		buttonsPanel.setOpaque(false);
 		buttonsPanel.add(sellBtn);
 		buttonsPanel.add(closeBtn);
 
-		topPanel = new JPanel();
+		JPanel topPanel = new JPanel();
 		topPanel.setLayout(new BorderLayout(10, 20));
 		topPanel.setOpaque(false);
 		topPanel.add(formPanel, BorderLayout.CENTER);

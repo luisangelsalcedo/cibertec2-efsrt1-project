@@ -1,4 +1,5 @@
 package gui;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import models.AppData;
@@ -6,19 +7,14 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
-
 
 public class ViewGetProduct extends JPanel {
 
-	private JLabel lblPrice;
-	private JTextField txtPrice;
-	private ViewGraphics graphicPanel;
+	private static final long serialVersionUID = 1L;	
 	private JDialog parent;
-	
-
-	
+	private ViewGraphics graphicPanel;
+	private JTextField txtPrice;
 
 	public ViewGetProduct(JDialog parent) {
 		
@@ -29,7 +25,7 @@ public class ViewGetProduct extends JPanel {
 		
 		ComboBoxPromo cmbPromoPanel = new ComboBoxPromo(item -> ComboBoxPromoAction(item));
 		
-		lblPrice = new JLabel("Precio:");
+		JLabel lblPrice = new JLabel("Precio:");
 		lblPrice.setForeground(AppData.$white);
 		txtPrice = new JTextField();
 		txtPrice.setEditable(false);		

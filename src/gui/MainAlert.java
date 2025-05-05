@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.net.URL;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -14,19 +13,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
-
 import models.AppData;
-import java.awt.Color;
 
 public class MainAlert extends JDialog {
-
-	private final JPanel contentPanel = new JPanel();
-	private JPanel centerPanel;
-	private JPanel bottomPanel;
-	private JButton okBtn;
-	private JLabel lblIcon;
-	private JTextPane txtContent;
 	
+	private static final long serialVersionUID = 1L;
+
 	public MainAlert(String alertMessage, String type) {		
 		
 		URL burgerIcon = getClass().getResource(AppData.sourcePath + "burgerIcon.png");
@@ -34,7 +26,7 @@ public class MainAlert extends JDialog {
 		URL errorIcon = getClass().getResource(AppData.sourcePath + "errorIcon.png");
 		URL noticeIcon = getClass().getResource(AppData.sourcePath + "infoIcon.png");
 		
-		lblIcon = new JLabel();
+		JLabel lblIcon = new JLabel();
 		
 		if(type == "success") {
 			lblIcon.setIcon(new ImageIcon(successIcon));
@@ -46,31 +38,32 @@ public class MainAlert extends JDialog {
 			lblIcon.setIcon(new ImageIcon(burgerIcon));
 		}
 		
-		txtContent = new JTextPane();
+		JTextPane txtContent = new JTextPane();
 		txtContent.setEditable(false);
 		txtContent.setOpaque(false);
 		txtContent.setForeground(AppData.$primaryColor);
 		txtContent.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtContent.setText(alertMessage);
 		
-		okBtn = new JButton("Aceptar");
+		JButton okBtn = new JButton("Aceptar");
 		okBtn.setBackground(AppData.$secondaryColor);
 		okBtn.setForeground(AppData.$primaryColor);
 		okBtn.addActionListener(e -> {
 			dispose();
 		});
 		
-		centerPanel = new JPanel();
+		JPanel centerPanel = new JPanel();
 		centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 		centerPanel.setOpaque(false);
 		centerPanel.add(lblIcon);
 		centerPanel.add(txtContent);
 		
-		bottomPanel = new JPanel();
+		JPanel bottomPanel = new JPanel();
 		bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		bottomPanel.setOpaque(false);
 		bottomPanel.add(okBtn);		
 		
+		JPanel contentPanel = new JPanel();
 		contentPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		contentPanel.setBackground(AppData.$white);
