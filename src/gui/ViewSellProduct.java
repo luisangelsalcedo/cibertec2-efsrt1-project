@@ -19,7 +19,6 @@ public class ViewSellProduct extends JPanel {
 	private static final long serialVersionUID = 1L;	
 	private JDialog parent;
 	private ViewGraphics graphicPanel;
-	private MainAlert alert;	
 	private JButton sellBtn;
 	private JButton closeBtn;	
 	private JTextField txtPrice;
@@ -285,13 +284,13 @@ public class ViewSellProduct extends JPanel {
 				// add sale
 				calculateSales(paymentAmount);
 			} else {
-				alert = new MainAlert("Ingresa al menos 1 producto", AlertType.NOTICE);
+				new MainAlert("Ingresa al menos 1 producto", AlertType.NOTICE);
 				txtCount.setText("");
 				txtCount.requestFocus();
 			}
 			
 		} catch (Exception e) {
-			alert = new MainAlert("Ingresa una cantidad valida", AlertType.ERROR);
+			new MainAlert("Ingresa una cantidad valida", AlertType.ERROR);
 			txtCount.setText("");
 			txtCount.requestFocus();
 		}		
@@ -338,8 +337,7 @@ public class ViewSellProduct extends JPanel {
 			message += "\nImporte total general acomulado: S/." + String.format("%,5.2f", AppData.generalSalesAmount);
 			message += "\nPorcentaje de la cuota diaria: " + String.format("%,5.2f", AppData.calculatePercentageDailyQuota()) + "%";
 			
-			alert = new MainAlert(message, AlertType.DEFAULT, "Avance de ventas");
-
+			new MainAlert(message, AlertType.DEFAULT, "Avance de ventas");
 		}
 	}
 }

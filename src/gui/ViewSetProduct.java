@@ -39,8 +39,7 @@ public class ViewSetProduct extends JPanel {
 
 	private String selectedItem;
 	private Boolean error = false;
-	private String errorMessage = "";	
-	private MainAlert alert;
+	private String errorMessage = "";
 
 	public ViewSetProduct(JDialog parent) {
 		
@@ -293,7 +292,7 @@ public class ViewSetProduct extends JPanel {
 		// save values
 		if(!error) {
 			saveAllValues();
-			alert = new MainAlert("¡En hora buena! \nLos datos fueron guardados correctamente.", AlertType.SUCCESS);
+			new MainAlert("¡En hora buena! \nLos datos fueron guardados correctamente.", AlertType.SUCCESS);
 			
 //			System.out.print("\nHamburguesa: " + AppData.burgers[this.burgerName] + " - " + AppData.sizeProducts[this.burgerSize]);
 //			System.out.print("\nCantidad: " + this.burgerCount);
@@ -305,7 +304,7 @@ public class ViewSetProduct extends JPanel {
 //			System.out.print("\n--------------\n\n");
 		}
 		else {
-			alert = new MainAlert(errorMessage, AlertType.ERROR);			
+			new MainAlert(errorMessage, AlertType.ERROR);			
 		}
 		
 	}

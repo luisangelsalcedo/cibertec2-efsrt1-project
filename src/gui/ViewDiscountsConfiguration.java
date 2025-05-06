@@ -19,7 +19,6 @@ public class ViewDiscountsConfiguration extends JPanel {
 	private JTextField txtDiscount2;
 	private JTextField txtDiscount3;
 	private JTextField txtDiscount4;
-	private MainAlert alert;
 	private String[] labels;
 	private double dsct1, dsct2, dsct3, dsct4;
 	
@@ -131,16 +130,15 @@ public class ViewDiscountsConfiguration extends JPanel {
 		
 		
 		if(error) {
-			alert = new MainAlert(errorMessage, AlertType.ERROR);
-			alert.setVisible(true);
+			new MainAlert(errorMessage, AlertType.ERROR);
 		} else {
 			AppData.discount1 = dsct1;
 			AppData.discount2 = dsct2;
 			AppData.discount3 = dsct3;
 			AppData.discount4 = dsct4;
 
-			alert = new MainAlert("¡En hora buena! \nLos Descuentos fueron guardados correctamente.", AlertType.SUCCESS);
-			alert.setVisible(true);
+			String successMessage = "¡En hora buena! \nLos Descuentos fueron guardados correctamente.";
+			new MainAlert(successMessage, AlertType.SUCCESS);
 		}
 		
 	}

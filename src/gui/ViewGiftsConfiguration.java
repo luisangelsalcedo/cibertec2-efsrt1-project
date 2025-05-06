@@ -18,7 +18,6 @@ public class ViewGiftsConfiguration extends JPanel {
 	private JTextField txtGift1;
 	private JTextField txtGift2;
 	private JTextField txtGift3;
-	private MainAlert alert;
 	private String[] labels;
 	private String gift1, gift2, gift3;
 	
@@ -124,15 +123,14 @@ public class ViewGiftsConfiguration extends JPanel {
 		
 		
 		if(error) {
-			alert = new MainAlert(errorMessage, AlertType.ERROR);
-			alert.setVisible(true);
+			new MainAlert(errorMessage, AlertType.ERROR);
 		} else {
 			AppData.gift1 = gift1;
 			AppData.gift2 = gift2;
 			AppData.gift3 = gift3;
 
-			alert = new MainAlert("¡En hora buena! \nLos Regalos fueron guardados correctamente.", AlertType.SUCCESS);
-			alert.setVisible(true);
+			String successMessage = "¡En hora buena! \nLos Regalos fueron guardados correctamente.";
+			new MainAlert(successMessage, AlertType.SUCCESS);
 		}
 		
 	}
