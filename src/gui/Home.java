@@ -133,16 +133,36 @@ public class Home extends JFrame implements ActionListener {
 		menuBar.add(mnAyuda);
 		setJMenuBar(menuBar);
 		
+		// disclaimer
+		JLabel lblLogo = new JLabel();
+		lblLogo.setIcon(new ImageIcon(getClass().getResource(AppData.sourcePath + "cibertec.png")));
+		
+		JLabel lblDisclaimer = new JLabel("-  Proyecto realizado con fines educativos");
+		lblDisclaimer.setFont(new Font("Dialog", Font.PLAIN, 12));
+		lblDisclaimer.setForeground(AppData.$white);
+		
+		JPanel disclaimerPanel = new JPanel();
+		disclaimerPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 0));
+		disclaimerPanel.setOpaque(false);
+		disclaimerPanel.add(lblLogo);
+		disclaimerPanel.add(lblDisclaimer);
+		
 		// version
-		;
-		JLabel txtVersion = new JLabel();
-		txtVersion.setText(AppData.version == null ? "" : "Versión " + AppData.version);
-		txtVersion.setForeground(AppData.$white);
+		JLabel lblVersion = new JLabel();
+		lblVersion.setText(AppData.version == null ? "" : "Versión " + AppData.version);
+		lblVersion.setForeground(AppData.$white);
+		
 		JPanel versionPanel = new JPanel();
 		versionPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
-		versionPanel.setBorder(new EmptyBorder(0, 0, 15, 15));
 		versionPanel.setOpaque(false);
-		versionPanel.add(txtVersion);
+		versionPanel.add(lblVersion);
+		
+		JPanel footerPanel = new JPanel();
+		footerPanel.setLayout(new BorderLayout());
+		footerPanel.setBorder(new EmptyBorder(0, 15, 15, 20));
+		footerPanel.setOpaque(false);
+		footerPanel.add(disclaimerPanel, BorderLayout.CENTER);
+		footerPanel.add(versionPanel, BorderLayout.EAST);
 		
 		// background		
 		ImageIcon backgroundImage = new ImageIcon(getClass().getResource(AppData.sourcePath + "background.png"));
@@ -150,7 +170,7 @@ public class Home extends JFrame implements ActionListener {
 		lblBackground.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBackground.setIcon(backgroundImage);	
 		lblBackground.setLayout(new BorderLayout());
-		lblBackground.add(versionPanel, BorderLayout.SOUTH);
+		lblBackground.add(footerPanel, BorderLayout.SOUTH);
 		
 		JPanel contentPane = new JPanel();
 		contentPane.setBackground(AppData.$primaryColor);
