@@ -19,9 +19,24 @@ import models.AppData;
 public class MainAlert extends JDialog {
 	
 	private static final long serialVersionUID = 1L;
+	private String alertMessage;
+	private AlertType type;
+	private String title;
+	
+	public MainAlert(String alertMessage, AlertType type) {
+		this.alertMessage = alertMessage;
+		this.type = type;
+		renderComponents();
+	}
 
-	public MainAlert(String alertMessage, AlertType type) {		
-		
+	public MainAlert(String alertMessage, AlertType type, String title) {
+		this.alertMessage = alertMessage;
+		this.type = type;
+		this.title = title;
+		renderComponents();
+	}
+	
+	private void renderComponents() {
 		URL burgerIcon = getClass().getResource(AppData.sourcePath + "burgerIcon.png");
 		URL successIcon = getClass().getResource(AppData.sourcePath + "successIcon.png");
 		URL errorIcon = getClass().getResource(AppData.sourcePath + "errorIcon.png");
@@ -83,5 +98,8 @@ public class MainAlert extends JDialog {
 		pack();
 		setLocationRelativeTo(null);
 		setModal(true);
+		setTitle(title == null ? "Mensaje" : title);
+		setVisible(true);
 	}
+
 }

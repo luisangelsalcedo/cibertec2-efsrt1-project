@@ -294,8 +294,6 @@ public class ViewSetProduct extends JPanel {
 		if(!error) {
 			saveAllValues();
 			alert = new MainAlert("¡En hora buena! \nLos datos fueron guardados correctamente.", AlertType.SUCCESS);
-			alert.setTitle("Mensaje");
-			alert.setVisible(true);
 			
 //			System.out.print("\nHamburguesa: " + AppData.burgers[this.burgerName] + " - " + AppData.sizeProducts[this.burgerSize]);
 //			System.out.print("\nCantidad: " + this.burgerCount);
@@ -307,10 +305,7 @@ public class ViewSetProduct extends JPanel {
 //			System.out.print("\n--------------\n\n");
 		}
 		else {
-			alert = new MainAlert(errorMessage, AlertType.ERROR);
-			alert.setTitle("Mensaje de error");
-			alert.setVisible(true);
-			
+			alert = new MainAlert(errorMessage, AlertType.ERROR);			
 		}
 		
 	}

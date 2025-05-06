@@ -267,27 +267,31 @@ public class ViewSellProduct extends JPanel {
 			productPrice = Double.parseDouble(txtPrice.getText());
 			productCount = Integer.parseInt(txtCount.getText());
 			
-			buyAmount = productPrice * productCount;
-			discountAmount = calculateDiscount(productCount, buyAmount);
-			paymentAmount = buyAmount - discountAmount;
-			gifts = calculateGifts(productCount);
-			
-			txtResponse.setText("BOLETA DE VENTA\n----------------------------");
-			txtResponse.append("\nPromocion: " + productName);
-			txtResponse.append("\nPrecio: " + productPrice);
-			txtResponse.append("\nCantidad: " + productCount);
-			txtResponse.append("\nImporte Compra: " + String.format("%,5.2f", buyAmount));
-			txtResponse.append("\nImporte Descuento: " + String.format("%,5.2f", discountAmount));
-			txtResponse.append("\nImporte a Pagar: " + String.format("%,5.2f", paymentAmount));
-			txtResponse.append("\nObsequio: 1 " + gifts);
-			
-			// add sale
-			calculateSales(paymentAmount);
+			if(productCount > 0) {
+				buyAmount = productPrice * productCount;
+				discountAmount = calculateDiscount(productCount, buyAmount);
+				paymentAmount = buyAmount - discountAmount;
+				gifts = calculateGifts(productCount);
+				
+				txtResponse.setText("BOLETA DE VENTA\n----------------------------");
+				txtResponse.append("\nPromocion: " + productName);
+				txtResponse.append("\nPrecio: " + productPrice);
+				txtResponse.append("\nCantidad: " + productCount);
+				txtResponse.append("\nImporte Compra: " + String.format("%,5.2f", buyAmount));
+				txtResponse.append("\nImporte Descuento: " + String.format("%,5.2f", discountAmount));
+				txtResponse.append("\nImporte a Pagar: " + String.format("%,5.2f", paymentAmount));
+				txtResponse.append("\nObsequio: 1 " + gifts);
+				
+				// add sale
+				calculateSales(paymentAmount);
+			} else {
+				alert = new MainAlert("Ingresa al menos 1 producto", AlertType.NOTICE);
+				txtCount.setText("");
+				txtCount.requestFocus();
+			}
 			
 		} catch (Exception e) {
 			alert = new MainAlert("Ingresa una cantidad valida", AlertType.ERROR);
-			alert.setTitle("Mensaje de error");
-			alert.setVisible(true);
 			txtCount.setText("");
 			txtCount.requestFocus();
 		}		
@@ -334,9 +338,8 @@ public class ViewSellProduct extends JPanel {
 			message += "\nImporte total general acomulado: S/." + String.format("%,5.2f", AppData.generalSalesAmount);
 			message += "\nPorcentaje de la cuota diaria: " + String.format("%,5.2f", AppData.calculatePercentageDailyQuota()) + "%";
 			
-			alert = new MainAlert(message, AlertType.DEFAULT);
-			alert.setTitle("Avance de ventas");
-			alert.setVisible(true);
+			alert = new MainAlert(message, AlertType.DEFAULT, "Avance de ventas");
+
 		}
 	}
 }
