@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import interfaces.AlertType;
 import models.AppData;
 
 public class ViewSetProduct extends JPanel {
@@ -292,7 +293,7 @@ public class ViewSetProduct extends JPanel {
 		// save values
 		if(!error) {
 			saveAllValues();
-			alert = new MainAlert("¡En hora buena! \nLos datos fueron guardados correctamente.", "success");
+			alert = new MainAlert("¡En hora buena! \nLos datos fueron guardados correctamente.", AlertType.SUCCESS);
 			alert.setTitle("Mensaje");
 			alert.setVisible(true);
 			
@@ -306,7 +307,7 @@ public class ViewSetProduct extends JPanel {
 //			System.out.print("\n--------------\n\n");
 		}
 		else {
-			alert = new MainAlert(errorMessage, "error");
+			alert = new MainAlert(errorMessage, AlertType.ERROR);
 			alert.setTitle("Mensaje de error");
 			alert.setVisible(true);
 			

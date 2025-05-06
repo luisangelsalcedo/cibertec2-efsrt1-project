@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import interfaces.AlertType;
 import models.AppData;
 
 public class ViewSellProduct extends JPanel {
@@ -284,7 +285,7 @@ public class ViewSellProduct extends JPanel {
 			calculateSales(paymentAmount);
 			
 		} catch (Exception e) {
-			alert = new MainAlert("Ingresa una cantidad valida", "error");
+			alert = new MainAlert("Ingresa una cantidad valida", AlertType.ERROR);
 			alert.setTitle("Mensaje de error");
 			alert.setVisible(true);
 			txtCount.setText("");
@@ -333,7 +334,7 @@ public class ViewSellProduct extends JPanel {
 			message += "\nImporte total general acomulado: S/." + String.format("%,5.2f", AppData.generalSalesAmount);
 			message += "\nPorcentaje de la cuota diaria: " + String.format("%,5.2f", AppData.calculatePercentageDailyQuota()) + "%";
 			
-			alert = new MainAlert(message, null);
+			alert = new MainAlert(message, AlertType.DEFAULT);
 			alert.setTitle("Avance de ventas");
 			alert.setVisible(true);
 		}

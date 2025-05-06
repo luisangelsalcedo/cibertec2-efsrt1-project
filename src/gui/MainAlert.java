@@ -13,13 +13,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
+import interfaces.AlertType;
 import models.AppData;
 
 public class MainAlert extends JDialog {
 	
 	private static final long serialVersionUID = 1L;
 
-	public MainAlert(String alertMessage, String type) {		
+	public MainAlert(String alertMessage, AlertType type) {		
 		
 		URL burgerIcon = getClass().getResource(AppData.sourcePath + "burgerIcon.png");
 		URL successIcon = getClass().getResource(AppData.sourcePath + "successIcon.png");
@@ -28,15 +29,19 @@ public class MainAlert extends JDialog {
 		
 		JLabel lblIcon = new JLabel();
 		
-		if(type == "success") {
-			lblIcon.setIcon(new ImageIcon(successIcon));
-		} else if (type == "error") {
-			lblIcon.setIcon(new ImageIcon(errorIcon));
-		} else if (type == "notice") {
-			lblIcon.setIcon(new ImageIcon(noticeIcon));
-		} else {
-			lblIcon.setIcon(new ImageIcon(burgerIcon));
-		}
+		switch (type) {
+	        case SUCCESS:
+	            lblIcon.setIcon(new ImageIcon(successIcon));
+	            break;
+	        case ERROR:
+	            lblIcon.setIcon(new ImageIcon(errorIcon));
+	            break;
+	        case NOTICE:
+	            lblIcon.setIcon(new ImageIcon(noticeIcon));
+	            break;
+	        default:
+	            lblIcon.setIcon(new ImageIcon(burgerIcon));
+	    }
 		
 		JTextPane txtContent = new JTextPane();
 		txtContent.setEditable(false);
