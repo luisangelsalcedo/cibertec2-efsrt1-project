@@ -193,12 +193,12 @@ public class Home extends JFrame implements ActionListener {
 			dialog.showView(sellProductPanel);
 		}
 		if(source == mntmConfigurarDescuentos) {
-			ViewDiscountsConfiguration discountsConfigurationPanel = new ViewDiscountsConfiguration();
+			ViewDiscountsConfiguration discountsConfigurationPanel = new ViewDiscountsConfiguration(dialog);
 			dialog.setTitle("Configurar Descuentos");
 			dialog.showView(discountsConfigurationPanel);
 		}
 		if(source == mntmConfigurarObsequios) {			
-			ViewGiftsConfiguration giftsConfigurationPanel = new ViewGiftsConfiguration();
+			ViewGiftsConfiguration giftsConfigurationPanel = new ViewGiftsConfiguration(dialog);
 			dialog.setTitle("Configurar Obsequios");
 			dialog.showView(giftsConfigurationPanel);
 		}
