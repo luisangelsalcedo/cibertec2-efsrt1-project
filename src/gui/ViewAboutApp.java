@@ -78,10 +78,17 @@ public class ViewAboutApp extends JPanel {
 			}
 		});
 		
-//		JButton showDocumentsBtn = new JButton();
-//		showDocumentsBtn.setBackground(AppData.$secondaryColor);
-//		showDocumentsBtn.setForeground(AppData.$primaryColor);
-//		showDocumentsBtn.setText("Ver Informe");
+		JButton showDocumentsBtn = new JButton();
+		showDocumentsBtn.setBackground(AppData.$secondaryColor);
+		showDocumentsBtn.setForeground(AppData.$primaryColor);
+		showDocumentsBtn.setText("Ver Informe");
+		showDocumentsBtn.addActionListener(e->{
+			try {
+				Desktop.getDesktop().browse(new URI("https://docs.google.com/document/d/1ijgHkcWHfNrNzJq32oP_TeeUgEiMkldcmiQY-miBVzo/edit?usp=sharing"));
+			} catch (Exception e3) {
+				e3.printStackTrace();
+			}
+		});
 		
 //		set panels
 		JPanel topPanel = new JPanel();
@@ -118,7 +125,7 @@ public class ViewAboutApp extends JPanel {
 		bottomPanel.setOpaque(false);
 		bottomPanel.add(showDesignBtn);
 		bottomPanel.add(showCodeBtn);
-//		bottomPanel.add(showDocumentsBtn);
+		bottomPanel.add(showDocumentsBtn);
 		
 		setLayout(new BorderLayout(0, 10));
 		add(topPanel, BorderLayout.NORTH);
