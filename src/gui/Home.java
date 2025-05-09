@@ -55,7 +55,7 @@ public class Home extends JFrame implements ActionListener {
 	public Home() {		
 		
 		setTitle(AppData.AppTitle);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setSize(500, 360);
 		setLocationRelativeTo(null);
 		setIconImage(
