@@ -77,9 +77,9 @@ public class AppData {
 	public static double discount4 = 15.0;
 
 // 	gifts
-	public static String gift1 = "Cafetera";
-	public static String gift2 = "Licuadora";
-	public static String gift3 = "Extractor";
+	public static String gift1 = "Cupones de descuento";
+	public static String gift2 = "Cono de helado";
+	public static String gift3 = "Cajita Bembos";
 
 // sell variables
 	public static int generalSalesCount = 0;
