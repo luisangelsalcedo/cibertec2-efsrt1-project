@@ -1,8 +1,10 @@
-package gui;
+package bembos.views.components;
 
 import java.awt.Font;
 import java.awt.Color;
-import models.AppData;
+import java.awt.Dimension;
+
+import db.AppData;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,6 +26,9 @@ public class ViewGraphics extends JPanel {
 	private ImageIcon potatoesImagePath;
 	private ImageIcon sodaImagePath;	
 	private String sourcePath = AppData.sourcePath;
+	private ImageIcon defaultBurgerImagePath = new ImageIcon(getClass().getResource(sourcePath + "default-burger.png"));
+	private ImageIcon defaultPotatoesImagePath = new ImageIcon(getClass().getResource(sourcePath + "default-papitas.png"));
+	private ImageIcon defaultSodaImagePath = new ImageIcon(getClass().getResource(sourcePath + "default-soda.png"));
 
 
 	public ViewGraphics() {
@@ -31,6 +36,7 @@ public class ViewGraphics extends JPanel {
 
 		burgerImage = new JLabel();
 		burgerImage.setBounds(22, 27, 150, 150);
+		burgerImage.setIcon(defaultBurgerImagePath);
 		burgerDescription = new JTextPane();
 		burgerDescription.setForeground(AppData.$white);
 		burgerDescription.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -45,6 +51,7 @@ public class ViewGraphics extends JPanel {
 
 		potatoeImage = new JLabel();
 		potatoeImage.setBounds(150, 17, 150, 150);
+		potatoeImage.setIcon(defaultPotatoesImagePath);
 		potatoeDescription = new JTextPane();
 		potatoeDescription.setForeground(AppData.$white);
 		potatoeDescription.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -59,6 +66,7 @@ public class ViewGraphics extends JPanel {
 
 		sodaImage = new JLabel();
 		sodaImage.setBounds(276, 27, 150, 150);
+		sodaImage.setIcon(defaultSodaImagePath);
 		sodaDescription = new JTextPane();
 		sodaDescription.setForeground(AppData.$white);
 		sodaDescription.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -85,7 +93,7 @@ public class ViewGraphics extends JPanel {
 		ellipseImage3.setBounds(294, 37, 112, 112);
 		ellipseImage3.setIcon(ellipseSrc);
 
-		setLayout(null);
+		setLayout(null); // absolute
 		setBackground(new Color(2, 22, 137));
 		add(burgerCount);
 		add(potatoeCount);
@@ -99,44 +107,29 @@ public class ViewGraphics extends JPanel {
 		add(ellipseImage1);
 		add(ellipseImage2);
 		add(ellipseImage3);
+		
+		setPreferredSize(new Dimension(430, 200));
+		setVisible(true);
 	}
 
 	public void setBurger(int count, String image, String name, String size) {
-		
-		if(count > 0) {			
-			burgerImagePath = new ImageIcon(getClass().getResource(sourcePath + image));
-			burgerCount.setText(String.valueOf(count));		
-			burgerDescription.setText(name + "\n" + size);
-		} else {
-			this.cleanBurger();
-			burgerImagePath = new ImageIcon(getClass().getResource(sourcePath + "default-burger.png"));
-		}
+		burgerImagePath = new ImageIcon(getClass().getResource(sourcePath + image));
+		burgerCount.setText(String.valueOf(count));		
+		burgerDescription.setText(name + "\n" + size);
 		burgerImage.setIcon(burgerImagePath);
 	}
 
 	public void setPotatoe(int count, String size) {
-		
-		if(count > 0) {	
-			potatoesImagePath = new ImageIcon(getClass().getResource(sourcePath + "papitas.png"));
-			potatoeDescription.setText(size);
-			potatoeCount.setText(String.valueOf(count));
-		} else {
-			this.cleanPotatoes();
-			potatoesImagePath = new ImageIcon(getClass().getResource(sourcePath + "default-papitas.png"));
-		}
+		potatoesImagePath = new ImageIcon(getClass().getResource(sourcePath + "papitas.png"));
+		potatoeDescription.setText(size);
+		potatoeCount.setText(String.valueOf(count));
 		potatoeImage.setIcon(potatoesImagePath);
 	}
 
 	public void setSoda(int count, String image, String name) {
-		
-		if(count > 0) {	
-			sodaImagePath = new ImageIcon(getClass().getResource(sourcePath + image));			
-			sodaCount.setText(String.valueOf(count));
-			sodaDescription.setText(name);
-		} else {
-			this.cleanSoda();
-			sodaImagePath = new ImageIcon(getClass().getResource(sourcePath + "default-soda.png"));
-		}
+		sodaImagePath = new ImageIcon(getClass().getResource(sourcePath + image));			
+		sodaCount.setText(String.valueOf(count));
+		sodaDescription.setText(name);
 		sodaImage.setIcon(sodaImagePath);
 	}
 	
@@ -148,19 +141,19 @@ public class ViewGraphics extends JPanel {
 	
 	public void cleanBurger() {
 		burgerCount.setText(null);
-		burgerImage.setIcon(null);
+		burgerImage.setIcon(defaultBurgerImagePath);
 		burgerDescription.setText(null);		
 	}
 	public void cleanPotatoes() {		
 		potatoeDescription.setText(null);
-		potatoeImage.setIcon(null);
+		potatoeImage.setIcon(defaultPotatoesImagePath);
 		potatoeCount.setText(null);
 
 	}
 	public void cleanSoda() {
 		sodaCount.setText(null);
+		sodaImage.setIcon(defaultSodaImagePath);
 		sodaDescription.setText(null);
-		sodaImage.setIcon(null);
 	}
 
 }

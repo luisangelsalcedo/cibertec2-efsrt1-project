@@ -1,7 +1,6 @@
-package gui;
+package bembos.views;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
@@ -11,8 +10,17 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import bembos.controllers.BembosMenuController;
+import bembos.models.BembosMenu;
+import bembos.models.Burger;
+import bembos.models.Potatoes;
+import bembos.models.Product;
+import bembos.models.Soda;
+import bembos.views.components.ComboBoxPromo;
+import bembos.views.components.MainAlert;
+import bembos.views.components.ViewGraphics;
 import interfaces.AlertType;
-import models.AppData;
+import db.AppData;
 
 public class ViewSellProduct extends JPanel {
 	
@@ -34,7 +42,6 @@ public class ViewSellProduct extends JPanel {
 		ComboBoxPromo cmbPromoPanel = new ComboBoxPromo(item -> ComboBoxPromoAction(item));
 
 		graphicPanel = new ViewGraphics();
-		graphicPanel.setVisible(false);
 		
 		JLabel lblPrice = new JLabel("Precio (S/):");
 		lblPrice.setForeground(AppData.$white);
@@ -103,155 +110,51 @@ public class ViewSellProduct extends JPanel {
 	}
 	
 	public void ComboBoxPromoAction(String selectedItem) {
-
-		this.selectedItem = selectedItem;		
-		graphicPanel.setPreferredSize(new Dimension(430, 200));
-		sellBtn.setVisible(true);
-		scrollPane.setVisible(true);
-		
-		if(selectedItem == "Selecciona un producto") {
-			txtPrice.setText(null);
-			graphicPanel.clean();
-			graphicPanel.setVisible(false);
-			graphicPanel.setPreferredSize(null);
-			sellBtn.setVisible(false);
-			scrollPane.setVisible(false);
+		BembosMenuController menuController = new BembosMenuController();
+		this.selectedItem = selectedItem;
+		// default
+		clean();
+		sellBtn.setVisible(false);
+		scrollPane.setVisible(false);
+	
+		for(BembosMenu menu:menuController.getAllMenus()) {
+			if(selectedItem == menu.getName()) {
+				txtPrice.setText(String.format("%,5.2f", menu.getPrice()));
+				sellBtn.setVisible(true);
+				scrollPane.setVisible(true);
+				
+				//split products
+				for(Product product:menu.getAllProducts()) {
+					
+					// is burger
+					if(product instanceof Burger) {
+						graphicPanel.setBurger(
+							menu.getAllBurgers().size(),
+							product.getSlug() + ".png", 
+							product.getName(), 
+							((Burger) product).getSize()
+						);
+					}
+					
+					// is potatoes
+					if(product instanceof Potatoes) {
+						graphicPanel.setPotatoe(
+							menu.getAllPotatoes().size(),
+							((Potatoes) product).getSize()
+						);
+					}
+					
+					// is soda
+					if(product instanceof Soda) {
+						graphicPanel.setSoda(
+							menu.getAllSodas().size(),
+							product.getSlug() + ".png", 
+							product.getName()
+						);
+					}
+				}
+			}
 		}
-		
-		if(selectedItem == AppData.productName1) {
-			txtPrice.setText(String.valueOf(AppData.price1));
-			// load Burger
-			graphicPanel.setBurger(
-				AppData.burgerCount1, 
-				AppData.burgerSlugs[AppData.burgerName1] + ".png", 
-				AppData.burgers[AppData.burgerName1], 
-				AppData.sizeProducts[AppData.burgerSize1]
-			);
-			// load Potatoes
-			graphicPanel.setPotatoe(
-				AppData.potatoesCount1, 
-				AppData.sizeProducts[AppData.potatoesSize1]
-			);
-			// load Soda
-			graphicPanel.setSoda(
-				AppData.sodaCount1, 
-				AppData.sodasSlug[AppData.sodaName1] + ".png", 
-				AppData.sodas[AppData.sodaName1]
-			);
-			graphicPanel.setVisible(true);
-		}
-		if(selectedItem == AppData.productName2) {
-			txtPrice.setText(String.valueOf(AppData.price2));
-			// load Burger
-			graphicPanel.setBurger(
-				AppData.burgerCount2, 
-				AppData.burgerSlugs[AppData.burgerName2] + ".png", 
-				AppData.burgers[AppData.burgerName2], 
-				AppData.sizeProducts[AppData.burgerSize2]
-			);
-			// load Potatoes
-			graphicPanel.setPotatoe(
-				AppData.potatoesCount2, 
-				AppData.sizeProducts[AppData.potatoesSize2]
-			);
-			// load Soda
-			graphicPanel.setSoda(
-				AppData.sodaCount2, 
-				AppData.sodasSlug[AppData.sodaName2] + ".png", 
-				AppData.sodas[AppData.sodaName2]
-			);
-			graphicPanel.setVisible(true);
-			
-		}
-		if(selectedItem == AppData.productName3) {
-			txtPrice.setText(String.valueOf(AppData.price3));
-			// load Burger
-			graphicPanel.setBurger(
-				AppData.burgerCount3, 
-				AppData.burgerSlugs[AppData.burgerName3] + ".png", 
-				AppData.burgers[AppData.burgerName3], 
-				AppData.sizeProducts[AppData.burgerSize3]
-			);
-			// load Potatoes
-			graphicPanel.setPotatoe(
-				AppData.potatoesCount3, 
-				AppData.sizeProducts[AppData.potatoesSize3]
-			);
-			// load Soda
-			graphicPanel.setSoda(
-				AppData.sodaCount3, 
-				AppData.sodasSlug[AppData.sodaName3] + ".png", 
-				AppData.sodas[AppData.sodaName3]
-			);
-			graphicPanel.setVisible(true);
-		}
-		if(selectedItem == AppData.productName4) {
-			txtPrice.setText(String.valueOf(AppData.price4));
-			// load Burger
-			graphicPanel.setBurger(
-				AppData.burgerCount4, 
-				AppData.burgerSlugs[AppData.burgerName4] + ".png", 
-				AppData.burgers[AppData.burgerName4], 
-				AppData.sizeProducts[AppData.burgerSize4]
-			);
-			// load Potatoes
-			graphicPanel.setPotatoe(
-				AppData.potatoesCount4, 
-				AppData.sizeProducts[AppData.potatoesSize4]
-			);
-			// load Soda
-			graphicPanel.setSoda(
-				AppData.sodaCount4, 
-				AppData.sodasSlug[AppData.sodaName4] + ".png", 
-				AppData.sodas[AppData.sodaName4]
-			);
-			graphicPanel.setVisible(true);
-		}
-		if(selectedItem == AppData.productName5) {
-			txtPrice.setText(String.valueOf(AppData.price5));
-			// load Burger
-			graphicPanel.setBurger(
-				AppData.burgerCount5, 
-				AppData.burgerSlugs[AppData.burgerName5] + ".png", 
-				AppData.burgers[AppData.burgerName5], 
-				AppData.sizeProducts[AppData.burgerSize5]
-			);
-			// load Potatoes
-			graphicPanel.setPotatoe(
-				AppData.potatoesCount5, 
-				AppData.sizeProducts[AppData.potatoesSize5]
-			);
-			// load Soda
-			graphicPanel.setSoda(
-				AppData.sodaCount5, 
-				AppData.sodasSlug[AppData.sodaName5] + ".png", 
-				AppData.sodas[AppData.sodaName5]
-			);
-			graphicPanel.setVisible(true);
-		}
-		if(selectedItem == AppData.productName6) {
-			txtPrice.setText(String.valueOf(AppData.price6));
-			// load Burger
-			graphicPanel.setBurger(
-				AppData.burgerCount6, 
-				AppData.burgerSlugs[AppData.burgerName6] + ".png", 
-				AppData.burgers[AppData.burgerName6], 
-				AppData.sizeProducts[AppData.burgerSize6]
-			);
-			// load Potatoes
-			graphicPanel.setPotatoe(
-				AppData.potatoesCount6, 
-				AppData.sizeProducts[AppData.potatoesSize6]
-			);
-			// load Soda
-			graphicPanel.setSoda(
-				AppData.sodaCount6, 
-				AppData.sodasSlug[AppData.sodaName6] + ".png", 
-				AppData.sodas[AppData.sodaName6]
-			);
-			graphicPanel.setVisible(true);
-		}
-		// resize jdialog		
 		this.parent.pack();
 		this.parent.setLocationRelativeTo(null);
 	}
@@ -280,6 +183,8 @@ public class ViewSellProduct extends JPanel {
 				txtResponse.append("\nImporte Descuento: " + String.format("%,5.2f", discountAmount));
 				txtResponse.append("\nImporte a Pagar: " + String.format("%,5.2f", paymentAmount));
 				txtResponse.append("\nObsequio: 1 " + gifts);
+				
+				
 				
 				// add sale
 				calculateSales(paymentAmount);
@@ -340,4 +245,12 @@ public class ViewSellProduct extends JPanel {
 			new MainAlert(message, AlertType.DEFAULT, "Avance de ventas");
 		}
 	}
+	
+	private void clean() {
+		txtPrice.setText(null);
+		txtCount.setText(null);
+		txtResponse.setText(null);
+		graphicPanel.clean();
+	}
+
 }

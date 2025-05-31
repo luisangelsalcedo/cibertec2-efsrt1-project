@@ -1,4 +1,4 @@
-package gui;
+package bembos.views;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -9,19 +9,22 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import interfaces.AlertType;
-import models.AppData;
 
-public class ViewGiftsConfiguration extends JPanel {
+import bembos.views.components.MainAlert;
+import interfaces.AlertType;
+import db.AppData;
+
+public class ViewDiscountsConfiguration extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JTextField txtGift1;
-	private JTextField txtGift2;
-	private JTextField txtGift3;
+	private JTextField txtDiscount1;
+	private JTextField txtDiscount2;
+	private JTextField txtDiscount3;
+	private JTextField txtDiscount4;
 	private String[] labels;
-	private String gift1, gift2, gift3;
+	private double dsct1, dsct2, dsct3, dsct4;
 	
-	public ViewGiftsConfiguration(JDialog parent) {
+	public ViewDiscountsConfiguration(JDialog parent) {
 		JPanel formPanelLeft = new JPanel();
 		formPanelLeft.setLayout(new GridLayout(4, 1, 0, 10));
 		formPanelLeft.setOpaque(false);
@@ -35,11 +38,10 @@ public class ViewGiftsConfiguration extends JPanel {
 		formPanelRight.setLayout(new GridLayout(4, 1, 0, 10));
 		formPanelRight.setOpaque(false);
 		
-		labels = new String[] {"1", "2 a 5", "6 a más"};
+		labels = new String[] {"1 a 5", "6 a 10", "11 a 15", "Más de 15"};
 		
 		for (String label : labels) {
-			boolean condition = label == labels[0];
-			JLabel lblLabel = new JLabel(label + (condition ? " unidad" : " unidades"));
+			JLabel lblLabel = new JLabel(label + " unidades");
 			lblLabel.setForeground(AppData.$white);
 			
 			JLabel txtSign = new JLabel("%");
@@ -49,13 +51,15 @@ public class ViewGiftsConfiguration extends JPanel {
 			formPanelRight.add(txtSign);
 		}
 		
-		txtGift1 = new JTextField(AppData.gift1);
-		txtGift2 = new JTextField(AppData.gift2);
-		txtGift3 = new JTextField(AppData.gift3);
+		txtDiscount1 = new JTextField(String.valueOf(AppData.discount1));
+		txtDiscount2 = new JTextField(String.valueOf(AppData.discount2));
+		txtDiscount3 = new JTextField(String.valueOf(AppData.discount3));
+		txtDiscount4 = new JTextField(String.valueOf(AppData.discount4));
 		
-		formPanelCenter.add(txtGift1);
-		formPanelCenter.add(txtGift2);
-		formPanelCenter.add(txtGift3);
+		formPanelCenter.add(txtDiscount1);
+		formPanelCenter.add(txtDiscount2);
+		formPanelCenter.add(txtDiscount3);
+		formPanelCenter.add(txtDiscount4);
 		
 		JPanel formPanel = new JPanel();
 		formPanel.setLayout(new BorderLayout(10,0));
@@ -92,44 +96,50 @@ public class ViewGiftsConfiguration extends JPanel {
 		String errorMessage = "";
 		
 		// validation		
-		gift1 = txtGift1.getText(); 
-		gift2 = txtGift2.getText();
-		gift3 = txtGift3.getText();
-		
-		gift1 = gift1.trim();
-		gift2 = gift2.trim();
-		gift3 = gift3.trim();
-	
-		
-		if (gift1.length() <= 2) {
+		try {
+			dsct1 = Double.parseDouble(txtDiscount1.getText()); 
+		} catch (Exception e) {
 			error = true;
-			errorMessage += "Regalo para " + labels[0] + " unidad, debe tener más de 2 caracteres.\n";
-			txtGift1.setText("");
-			txtGift1.requestFocus();
+			errorMessage += "Descuento de " + labels[0] + " unidades, no es válida.\n";
+			txtDiscount1.setText("");
+			txtDiscount1.requestFocus();
 		}
-		if (gift2.length() <= 2) {
+		try {
+			dsct2 = Double.parseDouble(txtDiscount2.getText());
+		} catch (Exception e) {
 			error = true;
-			errorMessage += "Regalo para " + labels[1] + " unidades, debe tener más de 2 caracteres.\n";
-			txtGift2.setText("");
-			txtGift2.requestFocus();
+			errorMessage += "Descuento de " + labels[1] + " unidades, no es válida.\n";
+			txtDiscount2.setText("");
+			txtDiscount2.requestFocus();
 
 		} 
-		if (gift3.length() <= 2) {
+		try {
+			dsct3 = Double.parseDouble(txtDiscount3.getText()); 
+		} catch (Exception e) {
 			error = true;
-			errorMessage += "Regalo para " + labels[2] + " unidades, debe tener más de 2 caracteres.\n";
-			txtGift3.setText("");
-			txtGift3.requestFocus();
+			errorMessage += "Descuento de " + labels[2] + " unidades, no es válida.\n";
+			txtDiscount3.setText("");
+			txtDiscount3.requestFocus();
+		}
+		try {
+			dsct4 = Double.parseDouble(txtDiscount4.getText()); 
+		} catch (Exception e) {
+			error = true;
+			errorMessage += "Descuento de " + labels[3] + " unidades, no es válida.\n";
+			txtDiscount4.setText("");
+			txtDiscount4.requestFocus();
 		}
 		
 		
 		if(error) {
 			new MainAlert(errorMessage, AlertType.ERROR);
 		} else {
-			AppData.gift1 = gift1;
-			AppData.gift2 = gift2;
-			AppData.gift3 = gift3;
+			AppData.discount1 = dsct1;
+			AppData.discount2 = dsct2;
+			AppData.discount3 = dsct3;
+			AppData.discount4 = dsct4;
 
-			String successMessage = "¡En hora buena! \nLos Regalos fueron guardados correctamente.";
+			String successMessage = "¡En hora buena! \nLos Descuentos fueron guardados correctamente.";
 			new MainAlert(successMessage, AlertType.SUCCESS);
 		}
 		

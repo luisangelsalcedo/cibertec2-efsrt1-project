@@ -1,29 +1,30 @@
-package gui;
+package bembos.views.components;
 
 import java.awt.BorderLayout;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import bembos.utils.Utils;
 import interfaces.ComboBoxAction;
-import models.AppData;
+import db.AppData;
+
+
 
 public class ComboBoxPromo extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	
+	
 
 	public ComboBoxPromo(ComboBoxAction callback) {		
 		JLabel lblPromo = new JLabel("Promos exclusivas:");
 		lblPromo.setForeground(AppData.$white);
 		
-		String[] promosList = new String[] {
-			"Selecciona un producto",
-			AppData.productName1,
-			AppData.productName2,
-			AppData.productName3,
-			AppData.productName4,
-			AppData.productName5,
-			AppData.productName6
-		};		
+		
+		// pasarlo a un controlador
+		String[] promosList = Utils.createComboBoxArray(AppData.menusList, "Selecciona un menu", menu -> menu.getName());
+		
+		
 		JComboBox<String> cmbPromo = new JComboBox<String>(promosList);
 		cmbPromo.addActionListener(e->{
 			String selectedItem = (String) cmbPromo.getSelectedItem();

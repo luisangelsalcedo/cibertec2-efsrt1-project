@@ -1,4 +1,4 @@
-package gui;
+package bembos.views.components;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 import interfaces.AlertType;
-import models.AppData;
+import db.AppData;
 
 public class MainAlert extends JDialog {
 	

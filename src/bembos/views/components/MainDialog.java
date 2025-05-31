@@ -1,10 +1,10 @@
-package gui;
+package bembos.views.components;
 
 import java.awt.BorderLayout;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import models.AppData;
+import db.AppData;
 
 public class MainDialog extends JDialog {
 

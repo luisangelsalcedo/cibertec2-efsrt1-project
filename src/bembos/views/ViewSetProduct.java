@@ -1,16 +1,26 @@
-package gui;
+package bembos.views;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.util.Arrays;
+
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import bembos.controllers.BembosMenuController;
+import bembos.models.BembosMenu;
+import bembos.utils.Utils;
+import bembos.views.components.ComboBoxPromo;
+import bembos.views.components.MainAlert;
+
 import javax.swing.JButton;
 import interfaces.AlertType;
-import models.AppData;
+import interfaces.SizeProduct;
+import db.AppData;
 
 public class ViewSetProduct extends JPanel {
 
@@ -56,22 +66,25 @@ public class ViewSetProduct extends JPanel {
 		lblBurgerSize.setForeground(AppData.$white);
 		JLabel lblBurgerCount = new JLabel("Cantidad");
 		lblBurgerCount.setForeground(AppData.$white);
-		cmbBurgerName = new JComboBox<String>(AppData.burgers);
-		cmbBurgerSize = new JComboBox<String>(AppData.sizeProducts);
+		
+		String[] sizeArr = Utils.createComboBoxArray(Arrays.asList(SizeProduct.values()), "Selecciona una medida", size->size.toString());
+		
+		cmbBurgerName = new JComboBox<String>(Utils.createComboBoxArray(AppData.burgersList, "Selecciona una hamburguesa", burger->burger.getName()));
+		cmbBurgerSize = new JComboBox<String>(sizeArr);
 		txtBurgerCount = new JTextField();
 
 		JLabel lblPotatoesSize = new JLabel("Papas fritas");
 		lblPotatoesSize.setForeground(AppData.$white);
 		JLabel lblPotatoesCount = new JLabel("Cantidad");
 		lblPotatoesCount.setForeground(AppData.$white);
-		cmbPotatoesSize = new JComboBox<String>(AppData.sizeProducts);
+		cmbPotatoesSize = new JComboBox<String>(sizeArr);
 		txtPotatoesCount = new JTextField();
 
-		JLabel lblSodaName = new JLabel("Gaseosa");
+		JLabel lblSodaName = new JLabel("Bebida");
 		lblSodaName.setForeground(AppData.$white);
 		JLabel lblSodaCount = new JLabel("Cantidad");
 		lblSodaCount.setForeground(AppData.$white);
-		cmbSodaName = new JComboBox<String>(AppData.sodas);
+		cmbSodaName = new JComboBox<String>(Utils.createComboBoxArray(AppData.sodasList, "Selecciona una Bebida", soda->soda.getName()));
 		txtSodaCount = new JTextField();
 
 		JLabel lblPrice = new JLabel("Precio (S/.)");
@@ -176,14 +189,16 @@ public class ViewSetProduct extends JPanel {
 		panelCenter.add(burgerPanel, BorderLayout.NORTH);
 		panelCenter.add(potatoesPanel, BorderLayout.CENTER);
 		panelCenter.add(sodaPanel, BorderLayout.SOUTH);
-		panelCenter.setVisible(false);
 
 		panelBottom = new JPanel();
 		panelBottom.setLayout(new GridLayout(2, 1, 10, 20));
 		panelBottom.setOpaque(false);
 		panelBottom.add(pricePanel);
 		panelBottom.add(buttonPanel);
-		panelBottom.setVisible(false);
+		
+		// hidden form
+		formVisible(false);
+		
 
 		// this panel
 		setLayout(new BorderLayout(0, 10));
@@ -193,78 +208,83 @@ public class ViewSetProduct extends JPanel {
 	}
 
 	public void ComboBoxPromoAction(String selectedItem) {
-		panelCenter.setVisible(true);
-		panelBottom.setVisible(true);
-
+		BembosMenuController menuController = new BembosMenuController();
 		this.selectedItem = selectedItem; 
+		formVisible(true);
 		
-		if(selectedItem == "Selecciona un producto") {
-			
-			resetAllValues();
-			panelCenter.setVisible(false);
-			panelBottom.setVisible(false);
-			
+		for(BembosMenu menu:menuController.getAllMenus()) {
+			if(selectedItem == menu.getName()) {
+				
+			}
 		}
-		if(selectedItem == AppData.productName1) {
-			burgerName = AppData.burgerName1;
-			burgerSize = AppData.burgerSize1;
-			burgerCount = AppData.burgerCount1;
-			potatoesSize = AppData.potatoesSize1;
-			potatoesCount = AppData.potatoesCount1;
-			sodaName = AppData.sodaName1;
-			sodaCount = AppData.sodaCount1;
-			price = AppData.price1;
-		}
-		if(selectedItem == AppData.productName2) {
-			burgerName = AppData.burgerName2;
-			burgerSize = AppData.burgerSize2;
-			burgerCount = AppData.burgerCount2;
-			potatoesSize = AppData.potatoesSize2;
-			potatoesCount = AppData.potatoesCount2;
-			sodaName = AppData.sodaName2;
-			sodaCount = AppData.sodaCount2;
-			price = AppData.price2;
-		}
-		if(selectedItem == AppData.productName3) {
-			burgerName = AppData.burgerName3;
-			burgerSize = AppData.burgerSize3;
-			burgerCount = AppData.burgerCount3;
-			potatoesSize = AppData.potatoesSize3;
-			potatoesCount = AppData.potatoesCount3;
-			sodaName = AppData.sodaName3;
-			sodaCount = AppData.sodaCount3;
-			price = AppData.price3;
-		}
-		if(selectedItem == AppData.productName4) {
-			burgerName = AppData.burgerName4;
-			burgerSize = AppData.burgerSize4;
-			burgerCount = AppData.burgerCount4;
-			potatoesSize = AppData.potatoesSize4;
-			potatoesCount = AppData.potatoesCount4;
-			sodaName = AppData.sodaName4;
-			sodaCount = AppData.sodaCount4;
-			price = AppData.price4;
-		}
-		if(selectedItem == AppData.productName5) {
-			burgerName = AppData.burgerName5;
-			burgerSize = AppData.burgerSize5;
-			burgerCount = AppData.burgerCount5;
-			potatoesSize = AppData.potatoesSize5;
-			potatoesCount = AppData.potatoesCount5;
-			sodaName = AppData.sodaName5;
-			sodaCount = AppData.sodaCount5;
-			price = AppData.price5;
-		}
-		if(selectedItem == AppData.productName6) {
-			burgerName = AppData.burgerName6;
-			burgerSize = AppData.burgerSize6;
-			burgerCount = AppData.burgerCount6;
-			potatoesSize = AppData.potatoesSize6;
-			potatoesCount = AppData.potatoesCount6;
-			sodaName = AppData.sodaName6;
-			sodaCount = AppData.sodaCount6;
-			price = AppData.price6;
-		}
+		
+//		if(selectedItem == "Selecciona un producto") {
+//			
+//			resetAllValues();
+//			panelCenter.setVisible(false);
+//			panelBottom.setVisible(false);
+//			
+//		}
+//		if(selectedItem == AppData.productName1) {
+//			burgerName = AppData.burgerName1;
+//			burgerSize = AppData.burgerSize1;
+//			burgerCount = AppData.burgerCount1;
+//			potatoesSize = AppData.potatoesSize1;
+//			potatoesCount = AppData.potatoesCount1;
+//			sodaName = AppData.sodaName1;
+//			sodaCount = AppData.sodaCount1;
+//			price = AppData.price1;
+//		}
+//		if(selectedItem == AppData.productName2) {
+//			burgerName = AppData.burgerName2;
+//			burgerSize = AppData.burgerSize2;
+//			burgerCount = AppData.burgerCount2;
+//			potatoesSize = AppData.potatoesSize2;
+//			potatoesCount = AppData.potatoesCount2;
+//			sodaName = AppData.sodaName2;
+//			sodaCount = AppData.sodaCount2;
+//			price = AppData.price2;
+//		}
+//		if(selectedItem == AppData.productName3) {
+//			burgerName = AppData.burgerName3;
+//			burgerSize = AppData.burgerSize3;
+//			burgerCount = AppData.burgerCount3;
+//			potatoesSize = AppData.potatoesSize3;
+//			potatoesCount = AppData.potatoesCount3;
+//			sodaName = AppData.sodaName3;
+//			sodaCount = AppData.sodaCount3;
+//			price = AppData.price3;
+//		}
+//		if(selectedItem == AppData.productName4) {
+//			burgerName = AppData.burgerName4;
+//			burgerSize = AppData.burgerSize4;
+//			burgerCount = AppData.burgerCount4;
+//			potatoesSize = AppData.potatoesSize4;
+//			potatoesCount = AppData.potatoesCount4;
+//			sodaName = AppData.sodaName4;
+//			sodaCount = AppData.sodaCount4;
+//			price = AppData.price4;
+//		}
+//		if(selectedItem == AppData.productName5) {
+//			burgerName = AppData.burgerName5;
+//			burgerSize = AppData.burgerSize5;
+//			burgerCount = AppData.burgerCount5;
+//			potatoesSize = AppData.potatoesSize5;
+//			potatoesCount = AppData.potatoesCount5;
+//			sodaName = AppData.sodaName5;
+//			sodaCount = AppData.sodaCount5;
+//			price = AppData.price5;
+//		}
+//		if(selectedItem == AppData.productName6) {
+//			burgerName = AppData.burgerName6;
+//			burgerSize = AppData.burgerSize6;
+//			burgerCount = AppData.burgerCount6;
+//			potatoesSize = AppData.potatoesSize6;
+//			potatoesCount = AppData.potatoesCount6;
+//			sodaName = AppData.sodaName6;
+//			sodaCount = AppData.sodaCount6;
+//			price = AppData.price6;
+//		}
 		
 		// set values in components		
 		loadNewValues();
@@ -272,6 +292,11 @@ public class ViewSetProduct extends JPanel {
 		// resize jdialog
 		this.parent.pack();
 		this.parent.setLocationRelativeTo(null);
+	}
+	
+	private void formVisible(boolean bool) {
+		panelCenter.setVisible(bool);
+		panelBottom.setVisible(bool);
 	}
 	
 	private void loadNewValues() {
@@ -357,66 +382,66 @@ public class ViewSetProduct extends JPanel {
 	private void saveAllValues() {
 		String selectedItem = this.selectedItem;
 
-		if(selectedItem == AppData.productName1) {
-			AppData.burgerName1 = burgerName;
-			AppData.burgerSize1 = burgerSize;
-			AppData.burgerCount1 = burgerCount;
-			AppData.potatoesSize1 = potatoesSize;
-			AppData.potatoesCount1 = potatoesCount;
-			AppData.sodaName1 = sodaName;
-			AppData.sodaCount1 = sodaCount;
-			AppData.price1 = price;
-		}
-		if(selectedItem == AppData.productName2) {
-			AppData.burgerName2 = burgerName;
-			AppData.burgerSize2 = burgerSize;
-			AppData.burgerCount2 = burgerCount;
-			AppData.potatoesSize2 = potatoesSize;
-			AppData.potatoesCount2 = potatoesCount;
-			AppData.sodaName2 = sodaName;
-			AppData.sodaCount2 = sodaCount;
-			AppData.price2 = price;
-		}
-		if(selectedItem == AppData.productName3) {
-			AppData.burgerName3 = burgerName;
-			AppData.burgerSize3 = burgerSize;
-			AppData.burgerCount3 = burgerCount;
-			AppData.potatoesSize3 = potatoesSize;
-			AppData.potatoesCount3 = potatoesCount;
-			AppData.sodaName3 = sodaName;
-			AppData.sodaCount3 = sodaCount;
-			AppData.price3 = price;
-		}
-		if(selectedItem == AppData.productName4) {
-			AppData.burgerName4 = burgerName;
-			AppData.burgerSize4 = burgerSize;
-			AppData.burgerCount4 = burgerCount;
-			AppData.potatoesSize4 = potatoesSize;
-			AppData.potatoesCount4 = potatoesCount;
-			AppData.sodaName4 = sodaName;
-			AppData.sodaCount4 = sodaCount;
-			AppData.price4 = price;
-		}
-		if(selectedItem == AppData.productName5) {
-			AppData.burgerName5 = burgerName;
-			AppData.burgerSize5 = burgerSize;
-			AppData.burgerCount5 = burgerCount;
-			AppData.potatoesSize5 = potatoesSize;
-			AppData.potatoesCount5 = potatoesCount;
-			AppData.sodaName5 = sodaName;
-			AppData.sodaCount5 = sodaCount;
-			AppData.price5 = price;
-		}
-		if(selectedItem == AppData.productName6) {
-			AppData.burgerName6 = burgerName;
-			AppData.burgerSize6 = burgerSize;
-			AppData.burgerCount6 = burgerCount;
-			AppData.potatoesSize6 = potatoesSize;
-			AppData.potatoesCount6 = potatoesCount;
-			AppData.sodaName6 = sodaName;
-			AppData.sodaCount6 = sodaCount;
-			AppData.price6 = price;
-		}
+//		if(selectedItem == AppData.productName1) {
+//			AppData.burgerName1 = burgerName;
+//			AppData.burgerSize1 = burgerSize;
+//			AppData.burgerCount1 = burgerCount;
+//			AppData.potatoesSize1 = potatoesSize;
+//			AppData.potatoesCount1 = potatoesCount;
+//			AppData.sodaName1 = sodaName;
+//			AppData.sodaCount1 = sodaCount;
+//			AppData.price1 = price;
+//		}
+//		if(selectedItem == AppData.productName2) {
+//			AppData.burgerName2 = burgerName;
+//			AppData.burgerSize2 = burgerSize;
+//			AppData.burgerCount2 = burgerCount;
+//			AppData.potatoesSize2 = potatoesSize;
+//			AppData.potatoesCount2 = potatoesCount;
+//			AppData.sodaName2 = sodaName;
+//			AppData.sodaCount2 = sodaCount;
+//			AppData.price2 = price;
+//		}
+//		if(selectedItem == AppData.productName3) {
+//			AppData.burgerName3 = burgerName;
+//			AppData.burgerSize3 = burgerSize;
+//			AppData.burgerCount3 = burgerCount;
+//			AppData.potatoesSize3 = potatoesSize;
+//			AppData.potatoesCount3 = potatoesCount;
+//			AppData.sodaName3 = sodaName;
+//			AppData.sodaCount3 = sodaCount;
+//			AppData.price3 = price;
+//		}
+//		if(selectedItem == AppData.productName4) {
+//			AppData.burgerName4 = burgerName;
+//			AppData.burgerSize4 = burgerSize;
+//			AppData.burgerCount4 = burgerCount;
+//			AppData.potatoesSize4 = potatoesSize;
+//			AppData.potatoesCount4 = potatoesCount;
+//			AppData.sodaName4 = sodaName;
+//			AppData.sodaCount4 = sodaCount;
+//			AppData.price4 = price;
+//		}
+//		if(selectedItem == AppData.productName5) {
+//			AppData.burgerName5 = burgerName;
+//			AppData.burgerSize5 = burgerSize;
+//			AppData.burgerCount5 = burgerCount;
+//			AppData.potatoesSize5 = potatoesSize;
+//			AppData.potatoesCount5 = potatoesCount;
+//			AppData.sodaName5 = sodaName;
+//			AppData.sodaCount5 = sodaCount;
+//			AppData.price5 = price;
+//		}
+//		if(selectedItem == AppData.productName6) {
+//			AppData.burgerName6 = burgerName;
+//			AppData.burgerSize6 = burgerSize;
+//			AppData.burgerCount6 = burgerCount;
+//			AppData.potatoesSize6 = potatoesSize;
+//			AppData.potatoesCount6 = potatoesCount;
+//			AppData.sodaName6 = sodaName;
+//			AppData.sodaCount6 = sodaCount;
+//			AppData.price6 = price;
+//		}
 	}
 	
 	private void resetAllValues() {		

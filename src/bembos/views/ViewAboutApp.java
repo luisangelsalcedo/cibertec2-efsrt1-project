@@ -1,4 +1,4 @@
-package gui;
+package bembos.views;
 
 import javax.swing.JPanel;
 import java.awt.FlowLayout;
@@ -8,7 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.border.EmptyBorder;
-import models.AppData;
+import db.AppData;
 import javax.swing.JTextPane;
 import java.awt.Color;
 import java.awt.Desktop;
