@@ -1,7 +1,6 @@
-package gui;
+package bembos.views;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -12,7 +11,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import models.AppData;
+import bembos.views.components.MainDialog;
+import db.AppData;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -32,22 +32,6 @@ public class Home extends JFrame implements ActionListener {
 	private JMenuItem mntmConfigurarObsequios;
 	private JMenuItem mntmAcercaDeTienda;	
 	private URL favicon = getClass().getResource(AppData.sourcePath + AppData.favicon);
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Home frame = new Home();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
