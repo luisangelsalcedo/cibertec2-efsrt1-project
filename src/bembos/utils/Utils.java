@@ -3,6 +3,8 @@ package bembos.utils;
 import java.util.List;
 import java.util.function.Function;
 
+import javax.swing.JComboBox;
+
 public class Utils {
 
 	public static boolean hasBlankSpaces(String text) {
@@ -30,4 +32,14 @@ public class Utils {
         }
         return array;
     }
+	
+	public static int comboBoxIndexOf(JComboBox<String> comboBox, String itemMatch) {
+		int index = -1;
+		for(int i=0; comboBox.getItemCount() > i; i++) {			
+			if(comboBox.getItemAt(i) == itemMatch ) {
+				index = i;
+			}
+		}
+		return index;
+	}
 }
