@@ -13,6 +13,9 @@ import javax.swing.JTextField;
 
 import bembos.controllers.BembosMenuController;
 import bembos.models.BembosMenu;
+import bembos.models.Burger;
+import bembos.models.Potatoes;
+import bembos.models.Soda;
 import bembos.utils.Utils;
 import bembos.views.components.ComboBoxPromo;
 import bembos.views.components.MainAlert;
@@ -214,80 +217,48 @@ public class ViewSetProduct extends JPanel {
 		
 		for(BembosMenu menu:menuController.getAllMenus()) {
 			if(selectedItem == menu.getName()) {
+
+				if(menu.getAllBurgers().size() > 0) {					
+					Burger firtsBurger = menu.getAllBurgers().get(0);
+					String firtsBurgerName = firtsBurger.getName();
+					String firtsBurgerSize = firtsBurger.getSize();
+					
+					cmbBurgerName.setSelectedIndex(Utils.comboBoxIndexOf(cmbBurgerName, firtsBurgerName));
+					cmbBurgerSize.setSelectedIndex(Utils.comboBoxIndexOf(cmbBurgerSize, firtsBurgerSize));
+					txtBurgerCount.setText(String.valueOf(menu.getAllBurgers().size()));
+				} else {
+					cmbBurgerName.setSelectedIndex(0);
+					cmbBurgerSize.setSelectedIndex(0);
+					txtBurgerCount.setText(null);
+				}
 				
+
+				if(menu.getAllPotatoes().size() > 0) {					
+					Potatoes firtsPotatoe = menu.getAllPotatoes().get(0);
+					String firtsPotatoeSize = firtsPotatoe.getSize();
+					
+					cmbPotatoesSize.setSelectedIndex(Utils.comboBoxIndexOf(cmbPotatoesSize, firtsPotatoeSize));
+					txtPotatoesCount.setText(String.valueOf(menu.getAllPotatoes().size()));
+				} else {
+					cmbPotatoesSize.setSelectedIndex(0);
+					txtPotatoesCount.setText(null);
+				}
+				
+				
+				if(menu.getAllSodas().size() > 0) {					
+					Soda firtsSoda = menu.getAllSodas().get(0);
+					String firtsSodaName = firtsSoda.getName();
+					
+					cmbSodaName.setSelectedIndex(Utils.comboBoxIndexOf(cmbSodaName, firtsSodaName));
+					txtSodaCount.setText(String.valueOf(menu.getAllSodas().size()));
+				} else {
+					cmbSodaName.setSelectedIndex(0);
+					txtSodaCount.setText(null);
+				}
+				
+				txtPrice.setText(String.format("%,5.2f", menu.getPrice()));
 			}
 		}
-		
-//		if(selectedItem == "Selecciona un producto") {
-//			
-//			resetAllValues();
-//			panelCenter.setVisible(false);
-//			panelBottom.setVisible(false);
-//			
-//		}
-//		if(selectedItem == AppData.productName1) {
-//			burgerName = AppData.burgerName1;
-//			burgerSize = AppData.burgerSize1;
-//			burgerCount = AppData.burgerCount1;
-//			potatoesSize = AppData.potatoesSize1;
-//			potatoesCount = AppData.potatoesCount1;
-//			sodaName = AppData.sodaName1;
-//			sodaCount = AppData.sodaCount1;
-//			price = AppData.price1;
-//		}
-//		if(selectedItem == AppData.productName2) {
-//			burgerName = AppData.burgerName2;
-//			burgerSize = AppData.burgerSize2;
-//			burgerCount = AppData.burgerCount2;
-//			potatoesSize = AppData.potatoesSize2;
-//			potatoesCount = AppData.potatoesCount2;
-//			sodaName = AppData.sodaName2;
-//			sodaCount = AppData.sodaCount2;
-//			price = AppData.price2;
-//		}
-//		if(selectedItem == AppData.productName3) {
-//			burgerName = AppData.burgerName3;
-//			burgerSize = AppData.burgerSize3;
-//			burgerCount = AppData.burgerCount3;
-//			potatoesSize = AppData.potatoesSize3;
-//			potatoesCount = AppData.potatoesCount3;
-//			sodaName = AppData.sodaName3;
-//			sodaCount = AppData.sodaCount3;
-//			price = AppData.price3;
-//		}
-//		if(selectedItem == AppData.productName4) {
-//			burgerName = AppData.burgerName4;
-//			burgerSize = AppData.burgerSize4;
-//			burgerCount = AppData.burgerCount4;
-//			potatoesSize = AppData.potatoesSize4;
-//			potatoesCount = AppData.potatoesCount4;
-//			sodaName = AppData.sodaName4;
-//			sodaCount = AppData.sodaCount4;
-//			price = AppData.price4;
-//		}
-//		if(selectedItem == AppData.productName5) {
-//			burgerName = AppData.burgerName5;
-//			burgerSize = AppData.burgerSize5;
-//			burgerCount = AppData.burgerCount5;
-//			potatoesSize = AppData.potatoesSize5;
-//			potatoesCount = AppData.potatoesCount5;
-//			sodaName = AppData.sodaName5;
-//			sodaCount = AppData.sodaCount5;
-//			price = AppData.price5;
-//		}
-//		if(selectedItem == AppData.productName6) {
-//			burgerName = AppData.burgerName6;
-//			burgerSize = AppData.burgerSize6;
-//			burgerCount = AppData.burgerCount6;
-//			potatoesSize = AppData.potatoesSize6;
-//			potatoesCount = AppData.potatoesCount6;
-//			sodaName = AppData.sodaName6;
-//			sodaCount = AppData.sodaCount6;
-//			price = AppData.price6;
-//		}
-		
-		// set values in components		
-		loadNewValues();
 		
 		// resize jdialog
 		this.parent.pack();
@@ -299,16 +270,6 @@ public class ViewSetProduct extends JPanel {
 		panelBottom.setVisible(bool);
 	}
 	
-	private void loadNewValues() {
-		cmbBurgerName.setSelectedIndex(burgerName);
-		cmbBurgerSize.setSelectedIndex(burgerSize);
-		txtBurgerCount.setText(String.valueOf(burgerCount));
-		cmbPotatoesSize.setSelectedIndex(potatoesSize);
-		txtPotatoesCount.setText(String.valueOf(potatoesCount));
-		cmbSodaName.setSelectedIndex(sodaName);
-		txtSodaCount.setText(String.valueOf(sodaCount));
-		txtPrice.setText(String.valueOf(price));
-	}
 
 	private void onSubmit(ActionEvent event) {	
 		// get values		
@@ -319,14 +280,6 @@ public class ViewSetProduct extends JPanel {
 			saveAllValues();
 			new MainAlert("¡En hora buena! \nLos datos fueron guardados correctamente.", AlertType.SUCCESS);
 			
-//			System.out.print("\nHamburguesa: " + AppData.burgers[this.burgerName] + " - " + AppData.sizeProducts[this.burgerSize]);
-//			System.out.print("\nCantidad: " + this.burgerCount);
-//			System.out.print("\nPapitas: " + AppData.sizeProducts[this.potatoesSize]);
-//			System.out.print("\nCantidad: " + this.potatoesCount);
-//			System.out.print("\nGaseosa: " + AppData.sodas[this.sodaName]);
-//			System.out.print("\nCantidad: " + this.sodaCount);
-//			System.out.print("\nPrecio: " + this.price);
-//			System.out.print("\n--------------\n\n");
 		}
 		else {
 			new MainAlert(errorMessage, AlertType.ERROR);			
