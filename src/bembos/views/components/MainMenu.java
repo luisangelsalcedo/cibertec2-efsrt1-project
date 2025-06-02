@@ -1,10 +1,8 @@
 package bembos.views.components;
 
 import java.awt.Font;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.URL;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -32,7 +30,6 @@ public class MainMenu extends JMenuBar implements ActionListener {
 	private JMenuItem mntmListarUsuarios;	
 	private JMenuItem mntmAgregarUsuario;	
 	private JMenuBar menuBar;
-	private URL favicon = getClass().getResource(AppData.sourcePath + AppData.favicon);
 	
 	public MainMenu(){
 		Font fontMenu = new Font("Dialog", Font.BOLD, 15);
@@ -125,15 +122,13 @@ public class MainMenu extends JMenuBar implements ActionListener {
 		return menuBar;
 	}
 	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub  
 		Object source = e.getSource();
 		
 		MainDialog dialog = new MainDialog();
-		dialog.setIconImage(
-			Toolkit.getDefaultToolkit().getImage(favicon)
-		);
 		
 		if(source == mntmSalir) {
 			System.exit(0);
