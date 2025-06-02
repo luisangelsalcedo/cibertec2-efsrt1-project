@@ -93,7 +93,7 @@ public class MainAlert extends JDialog {
 		getContentPane().setLayout(new GridLayout(1,1));
 		getContentPane().add(contentPanel);
 		setIconImage(
-			Toolkit.getDefaultToolkit().getImage(getClass().getResource(AppData.sourcePath + AppData.favicon))
+			Toolkit.getDefaultToolkit().getImage(AppData.favicon)
 		);
 		pack();
 		setLocationRelativeTo(null);

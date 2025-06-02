@@ -1,6 +1,7 @@
 package db;
 
 import java.awt.Color;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import bembos.models.BembosMenu;
@@ -116,14 +117,15 @@ public class AppData {
 		menusList.add(menu4);
 		menusList.add(menu5);
 		menusList.add(menu6);
-	
+		
+
 	}
 
 	// general
 	public static String AppTitle = "Bembos App";
 	public static String sourcePath = "/assets/";
-	public static String favicon = "favicon.png";
-	public static String version = "1.0.0";
+	public static String version = "2.0.0";
+	public static URL favicon = AppData.class.getResource(AppData.sourcePath + "favicon.png");
 
 	//	discounts
 	public static double discount1 = 7.5;
@@ -144,6 +146,7 @@ public class AppData {
 	public static double calculatePercentageDailyQuota() {
 		return (100 * generalSalesAmount) / daily;
 	}
+	
 	
 	// styles
 	public static Color $primaryColor = new Color(2, 22, 137);

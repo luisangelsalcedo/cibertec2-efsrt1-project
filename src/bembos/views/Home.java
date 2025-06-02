@@ -3,23 +3,23 @@ package bembos.views;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import java.awt.Toolkit;
+import java.awt.Font;
+import javax.swing.SwingConstants;
+
+import bembos.views.components.LoginForm;
 import bembos.views.components.MainMenu;
 import db.AppData;
-import java.awt.Toolkit;
-import javax.swing.SwingConstants;
-import java.awt.Font;
 
 
 public class Home extends JFrame {
 
-	private static final long serialVersionUID = 1L;	
-	private URL favicon = getClass().getResource(AppData.sourcePath + AppData.favicon);
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Create the frame.
@@ -31,12 +31,15 @@ public class Home extends JFrame {
 		setSize(650, 450);
 		setLocationRelativeTo(null);
 		setIconImage(
-			Toolkit.getDefaultToolkit().getImage(favicon)
+			Toolkit.getDefaultToolkit().getImage(AppData.favicon)
 		);
 		
 		// menu
 		MainMenu menuBar = new MainMenu();
-		setJMenuBar(menuBar.getComponent());
+//		setJMenuBar(menuBar.getComponent());
+		
+		// login
+		LoginForm loginForm = new LoginForm();
 		
 		// disclaimer
 		JLabel lblLogo = new JLabel();
@@ -75,6 +78,7 @@ public class Home extends JFrame {
 		lblBackground.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBackground.setIcon(backgroundImage);	
 		lblBackground.setLayout(new BorderLayout());
+		lblBackground.add(loginForm, BorderLayout.NORTH);
 		lblBackground.add(footerPanel, BorderLayout.SOUTH);
 		
 		JPanel contentPane = new JPanel();

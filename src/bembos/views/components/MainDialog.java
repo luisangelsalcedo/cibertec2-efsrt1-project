@@ -1,6 +1,8 @@
 package bembos.views.components;
 
 import java.awt.BorderLayout;
+import java.awt.Toolkit;
+
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -15,11 +17,13 @@ public class MainDialog extends JDialog {
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		getContentPane().setBackground(AppData.$primaryColor);
+		setIconImage(
+			Toolkit.getDefaultToolkit().getImage(AppData.favicon)
+		);
 	}
 	
 	public void showView(JPanel panel) {
 		// general panel settings
-
 		panel.setBorder(new EmptyBorder(15, 15, 15, 15));
 		panel.setOpaque(false);
 		
