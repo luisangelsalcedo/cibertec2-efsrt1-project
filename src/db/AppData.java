@@ -8,6 +8,7 @@ import bembos.models.BembosMenu;
 import bembos.models.Burger;
 import bembos.models.Potatoes;
 import bembos.models.Soda;
+import bembos.models.User;
 import interfaces.SizeProduct;
 
 public class AppData {
@@ -15,6 +16,7 @@ public class AppData {
 	public static List<Burger> burgersList;
 	public static List<Soda> sodasList;
 	public static List<BembosMenu> menusList;
+	public static List<User> usersList;
 		
 	static {
 		// burger
@@ -118,7 +120,11 @@ public class AppData {
 		menusList.add(menu5);
 		menusList.add(menu6);
 		
-
+		// users
+		usersList = new ArrayList<>();
+		usersList.add(User.createAdmin("seemc9", "12345678"));
+		usersList.add(User.createUser("carlos", "12345678"));
+	
 	}
 
 	// general
@@ -146,6 +152,9 @@ public class AppData {
 	public static double calculatePercentageDailyQuota() {
 		return (100 * generalSalesAmount) / daily;
 	}
+	
+	// session
+	public static User loggedUser = null;
 	
 	
 	// styles
