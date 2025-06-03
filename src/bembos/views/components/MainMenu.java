@@ -6,6 +6,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+
+import bembos.controllers.UserController;
+import bembos.views.Home;
 import bembos.views.ViewAboutApp;
 import bembos.views.ViewDiscountsConfiguration;
 import bembos.views.ViewGetAllProducts;
@@ -29,9 +32,13 @@ public class MainMenu extends JMenuBar implements ActionListener {
 	private JMenuItem mntmVerUsuario;	
 	private JMenuItem mntmListarUsuarios;	
 	private JMenuItem mntmAgregarUsuario;	
+	private JMenuItem mntmCerrarSesion;	
 	private JMenuBar menuBar;
+	private Home parent;
 	
-	public MainMenu(){
+	public MainMenu(Home parent){
+		this.parent = parent;
+		
 		Font fontMenu = new Font("Dialog", Font.BOLD, 15);
 		Font fontSubMenu = new Font("Dialog", Font.BOLD, 15);
 		
@@ -47,6 +54,7 @@ public class MainMenu extends JMenuBar implements ActionListener {
 		mntmVerUsuario	 			= new JMenuItem("Ver Usuario");
 		mntmListarUsuarios	 		= new JMenuItem("Listar Usuarios");
 		mntmAgregarUsuario	 		= new JMenuItem("Agregar Usuarios");
+		mntmCerrarSesion	 		= new JMenuItem("Cerrar sesión");
 		
 		// set submenu font
 		mntmSalir.setFont(fontSubMenu);
@@ -60,6 +68,7 @@ public class MainMenu extends JMenuBar implements ActionListener {
 		mntmVerUsuario.setFont(fontSubMenu);
 		mntmListarUsuarios.setFont(fontSubMenu);
 		mntmAgregarUsuario.setFont(fontSubMenu);
+		mntmCerrarSesion.setFont(fontSubMenu);
 		
 		// set action events
 		mntmSalir.addActionListener(this);
@@ -70,6 +79,8 @@ public class MainMenu extends JMenuBar implements ActionListener {
 		mntmConfigurarDescuentos.addActionListener(this);
 		mntmConfigurarObsequios.addActionListener(this);
 		mntmAcercaDeTienda.addActionListener(this);
+		mntmCerrarSesion.addActionListener(this);
+		
 		
 		// set menus
 		JMenu mnArchivo = new JMenu("Archivo");
@@ -106,6 +117,7 @@ public class MainMenu extends JMenuBar implements ActionListener {
 		mnUsuarios.add(mntmVerUsuario);
 		mnUsuarios.add(mntmListarUsuarios);
 		mnUsuarios.add(mntmAgregarUsuario);
+		mnUsuarios.add(mntmCerrarSesion);
 		
 		// set menu bar
 		menuBar = new JMenuBar();
@@ -167,6 +179,12 @@ public class MainMenu extends JMenuBar implements ActionListener {
 			ViewAboutApp aboutAppPanel = new ViewAboutApp();
 			dialog.setTitle("Acerca de la Aplicacion");
 			dialog.showView(aboutAppPanel);
+		}
+		if(source == mntmCerrarSesion) {
+			UserController userControl = new UserController();
+			userControl.logout();
+			parent.showLoginForm(true);
+			parent.showMenu(false);
 		}
 	
 		dialog.setLocationRelativeTo(this);
