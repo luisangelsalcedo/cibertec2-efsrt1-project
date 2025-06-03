@@ -20,7 +20,8 @@ import db.AppData;
 public class Home extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-
+	private MainMenu menuBar;
+	private LoginForm loginForm;
 	/**
 	 * Create the frame.
 	 */
@@ -35,11 +36,10 @@ public class Home extends JFrame {
 		);
 		
 		// menu
-		MainMenu menuBar = new MainMenu();
-//		setJMenuBar(menuBar.getComponent());
-		
+		menuBar = new MainMenu(this);
 		// login
-		LoginForm loginForm = new LoginForm();
+		loginForm = new LoginForm(this);
+		
 		
 		// disclaimer
 		JLabel lblLogo = new JLabel();
@@ -86,6 +86,16 @@ public class Home extends JFrame {
 		contentPane.setLayout(new GridLayout(1, 1, 0, 0));
 		contentPane.add(lblBackground);
 		setContentPane(contentPane);
+	}
+	
+	public void showMenu(boolean bool) {
+		if(bool) setJMenuBar(menuBar.getComponent());
+		else setJMenuBar(null);
+	}
+	
+	public void showLoginForm(boolean bool) {
+		if(bool) loginForm.setVisible(true);
+		else loginForm.setVisible(false);
 	}
 
 	
