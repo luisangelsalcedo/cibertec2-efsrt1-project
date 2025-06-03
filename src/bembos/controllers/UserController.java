@@ -26,5 +26,8 @@ public class UserController {
 		}
 		return false;
 	}
-	
+	public boolean logout() {
+		AppData.loggedUser = null;
+		return false;
+	}
 }
