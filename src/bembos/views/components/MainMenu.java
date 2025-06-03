@@ -17,6 +17,7 @@ import bembos.views.ViewGiftsConfiguration;
 import bembos.views.ViewSellProduct;
 import bembos.views.ViewSetProduct;
 import db.AppData;
+import interfaces.AlertType;
 
 public class MainMenu extends JMenuBar implements ActionListener {
 	
@@ -182,6 +183,7 @@ public class MainMenu extends JMenuBar implements ActionListener {
 		}
 		if(source == mntmCerrarSesion) {
 			UserController userControl = new UserController();
+			new MainAlert("Nos vemos pronto " + AppData.loggedUser.getName(), AlertType.DEFAULT);
 			userControl.logout();
 			parent.showLoginForm(true);
 			parent.showMenu(false);
