@@ -11,6 +11,9 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import bembos.controllers.UserController;
+import bembos.views.Home;
 import db.AppData;
 import interfaces.AlertType;
 
@@ -19,8 +22,10 @@ public class LoginForm extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTextField txtUserName;
 	private JPasswordField txtPassword;
+	private Home parent;
 	
-	public LoginForm() {
+	public LoginForm(Home parent) {
+		this.parent = parent;
 		Font fontLogin = new Font("Dialog", Font.BOLD, 14);
 		
 		JLabel lblUserName = new JLabel("Usuario:");
@@ -30,9 +35,12 @@ public class LoginForm extends JPanel {
 		
 		txtUserName = new JTextField();
 		txtUserName.setBorder(null);
+		txtUserName.addActionListener(e->submitAction());
 		txtUserName.requestFocus();
+		
 		txtPassword = new JPasswordField();
 		txtPassword.setBorder(null);
+		txtPassword.addActionListener(e->submitAction());
 			
 
 		
@@ -59,7 +67,7 @@ public class LoginForm extends JPanel {
 		btnSubmit.setFont(fontLogin);
 		btnSubmit.setBackground(AppData.$primaryColor);
 		btnSubmit.setForeground(AppData.$white);
-		btnSubmit.addActionListener(e->loginAction());
+		btnSubmit.addActionListener(e->submitAction());
 		
 		JLabel lblIcon = new JLabel();
 		lblIcon.setIcon(new ImageIcon(getClass().getResource(AppData.sourcePath + "icon-lock.png")));
@@ -74,7 +82,7 @@ public class LoginForm extends JPanel {
 		setVisible(true);
 	}
 
-	private Object loginAction() {
+	private Object submitAction() {
 		String userName = txtUserName.getText(); 
 		char[] password = txtPassword.getPassword();			
 		
@@ -88,13 +96,22 @@ public class LoginForm extends JPanel {
 			txtPassword.requestFocus();
 			return null;
 		}
+		
+		UserController userControl = new UserController();
+		if(userControl.login(userName, new String(password))) {
+			parent.showLoginForm(false);
+			parent.showMenu(true);
+		} else {
+			new MainAlert("El usuario y la contrasena no coinciden", AlertType.ERROR);
+		}
+		
+		cleanTextFields();
+		return null;
+	}
 	
+	private void cleanTextFields() {
 		txtUserName.setText(""); 
 		txtPassword.setText("");
-		System.out.print("\nuserName: " + userName);
-		System.out.print("\npassword: " + password);
-		System.out.print("\npassword string: " + new String(password));
-		return null;
 	}
 
 }
