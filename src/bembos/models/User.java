@@ -3,24 +3,27 @@ package bembos.models;
 import interfaces.Permission;
 
 public class User {
+	private String name;
 	private String userName;
 	private String password;
 	private Permission permission;
 	
-	private User(String userName, String password, Permission permission) {
+	private User(String name, String userName, String password, Permission permission) {
 		this.userName = userName;
+		this.name = name;
 		this.password = password;
 		this.permission = permission;
 	}
 	
 	public static User createAdmin(String userName, String password) {
-		return new User(userName, password, Permission.ADMIN);
+		return new User("administrador", userName, password, Permission.ADMIN);
 	}
 	
 	public static User createUser(String userName, String password) {
-		return new User(userName, password, Permission.USER);
+		return new User("usuario", userName, password, Permission.USER);
 	}
 
+	// getters
 	public String getUserName() {
 		return userName;
 	}
@@ -31,5 +34,14 @@ public class User {
 
 	public Permission getPermission() {
 		return permission;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	// setters
+	public void setName(String name) {
+		this.name = name;
 	}
 }
