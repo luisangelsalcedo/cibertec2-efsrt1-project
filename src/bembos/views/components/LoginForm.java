@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import bembos.controllers.UserController;
+import bembos.models.User;
 import bembos.views.Home;
 import db.AppData;
 import interfaces.AlertType;
@@ -102,7 +103,18 @@ public class LoginForm extends JPanel {
 			parent.showLoginForm(false);
 			parent.showMenu(true);
 		} else {
-			new MainAlert("El usuario y la contrasena no coinciden", AlertType.ERROR);
+			User user = userControl.findUserByUserName(userName);
+			if(user == null) {				
+				new MainAlert("El usuario " + userName + " no existe", AlertType.ERROR);
+				
+			} else if(user.isUserLock() ) {
+				new MainAlert("Su usuario " + user.getUserName() + " ha sido bloqueado\nComunicate con el administrador para activarlo", AlertType.ERROR);
+				
+			} else {
+				new MainAlert("El usuario y la contrasena no coinciden", AlertType.ERROR);
+			}
+			
+			
 		}
 		
 		cleanTextFields();
