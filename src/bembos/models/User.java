@@ -7,6 +7,9 @@ public class User {
 	private String userName;
 	private String password;
 	private Permission permission;
+	public int loginAttempt = 0;
+	private boolean userLock = false;
+	
 	
 	private User(String name, String userName, String password, Permission permission) {
 		this.userName = userName;
@@ -39,9 +42,17 @@ public class User {
 	public String getName() {
 		return name;
 	}
+	
+	public boolean isUserLock() {
+		return userLock;
+	}
 
 	// setters
 	public void setName(String name) {
 		this.name = name;
+	}	
+
+	public void setUserLock(boolean userLock) {
+		this.userLock = userLock;
 	}
 }
