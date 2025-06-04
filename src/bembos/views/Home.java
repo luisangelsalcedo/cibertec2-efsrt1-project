@@ -12,9 +12,11 @@ import java.awt.Toolkit;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
+import bembos.models.User;
 import bembos.views.components.LoginForm;
 import bembos.views.components.MainMenu;
 import db.AppData;
+import interfaces.Permission;
 
 
 public class Home extends JFrame {
@@ -89,7 +91,15 @@ public class Home extends JFrame {
 	}
 	
 	public void showMenu(boolean bool) {
-		if(bool) setJMenuBar(menuBar.getComponent());
+		if(bool) {
+			User userLogged = AppData.loggedUser;
+			System.out.print("\n"+userLogged.getPermission().toString());
+			if(userLogged.getPermission().equals(Permission.ADMIN)) {
+				System.out.print(" - admin");
+				menuBar.setAdminMenu();
+			}
+			setJMenuBar(menuBar.getComponent());
+		}
 		else setJMenuBar(null);
 	}
 	

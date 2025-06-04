@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-
+import javax.swing.JPanel;
 import bembos.controllers.UserController;
 import bembos.views.Home;
 import bembos.views.ViewAboutApp;
@@ -33,7 +33,10 @@ public class MainMenu extends JMenuBar implements ActionListener {
 	private JMenuItem mntmVerUsuario;	
 	private JMenuItem mntmListarUsuarios;	
 	private JMenuItem mntmAgregarUsuario;	
-	private JMenuItem mntmCerrarSesion;	
+	private JMenuItem mntmCerrarSesion;
+	private JMenu mnConfiguracion;
+	private JMenu mnUsuarios;
+	private JMenu mnAyuda;
 	private JMenuBar menuBar;
 	private Home parent;
 	
@@ -80,6 +83,9 @@ public class MainMenu extends JMenuBar implements ActionListener {
 		mntmConfigurarDescuentos.addActionListener(this);
 		mntmConfigurarObsequios.addActionListener(this);
 		mntmAcercaDeTienda.addActionListener(this);
+		mntmVerUsuario.addActionListener(this);
+		mntmListarUsuarios.addActionListener(this);
+		mntmAgregarUsuario.addActionListener(this);
 		mntmCerrarSesion.addActionListener(this);
 		
 		
@@ -101,23 +107,21 @@ public class MainMenu extends JMenuBar implements ActionListener {
 		mnVentas.setForeground(AppData.$primaryColor);
 		mnVentas.add(mntmVender);
 		
-		JMenu mnConfiguracion = new JMenu("Configuración");
+		mnAyuda = new JMenu("Ayuda");
+		mnAyuda.setFont(fontMenu);
+		mnAyuda.setForeground(AppData.$primaryColor);
+		mnAyuda.add(mntmAcercaDeTienda);
+		
+		mnConfiguracion = new JMenu("Configuración");
 		mnConfiguracion.setFont(fontMenu);
 		mnConfiguracion.setForeground(AppData.$primaryColor);
 		mnConfiguracion.add(mntmConfigurarDescuentos);		
 		mnConfiguracion.add(mntmConfigurarObsequios);
 		
-		JMenu mnAyuda = new JMenu("Ayuda");
-		mnAyuda.setFont(fontMenu);
-		mnAyuda.setForeground(AppData.$primaryColor);
-		mnAyuda.add(mntmAcercaDeTienda);
-		
-		JMenu mnUsuarios = new JMenu("Usuarios");
+		mnUsuarios = new JMenu("Usuarios");
 		mnUsuarios.setFont(fontMenu);
 		mnUsuarios.setForeground(AppData.$primaryColor);
 		mnUsuarios.add(mntmVerUsuario);
-		mnUsuarios.add(mntmListarUsuarios);
-		mnUsuarios.add(mntmAgregarUsuario);
 		mnUsuarios.add(mntmCerrarSesion);
 		
 		// set menu bar
@@ -126,13 +130,22 @@ public class MainMenu extends JMenuBar implements ActionListener {
 		menuBar.add(mnArchivo);
 		menuBar.add(mnMantenimiento);
 		menuBar.add(mnVentas);
-		menuBar.add(mnConfiguracion);
-		menuBar.add(mnAyuda);
 		menuBar.add(mnUsuarios);
+		menuBar.add(mnAyuda);		
 	}
 	
 	public JMenuBar getComponent() {
 		return menuBar;
+	}
+	
+	public void setAdminMenu() {
+		mnUsuarios.add(mntmListarUsuarios);
+		mnUsuarios.add(mntmAgregarUsuario);
+		mnUsuarios.add(mntmCerrarSesion);
+		
+		menuBar.add(mnConfiguracion);
+		menuBar.add(mnUsuarios);
+		menuBar.add(mnAyuda);
 	}
 	
 
@@ -180,6 +193,21 @@ public class MainMenu extends JMenuBar implements ActionListener {
 			ViewAboutApp aboutAppPanel = new ViewAboutApp();
 			dialog.setTitle("Acerca de la Aplicacion");
 			dialog.showView(aboutAppPanel);
+		}
+		if(source == mntmVerUsuario) {
+			JPanel testPanel = new JPanel();
+			dialog.setTitle("Ver usuario");
+			dialog.showView(testPanel);
+		}
+		if(source == mntmListarUsuarios) {
+			JPanel testPanel = new JPanel();
+			dialog.setTitle("Listar usuarios");
+			dialog.showView(testPanel);
+		}
+		if(source == mntmAgregarUsuario) {
+			JPanel testPanel = new JPanel();
+			dialog.setTitle("Agregar usuario");
+			dialog.showView(testPanel);
 		}
 		if(source == mntmCerrarSesion) {
 			UserController userControl = new UserController();
