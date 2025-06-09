@@ -12,18 +12,20 @@ public class User {
 	
 	
 	private User(String name, String userName, String password, Permission permission) {
-		this.userName = userName;
-		this.name = name;
-		this.password = password;
-		this.permission = permission;
+		setUserName(userName);
+		setName(name);
+		setPassword(password);
+		setPermission(permission);
 	}
 	
+	public User() {}
+	
 	public static User createAdmin(String userName, String password) {
-		return new User("administrador", userName, password, Permission.ADMIN);
+		return new User(Permission.ADMIN.toString(), userName, password, Permission.ADMIN);
 	}
 	
 	public static User createUser(String userName, String password) {
-		return new User("usuario", userName, password, Permission.USER);
+		return new User(Permission.USER.toString(), userName, password, Permission.USER);
 	}
 
 	// getters
@@ -51,6 +53,18 @@ public class User {
 	public void setName(String name) {
 		this.name = name;
 	}	
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public void setPermission(Permission permission) {
+		this.permission = permission;
+	}
 
 	public void setUserLock(boolean userLock) {
 		this.userLock = userLock;
