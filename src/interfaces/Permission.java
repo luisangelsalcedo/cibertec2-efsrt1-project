@@ -21,4 +21,15 @@ public enum Permission {
     public String toString(){
         return name;
     }
+
+	public static Permission fromName(String name) {
+        for (Permission p : Permission.values()) {
+            if (p.name.equalsIgnoreCase(name)) {
+                return p;
+            }
+        }
+        throw new IllegalArgumentException("No enum constant interfaces.Permission." + name);
+    }
+	
+	
 }
