@@ -16,7 +16,7 @@ public class AppData {
 	public static List<Burger> burgersList;
 	public static List<Soda> sodasList;
 	public static List<BembosMenu> menusList;
-	public static List<User> usersList;
+//	public static List<User> usersList;
 		
 	static {
 		// burger
@@ -121,9 +121,9 @@ public class AppData {
 		menusList.add(menu6);
 		
 		// users
-		usersList = new ArrayList<>();
-		usersList.add(User.createAdmin("seemc9", "12345678"));
-		usersList.add(User.createUser("carlos", "12345678"));
+//		usersList = new ArrayList<>();
+//		usersList.add(User.createAdmin("seemc9", "12345678"));
+//		usersList.add(User.createUser("carlos", "12345678"));
 	
 	}
 

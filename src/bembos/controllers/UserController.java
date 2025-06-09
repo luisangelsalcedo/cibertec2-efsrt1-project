@@ -1,17 +1,18 @@
 package bembos.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
+import bembos.dao.UserDao;
 import bembos.models.User;
 import db.AppData;
 import interfaces.Permission;
 
 public class UserController {
-	private List<User> userList = new ArrayList<>(AppData.usersList);	
+//	private List<User> userList = new ArrayList<>(AppData.usersList);
+	private UserDao userDao = new UserDao();
 	
 	//methods
 	public List<User> getAllUsers(){
-		return userList;
+		return userDao.getAllUsers();
 	}
 	
 	public boolean login(String userName, String password) {
@@ -34,7 +35,7 @@ public class UserController {
 	}
 	
 	public User findUserByUserName(String userName) {
-		for(User user:userList) {
+		for(User user:getAllUsers()) {
 			if(user.getUserName().trim().equals(userName.trim())) 
 				return user;
 		}
@@ -42,13 +43,16 @@ public class UserController {
 	}
 	
 	private boolean verifyAttempts(User user) {
-		if(user.getPermission().toString() != Permission.ADMIN.toString()) 
+		if(user.getPermission().toString() != Permission.ADMIN.toString()) {
 			user.loginAttempt++;
+			userDao.updateUser(user);
+		}
 		
 		debugAttempts(user);
 		if(user.loginAttempt >= 5) {
 			//user lock
 			user.setUserLock(true);
+			userDao.updateUser(user);
 			return true;
 		}
 		return false;
