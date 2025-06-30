@@ -8,7 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.border.EmptyBorder;
-import db.AppData;
+import db.StyleTheme;
 import javax.swing.JTextPane;
 import java.awt.Color;
 import java.awt.Desktop;
@@ -22,7 +22,7 @@ public class ViewAboutApp extends JPanel {
 
 	public ViewAboutApp() {
 		
-		String sourcePath = AppData.sourcePath;
+		String sourcePath = StyleTheme.sourcePath;
 		
 //		logo image
 		ImageIcon logo = new ImageIcon(getClass().getResource(sourcePath + "logo.png"));
@@ -55,8 +55,8 @@ public class ViewAboutApp extends JPanel {
 		
 //		set buttons
 		JButton showDesignBtn = new JButton();
-		showDesignBtn.setBackground(AppData.$secondaryColor);
-		showDesignBtn.setForeground(AppData.$primaryColor);
+		showDesignBtn.setBackground(StyleTheme.$secondaryColor);
+		showDesignBtn.setForeground(StyleTheme.$primaryColor);
 		showDesignBtn.setText("Ver diseño");
 		showDesignBtn.addActionListener(e->{
 			try {
@@ -67,8 +67,8 @@ public class ViewAboutApp extends JPanel {
 		});
 		
 		JButton showCodeBtn = new JButton();
-		showCodeBtn.setBackground(AppData.$secondaryColor);
-		showCodeBtn.setForeground(AppData.$primaryColor);
+		showCodeBtn.setBackground(StyleTheme.$secondaryColor);
+		showCodeBtn.setForeground(StyleTheme.$primaryColor);
 		showCodeBtn.setText("Ver Código");
 		showCodeBtn.addActionListener(e->{
 			try {
@@ -79,8 +79,8 @@ public class ViewAboutApp extends JPanel {
 		});
 		
 		JButton showDocumentsBtn = new JButton();
-		showDocumentsBtn.setBackground(AppData.$secondaryColor);
-		showDocumentsBtn.setForeground(AppData.$primaryColor);
+		showDocumentsBtn.setBackground(StyleTheme.$secondaryColor);
+		showDocumentsBtn.setForeground(StyleTheme.$primaryColor);
 		showDocumentsBtn.setText("Ver Informe");
 		showDocumentsBtn.addActionListener(e->{
 			try {
@@ -105,8 +105,8 @@ public class ViewAboutApp extends JPanel {
 		authorPanel.add(textAuthor);
 		
 		JLabel txtVersion = new JLabel();
-		txtVersion.setText(AppData.version == null ? "" : "Versión " + AppData.version);
-		txtVersion.setForeground(AppData.$white);
+		txtVersion.setText(StyleTheme.version == null ? "" : "Versión " + StyleTheme.version);
+		txtVersion.setForeground(StyleTheme.$white);
 		JPanel versionPanel = new JPanel();
 		versionPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		versionPanel.setBorder(new EmptyBorder(0, 0, 15, 0));
@@ -118,7 +118,7 @@ public class ViewAboutApp extends JPanel {
 		centerPanel.setOpaque(false);
 		centerPanel.add(versionPanel, BorderLayout.NORTH);
 		centerPanel.add(textDescription, BorderLayout.CENTER);
-		centerPanel.add(authorPanel, BorderLayout.SOUTH);
+//		centerPanel.add(authorPanel, BorderLayout.SOUTH);
 		
 		JPanel bottomPanel = new JPanel();
 		bottomPanel.setLayout(new FlowLayout());

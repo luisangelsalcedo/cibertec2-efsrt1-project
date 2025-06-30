@@ -15,41 +15,41 @@ import javax.swing.SwingConstants;
 import bembos.models.User;
 import bembos.views.components.LoginForm;
 import bembos.views.components.MainMenu;
-import db.AppData;
+import db.StyleTheme;
 import interfaces.Permission;
 
 
 public class Home extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private MainMenu menuBar;
+	
 	private LoginForm loginForm;
 	/**
 	 * Create the frame.
 	 */
 	public Home() {		
 		
-		setTitle(AppData.AppTitle);
+		setTitle(StyleTheme.AppTitle);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(650, 450);
 		setLocationRelativeTo(null);
 		setIconImage(
-			Toolkit.getDefaultToolkit().getImage(AppData.favicon)
+			Toolkit.getDefaultToolkit().getImage(StyleTheme.favicon)
 		);
 		
-		// menu
-		menuBar = new MainMenu(this);
+		
 		// login
 		loginForm = new LoginForm(this);
+		showLoginForm(true);
 		
 		
 		// disclaimer
 		JLabel lblLogo = new JLabel();
-		lblLogo.setIcon(new ImageIcon(getClass().getResource(AppData.sourcePath + "cibertec.png")));
+		lblLogo.setIcon(new ImageIcon(getClass().getResource(StyleTheme.sourcePath + "cibertec.png")));
 		
 		JLabel lblDisclaimer = new JLabel("-  Proyecto realizado con fines educativos");
 		lblDisclaimer.setFont(new Font("Dialog", Font.PLAIN, 12));
-		lblDisclaimer.setForeground(AppData.$white);
+		lblDisclaimer.setForeground(StyleTheme.$white);
 		
 		JPanel disclaimerPanel = new JPanel();
 		disclaimerPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 0));
@@ -59,8 +59,8 @@ public class Home extends JFrame {
 		
 		// version
 		JLabel lblVersion = new JLabel();
-		lblVersion.setText(AppData.version == null ? "" : "Versión " + AppData.version);
-		lblVersion.setForeground(AppData.$white);
+		lblVersion.setText(StyleTheme.version == null ? "" : "Versión " + StyleTheme.version);
+		lblVersion.setForeground(StyleTheme.$white);
 		
 		JPanel versionPanel = new JPanel();
 		versionPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
@@ -75,7 +75,7 @@ public class Home extends JFrame {
 		footerPanel.add(versionPanel, BorderLayout.EAST);
 		
 		// background		
-		ImageIcon backgroundImage = new ImageIcon(getClass().getResource(AppData.sourcePath + "background.png"));
+		ImageIcon backgroundImage = new ImageIcon(getClass().getResource(StyleTheme.sourcePath + "background.png"));
 		JLabel lblBackground = new JLabel();
 		lblBackground.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBackground.setIcon(backgroundImage);	
@@ -84,28 +84,14 @@ public class Home extends JFrame {
 		lblBackground.add(footerPanel, BorderLayout.SOUTH);
 		
 		JPanel contentPane = new JPanel();
-		contentPane.setBackground(AppData.$primaryColor);
+		contentPane.setBackground(StyleTheme.$primaryColor);
 		contentPane.setLayout(new GridLayout(1, 1, 0, 0));
 		contentPane.add(lblBackground);
 		setContentPane(contentPane);
 	}
 	
-	public void showMenu(boolean bool) {
-		if(bool) {
-			User userLogged = AppData.loggedUser;
-			System.out.print("\n"+userLogged.getPermission().toString());
-			if(userLogged.getPermission().equals(Permission.ADMIN)) {
-				System.out.print(" - admin");
-				menuBar.setAdminMenu();
-			}
-			setJMenuBar(menuBar.getComponent());
-		}
-		else setJMenuBar(null);
-	}
-	
 	public void showLoginForm(boolean bool) {
-		if(bool) loginForm.setVisible(true);
-		else loginForm.setVisible(false);
+		loginForm.setVisible(bool);
 	}
 
 	

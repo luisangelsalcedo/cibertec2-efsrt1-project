@@ -5,14 +5,14 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-import bembos.views.components.MainAlert;
+import bembos.controllers.SalesController;
+import bembos.views.components.CustomAlert;
+import bembos.views.components.MainDialog;
 import interfaces.AlertType;
-import db.AppData;
+import db.StyleTheme;
 
 public class ViewGiftsConfiguration extends JPanel {
 
@@ -23,7 +23,7 @@ public class ViewGiftsConfiguration extends JPanel {
 	private String[] labels;
 	private String gift1, gift2, gift3;
 	
-	public ViewGiftsConfiguration(JDialog parent) {
+	public ViewGiftsConfiguration() {
 		JPanel formPanelLeft = new JPanel();
 		formPanelLeft.setLayout(new GridLayout(4, 1, 0, 10));
 		formPanelLeft.setOpaque(false);
@@ -31,7 +31,7 @@ public class ViewGiftsConfiguration extends JPanel {
 		JPanel formPanelCenter = new JPanel();
 		formPanelCenter.setLayout(new GridLayout(4, 1, 0, 10));
 		formPanelCenter.setOpaque(false);
-		formPanelCenter.setPreferredSize(new Dimension(100, 100));
+		formPanelCenter.setPreferredSize(new Dimension(250, 100));
 		
 		JPanel formPanelRight = new JPanel();
 		formPanelRight.setLayout(new GridLayout(4, 1, 0, 10));
@@ -42,18 +42,18 @@ public class ViewGiftsConfiguration extends JPanel {
 		for (String label : labels) {
 			boolean condition = label == labels[0];
 			JLabel lblLabel = new JLabel(label + (condition ? " unidad" : " unidades"));
-			lblLabel.setForeground(AppData.$white);
+			lblLabel.setForeground(StyleTheme.$white);
 			
-			JLabel txtSign = new JLabel("%");
-			txtSign.setForeground(AppData.$white);
+			JLabel txtSign = new JLabel("");
+			txtSign.setForeground(StyleTheme.$white);
 			
 			formPanelLeft.add(lblLabel);
 			formPanelRight.add(txtSign);
 		}
 		
-		txtGift1 = new JTextField(AppData.gift1);
-		txtGift2 = new JTextField(AppData.gift2);
-		txtGift3 = new JTextField(AppData.gift3);
+		txtGift1 = new JTextField(SalesController.gift1);
+		txtGift2 = new JTextField(SalesController.gift2);
+		txtGift3 = new JTextField(SalesController.gift3);
 		
 		formPanelCenter.add(txtGift1);
 		formPanelCenter.add(txtGift2);
@@ -67,15 +67,15 @@ public class ViewGiftsConfiguration extends JPanel {
 		formPanel.add(formPanelRight, BorderLayout.EAST);
 
 		JButton submitBtn = new JButton("Aceptar");
-		submitBtn.setBackground(AppData.$secondaryColor);
-		submitBtn.setForeground(AppData.$primaryColor);
+		submitBtn.setBackground(StyleTheme.$secondaryColor);
+		submitBtn.setForeground(StyleTheme.$primaryColor);
 		submitBtn.addActionListener(e -> submitAction(e));
 		
 		JButton closeBtn = new JButton("Cancelar");
-		closeBtn.setBackground(AppData.$secondaryColor);
-		closeBtn.setForeground(AppData.$primaryColor);
+		closeBtn.setBackground(StyleTheme.$secondaryColor);
+		closeBtn.setForeground(StyleTheme.$primaryColor);
 		closeBtn.addActionListener(e -> {
-			parent.dispose();
+			MainDialog.getInstance().dispose();
 		});
 		
 		JPanel buttonsPanel = new JPanel();
@@ -125,14 +125,14 @@ public class ViewGiftsConfiguration extends JPanel {
 		
 		
 		if(error) {
-			new MainAlert(errorMessage, AlertType.ERROR);
+			new CustomAlert(errorMessage, AlertType.ERROR);
 		} else {
-			AppData.gift1 = gift1;
-			AppData.gift2 = gift2;
-			AppData.gift3 = gift3;
+			SalesController.gift1 = gift1;
+			SalesController.gift2 = gift2;
+			SalesController.gift3 = gift3;
 
 			String successMessage = "¡En hora buena! \nLos Regalos fueron guardados correctamente.";
-			new MainAlert(successMessage, AlertType.SUCCESS);
+			new CustomAlert(successMessage, AlertType.SUCCESS);
 		}
 		
 	}

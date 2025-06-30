@@ -5,218 +5,208 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import bembos.controllers.UserController;
+import bembos.controllers.AuthController;
 import bembos.views.Home;
 import bembos.views.ViewAboutApp;
 import bembos.views.ViewDiscountsConfiguration;
 import bembos.views.ViewGetAllProducts;
 import bembos.views.ViewGetProduct;
 import bembos.views.ViewGiftsConfiguration;
+import bembos.views.ViewNewProduct;
 import bembos.views.ViewSellProduct;
 import bembos.views.ViewSetProduct;
-import db.AppData;
+import bembos.views.ViewTotalSalesProduct;
+import db.StyleTheme;
 import interfaces.AlertType;
+import interfaces.Permission;
 
 public class MainMenu extends JMenuBar implements ActionListener {
 	
 	private static final long serialVersionUID = 1L;
-	private JMenuItem mntmSalir;
-	private JMenuItem mntmConsultar;
-	private JMenuItem mntmModificar;
-	private JMenuItem mntmListar;
-	private JMenuItem mntmVender;
-	private JMenuItem mntmConfigurarDescuentos;
-	private JMenuItem mntmConfigurarObsequios;
-	private JMenuItem mntmAcercaDeTienda;	
-	private JMenuItem mntmVerUsuario;	
-	private JMenuItem mntmListarUsuarios;	
-	private JMenuItem mntmAgregarUsuario;	
-	private JMenuItem mntmCerrarSesion;
+	private CustomMenuItem mntmSalir;
+	private CustomMenuItem mntmNuevo;
+	private CustomMenuItem mntmConsultar;
+	private CustomMenuItem mntmModificar;
+	private CustomMenuItem mntmListar;
+	private CustomMenuItem mntmVender;
+	private CustomMenuItem mntmVentasTotales;
+	private CustomMenuItem mntmConfigurarDescuentos;
+	private CustomMenuItem mntmConfigurarObsequios;
+	private CustomMenuItem mntmAcercaDeTienda;	
+	private CustomMenuItem mntmVerUsuario;	
+	private CustomMenuItem mntmListarUsuarios;
+	private CustomMenuItem mntmCerrarSesion;
+	private JMenu mnArchivo;
+	private JMenu mnMantenimiento;
+	private JMenu mnVentas;
 	private JMenu mnConfiguracion;
 	private JMenu mnUsuarios;
 	private JMenu mnAyuda;
-	private JMenuBar menuBar;
 	private Home parent;
 	
-	public MainMenu(Home parent){
+	public MainMenu(Home parent) {
 		this.parent = parent;
 		
 		Font fontMenu = new Font("Dialog", Font.BOLD, 15);
-		Font fontSubMenu = new Font("Dialog", Font.BOLD, 15);
+		
 		
 		// set menu Items
-		mntmSalir 					= new JMenuItem("Salir");
-		mntmConsultar 				= new JMenuItem("Consultar producto");
-		mntmModificar 				= new JMenuItem("Modificar producto");
-		mntmListar 					= new JMenuItem("Listar productos");
-		mntmVender 					= new JMenuItem("Vender");
-		mntmConfigurarDescuentos 	= new JMenuItem("Configurar descuentos");
-		mntmConfigurarObsequios 	= new JMenuItem("Configurar obsequios");
-		mntmAcercaDeTienda 			= new JMenuItem("Acerca de la aplicación");
-		mntmVerUsuario	 			= new JMenuItem("Ver Usuario");
-		mntmListarUsuarios	 		= new JMenuItem("Listar Usuarios");
-		mntmAgregarUsuario	 		= new JMenuItem("Agregar Usuarios");
-		mntmCerrarSesion	 		= new JMenuItem("Cerrar sesión");
-		
-		// set submenu font
-		mntmSalir.setFont(fontSubMenu);
-		mntmConsultar.setFont(fontSubMenu);
-		mntmModificar.setFont(fontSubMenu);
-		mntmListar.setFont(fontSubMenu);
-		mntmVender.setFont(fontSubMenu);
-		mntmConfigurarDescuentos.setFont(fontSubMenu);
-		mntmConfigurarObsequios.setFont(fontSubMenu);
-		mntmAcercaDeTienda.setFont(fontSubMenu);
-		mntmVerUsuario.setFont(fontSubMenu);
-		mntmListarUsuarios.setFont(fontSubMenu);
-		mntmAgregarUsuario.setFont(fontSubMenu);
-		mntmCerrarSesion.setFont(fontSubMenu);
+		mntmSalir 					= new CustomMenuItem("Salir");
+		mntmNuevo 					= new CustomMenuItem("Nueva combo", Permission.ADMIN);
+		mntmConsultar 				= new CustomMenuItem("Consultar combos");
+		mntmModificar 				= new CustomMenuItem("Modificar combos", Permission.ADMIN);
+		mntmListar 					= new CustomMenuItem("Listar productos");
+		mntmVender 					= new CustomMenuItem("Vender");
+		mntmVentasTotales			= new CustomMenuItem("Reporte de Ventas", Permission.ADMIN);
+		mntmConfigurarDescuentos 	= new CustomMenuItem("Configurar descuentos", Permission.ADMIN);
+		mntmConfigurarObsequios 	= new CustomMenuItem("Configurar obsequios", Permission.ADMIN);
+		mntmAcercaDeTienda 			= new CustomMenuItem("Acerca de la aplicación");
+		mntmVerUsuario	 			= new CustomMenuItem("Ver Usuario");
+		mntmListarUsuarios	 		= new CustomMenuItem("Listar Usuarios", Permission.ADMIN);
+		mntmCerrarSesion	 		= new CustomMenuItem("Cerrar sesión");
 		
 		// set action events
 		mntmSalir.addActionListener(this);
+		mntmNuevo.addActionListener(this);
 		mntmConsultar.addActionListener(this);
 		mntmModificar.addActionListener(this);
 		mntmListar.addActionListener(this);
 		mntmVender.addActionListener(this);
+		mntmVentasTotales.addActionListener(this);
 		mntmConfigurarDescuentos.addActionListener(this);
 		mntmConfigurarObsequios.addActionListener(this);
 		mntmAcercaDeTienda.addActionListener(this);
 		mntmVerUsuario.addActionListener(this);
 		mntmListarUsuarios.addActionListener(this);
-		mntmAgregarUsuario.addActionListener(this);
 		mntmCerrarSesion.addActionListener(this);
 		
 		
+		
 		// set menus
-		JMenu mnArchivo = new JMenu("Archivo");
+		mnArchivo = new JMenu("Archivo");
 		mnArchivo.setFont(fontMenu);
-		mnArchivo.setForeground(AppData.$primaryColor);
-		mnArchivo.add(mntmSalir);		
+		mnArchivo.setForeground(StyleTheme.$primaryColor);
+		for(CustomMenuItem item : new CustomMenuItem[] {mntmSalir}) {
+			if(hasMenuPermission(item)) mnArchivo.add(item);			
+		}	
 		
-		JMenu mnMantenimiento = new JMenu("Mantenimiento");
+		
+		mnMantenimiento = new JMenu("Mantenimiento");
 		mnMantenimiento.setFont(fontMenu);
-		mnMantenimiento.setForeground(AppData.$primaryColor);
-		mnMantenimiento.add(mntmConsultar);
-		mnMantenimiento.add(mntmModificar);		
-		mnMantenimiento.add(mntmListar);
+		mnMantenimiento.setForeground(StyleTheme.$primaryColor);		
+		for(CustomMenuItem item : new CustomMenuItem[] {mntmNuevo, mntmConsultar, mntmListar}) { //mntmModificar,
+			if(hasMenuPermission(item)) mnMantenimiento.add(item);
+			
+		}
 		
-		JMenu mnVentas = new JMenu("Ventas");
+		
+		mnVentas = new JMenu("Ventas");
 		mnVentas.setFont(fontMenu);
-		mnVentas.setForeground(AppData.$primaryColor);
-		mnVentas.add(mntmVender);
+		mnVentas.setForeground(StyleTheme.$primaryColor);
+		for(CustomMenuItem item : new CustomMenuItem[] {mntmVender, mntmVentasTotales}) {
+			if(hasMenuPermission(item)) mnVentas.add(item);
+		}
+		
 		
 		mnAyuda = new JMenu("Ayuda");
 		mnAyuda.setFont(fontMenu);
-		mnAyuda.setForeground(AppData.$primaryColor);
-		mnAyuda.add(mntmAcercaDeTienda);
+		mnAyuda.setForeground(StyleTheme.$primaryColor);
+		for(CustomMenuItem item : new CustomMenuItem[] {mntmAcercaDeTienda}) {
+			if(hasMenuPermission(item)) mnAyuda.add(item);
+		}
+		
 		
 		mnConfiguracion = new JMenu("Configuración");
 		mnConfiguracion.setFont(fontMenu);
-		mnConfiguracion.setForeground(AppData.$primaryColor);
-		mnConfiguracion.add(mntmConfigurarDescuentos);		
-		mnConfiguracion.add(mntmConfigurarObsequios);
+		mnConfiguracion.setForeground(StyleTheme.$primaryColor);
+		for(CustomMenuItem item : new CustomMenuItem[] {mntmConfigurarDescuentos, mntmConfigurarObsequios}) {
+			if(hasMenuPermission(item)) mnConfiguracion.add(item);
+		}
+		
 		
 		mnUsuarios = new JMenu("Usuarios");
 		mnUsuarios.setFont(fontMenu);
-		mnUsuarios.setForeground(AppData.$primaryColor);
-		mnUsuarios.add(mntmVerUsuario);
-		mnUsuarios.add(mntmCerrarSesion);
+		mnUsuarios.setForeground(StyleTheme.$primaryColor);
+		for(CustomMenuItem item : new CustomMenuItem[] {mntmVerUsuario, mntmListarUsuarios, mntmCerrarSesion}) {
+			if(hasMenuPermission(item)) mnUsuarios.add(item);
+		}
+		
 		
 		// set menu bar
-		menuBar = new JMenuBar();
-		menuBar.setBackground(AppData.$secondaryColor);
-		menuBar.add(mnArchivo);
-		menuBar.add(mnMantenimiento);
-		menuBar.add(mnVentas);
-		menuBar.add(mnUsuarios);
-		menuBar.add(mnAyuda);		
+		setBackground(StyleTheme.$secondaryColor);
+		if(mnArchivo.getItemCount() > 0) add(mnArchivo);
+		if(mnMantenimiento.getItemCount() > 0) add(mnMantenimiento);
+		if(mnVentas.getItemCount() > 0) add(mnVentas);
+		if(mnConfiguracion.getItemCount() > 0) add(mnConfiguracion);
+		if(mnUsuarios.getItemCount() > 0) add(mnUsuarios);
+		if(mnAyuda.getItemCount() > 0) add(mnAyuda);		
 	}
 	
-	public JMenuBar getComponent() {
-		return menuBar;
-	}
-	
-	public void setAdminMenu() {
-		mnUsuarios.add(mntmListarUsuarios);
-		mnUsuarios.add(mntmAgregarUsuario);
-		mnUsuarios.add(mntmCerrarSesion);
-		
-		menuBar.add(mnConfiguracion);
-		menuBar.add(mnUsuarios);
-		menuBar.add(mnAyuda);
+	private boolean hasMenuPermission(CustomMenuItem item) {
+		if(AuthController.getLoggedUser().getPermission().equals(Permission.ADMIN)) {
+			return true;
+		}
+		if(AuthController.getLoggedUser().getPermission().equals(Permission.USER)) {
+			if(item.getRole().equals(Permission.USER))return true;
+		}
+		return false;
 	}
 	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub  
 		Object source = e.getSource();
-		
-		MainDialog dialog = new MainDialog();
+		String sourceTitle = ((CustomMenuItem)source).getText();	
 		
 		if(source == mntmSalir) {
 			System.exit(0);
 		}
+		if(source == mntmNuevo) {
+			MainDialog.getInstance().showView(new ViewNewProduct());
+		}
 		if(source == mntmConsultar) {
-			ViewGetProduct getProductPanel = new ViewGetProduct(dialog);
-			dialog.setTitle("Consultar");
-			dialog.showView(getProductPanel);
+			MainDialog.getInstance().showView(new ViewGetProduct());
 		}
 		if(source == mntmModificar) {
-			ViewSetProduct setProductPanel = new ViewSetProduct(dialog);
-			dialog.setTitle("Modificar");
-			dialog.showView(setProductPanel);
+			MainDialog.getInstance().showView(new ViewSetProduct());
 		}
 		if(source == mntmListar) {
-			ViewGetAllProducts getAllProductsPanel = new ViewGetAllProducts(dialog);
-			dialog.setTitle("Listar");
-			dialog.showView(getAllProductsPanel);
+			MainDialog.getInstance().showView(new ViewGetAllProducts());
 		}
 		if(source == mntmVender) {
-			ViewSellProduct sellProductPanel = new ViewSellProduct(dialog);
-			dialog.setTitle("Vender");
-			dialog.showView(sellProductPanel);
+			MainDialog.getInstance().showView(new ViewSellProduct());
+		}
+		if(source == mntmVentasTotales) {
+			MainDialog.getInstance().showView(new ViewTotalSalesProduct());
 		}
 		if(source == mntmConfigurarDescuentos) {
-			ViewDiscountsConfiguration discountsConfigurationPanel = new ViewDiscountsConfiguration(dialog);
-			dialog.setTitle("Configurar Descuentos");
-			dialog.showView(discountsConfigurationPanel);
+			MainDialog.getInstance().showView(new ViewDiscountsConfiguration());
 		}
-		if(source == mntmConfigurarObsequios) {			
-			ViewGiftsConfiguration giftsConfigurationPanel = new ViewGiftsConfiguration(dialog);
-			dialog.setTitle("Configurar Obsequios");
-			dialog.showView(giftsConfigurationPanel);
+		if(source == mntmConfigurarObsequios) {
+			MainDialog.getInstance().showView(new ViewGiftsConfiguration());
 		}
 		if(source == mntmAcercaDeTienda) {
-			ViewAboutApp aboutAppPanel = new ViewAboutApp();
-			dialog.setTitle("Acerca de la Aplicacion");
-			dialog.showView(aboutAppPanel);
+			MainDialog.getInstance().showView(new ViewAboutApp());
 		}
 		if(source == mntmVerUsuario) {
 			JPanel testPanel = new JPanel();
-			dialog.setTitle("Ver usuario");
-			dialog.showView(testPanel);
+			MainDialog.getInstance().showView(testPanel);
 		}
 		if(source == mntmListarUsuarios) {
-			JPanel testPanel = new JPanel();
-			dialog.setTitle("Listar usuarios");
-			dialog.showView(testPanel);
-		}
-		if(source == mntmAgregarUsuario) {
-			JPanel testPanel = new JPanel();
-			dialog.setTitle("Agregar usuario");
-			dialog.showView(testPanel);
+			JPanel testPanel = new JPanel();			
+			MainDialog.getInstance().showView(testPanel);
 		}
 		if(source == mntmCerrarSesion) {
-			UserController userControl = new UserController();
-			new MainAlert("Nos vemos pronto " + AppData.loggedUser.getName(), AlertType.DEFAULT);
-			userControl.logout();
+			new CustomAlert("Nos vemos pronto " + AuthController.getLoggedUser().getName(), AlertType.DEFAULT);
+			AuthController.logout();
+			MainDialog.getInstance().dispose();
 			parent.showLoginForm(true);
-			parent.showMenu(false);
+			parent.setJMenuBar(null);
+		} else {
+			MainDialog.getInstance().setTitle(sourceTitle);
 		}
 	
-		dialog.setLocationRelativeTo(this);
+		MainDialog.getInstance().setLocationRelativeTo(this);
 	}
 }

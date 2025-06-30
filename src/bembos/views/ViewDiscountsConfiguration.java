@@ -5,14 +5,14 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-import bembos.views.components.MainAlert;
+import bembos.controllers.SalesController;
+import bembos.views.components.CustomAlert;
+import bembos.views.components.MainDialog;
 import interfaces.AlertType;
-import db.AppData;
+import db.StyleTheme;
 
 public class ViewDiscountsConfiguration extends JPanel {
 
@@ -24,7 +24,7 @@ public class ViewDiscountsConfiguration extends JPanel {
 	private String[] labels;
 	private double dsct1, dsct2, dsct3, dsct4;
 	
-	public ViewDiscountsConfiguration(JDialog parent) {
+	public ViewDiscountsConfiguration() {
 		JPanel formPanelLeft = new JPanel();
 		formPanelLeft.setLayout(new GridLayout(4, 1, 0, 10));
 		formPanelLeft.setOpaque(false);
@@ -42,19 +42,19 @@ public class ViewDiscountsConfiguration extends JPanel {
 		
 		for (String label : labels) {
 			JLabel lblLabel = new JLabel(label + " unidades");
-			lblLabel.setForeground(AppData.$white);
+			lblLabel.setForeground(StyleTheme.$white);
 			
 			JLabel txtSign = new JLabel("%");
-			txtSign.setForeground(AppData.$white);
+			txtSign.setForeground(StyleTheme.$white);
 			
 			formPanelLeft.add(lblLabel);
 			formPanelRight.add(txtSign);
 		}
 		
-		txtDiscount1 = new JTextField(String.valueOf(AppData.discount1));
-		txtDiscount2 = new JTextField(String.valueOf(AppData.discount2));
-		txtDiscount3 = new JTextField(String.valueOf(AppData.discount3));
-		txtDiscount4 = new JTextField(String.valueOf(AppData.discount4));
+		txtDiscount1 = new JTextField(String.valueOf(SalesController.discount1));
+		txtDiscount2 = new JTextField(String.valueOf(SalesController.discount2));
+		txtDiscount3 = new JTextField(String.valueOf(SalesController.discount3));
+		txtDiscount4 = new JTextField(String.valueOf(SalesController.discount4));
 		
 		formPanelCenter.add(txtDiscount1);
 		formPanelCenter.add(txtDiscount2);
@@ -69,15 +69,15 @@ public class ViewDiscountsConfiguration extends JPanel {
 		formPanel.add(formPanelRight, BorderLayout.EAST);
 
 		JButton submitBtn = new JButton("Aceptar");
-		submitBtn.setBackground(AppData.$secondaryColor);
-		submitBtn.setForeground(AppData.$primaryColor);
+		submitBtn.setBackground(StyleTheme.$secondaryColor);
+		submitBtn.setForeground(StyleTheme.$primaryColor);
 		submitBtn.addActionListener(e -> submitAction(e));
 		
 		JButton closeBtn = new JButton("Cancelar");
-		closeBtn.setBackground(AppData.$secondaryColor);
-		closeBtn.setForeground(AppData.$primaryColor);
+		closeBtn.setBackground(StyleTheme.$secondaryColor);
+		closeBtn.setForeground(StyleTheme.$primaryColor);
 		closeBtn.addActionListener(e -> {
-			parent.dispose();
+			MainDialog.getInstance().dispose();
 		});
 		
 		JPanel buttonsPanel = new JPanel();
@@ -132,15 +132,15 @@ public class ViewDiscountsConfiguration extends JPanel {
 		
 		
 		if(error) {
-			new MainAlert(errorMessage, AlertType.ERROR);
+			new CustomAlert(errorMessage, AlertType.ERROR);
 		} else {
-			AppData.discount1 = dsct1;
-			AppData.discount2 = dsct2;
-			AppData.discount3 = dsct3;
-			AppData.discount4 = dsct4;
+			SalesController.discount1 = dsct1;
+			SalesController.discount2 = dsct2;
+			SalesController.discount3 = dsct3;
+			SalesController.discount4 = dsct4;
 
 			String successMessage = "¡En hora buena! \nLos Descuentos fueron guardados correctamente.";
-			new MainAlert(successMessage, AlertType.SUCCESS);
+			new CustomAlert(successMessage, AlertType.SUCCESS);
 		}
 		
 	}

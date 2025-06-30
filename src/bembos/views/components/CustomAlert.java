@@ -14,22 +14,22 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 import interfaces.AlertType;
-import db.AppData;
+import db.StyleTheme;
 
-public class MainAlert extends JDialog {
+public class CustomAlert extends JDialog {
 	
 	private static final long serialVersionUID = 1L;
 	private String alertMessage;
 	private AlertType type;
 	private String title;
 	
-	public MainAlert(String alertMessage, AlertType type) {
+	public CustomAlert(String alertMessage, AlertType type) {
 		this.alertMessage = alertMessage;
 		this.type = type;
 		renderComponents();
 	}
 
-	public MainAlert(String alertMessage, AlertType type, String title) {
+	public CustomAlert(String alertMessage, AlertType type, String title) {
 		this.alertMessage = alertMessage;
 		this.type = type;
 		this.title = title;
@@ -37,10 +37,10 @@ public class MainAlert extends JDialog {
 	}
 	
 	private void renderComponents() {
-		URL burgerIcon = getClass().getResource(AppData.sourcePath + "burgerIcon.png");
-		URL successIcon = getClass().getResource(AppData.sourcePath + "successIcon.png");
-		URL errorIcon = getClass().getResource(AppData.sourcePath + "errorIcon.png");
-		URL noticeIcon = getClass().getResource(AppData.sourcePath + "infoIcon.png");
+		URL burgerIcon = getClass().getResource(StyleTheme.sourcePath + "burgerIcon.png");
+		URL successIcon = getClass().getResource(StyleTheme.sourcePath + "successIcon.png");
+		URL errorIcon = getClass().getResource(StyleTheme.sourcePath + "errorIcon.png");
+		URL noticeIcon = getClass().getResource(StyleTheme.sourcePath + "infoIcon.png");
 		
 		JLabel lblIcon = new JLabel();
 		
@@ -61,13 +61,13 @@ public class MainAlert extends JDialog {
 		JTextPane txtContent = new JTextPane();
 		txtContent.setEditable(false);
 		txtContent.setOpaque(false);
-		txtContent.setForeground(AppData.$primaryColor);
+		txtContent.setForeground(StyleTheme.$primaryColor);
 		txtContent.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtContent.setText(alertMessage);
 		
 		JButton okBtn = new JButton("Aceptar");
-		okBtn.setBackground(AppData.$secondaryColor);
-		okBtn.setForeground(AppData.$primaryColor);
+		okBtn.setBackground(StyleTheme.$secondaryColor);
+		okBtn.setForeground(StyleTheme.$primaryColor);
 		okBtn.addActionListener(e -> {
 			dispose();
 		});
@@ -86,14 +86,14 @@ public class MainAlert extends JDialog {
 		JPanel contentPanel = new JPanel();
 		contentPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 		contentPanel.setLayout(new BorderLayout(0, 0));
-		contentPanel.setBackground(AppData.$white);
+		contentPanel.setBackground(StyleTheme.$white);
 		contentPanel.add(centerPanel, BorderLayout.CENTER);
 		contentPanel.add(bottomPanel, BorderLayout.SOUTH);
 		
 		getContentPane().setLayout(new GridLayout(1,1));
 		getContentPane().add(contentPanel);
 		setIconImage(
-			Toolkit.getDefaultToolkit().getImage(AppData.favicon)
+			Toolkit.getDefaultToolkit().getImage(StyleTheme.favicon)
 		);
 		pack();
 		setLocationRelativeTo(null);

@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import bembos.controllers.BembosMenuController;
+import bembos.enums.ProductSize;
 import bembos.models.BembosMenu;
 import bembos.models.Burger;
 import bembos.models.Potatoes;
@@ -22,13 +23,11 @@ import bembos.views.components.MainAlert;
 
 import javax.swing.JButton;
 import interfaces.AlertType;
-import interfaces.SizeProduct;
-import db.AppData;
+import db.StyleTheme;
 
 public class ViewSetProduct extends JPanel {
 
 	private static final long serialVersionUID = 1L;	
-	private JDialog parent;
 	private JComboBox<String> cmbBurgerName;
 	private JComboBox<String> cmbBurgerSize;
 	private JComboBox<String> cmbPotatoesSize;
@@ -54,9 +53,9 @@ public class ViewSetProduct extends JPanel {
 	private Boolean error = false;
 	private String errorMessage = "";
 
-	public ViewSetProduct(JDialog parent) {
+	public ViewSetProduct() {
 		
-		this.parent = parent;
+
 		// set
 		resetAllValues();
 		
@@ -64,44 +63,44 @@ public class ViewSetProduct extends JPanel {
 		cmbPromoPanel.setLayout(new GridLayout(1, 2, 0, 0));
 
 		JLabel lblBurgerName = new JLabel("Hamburguesa");
-		lblBurgerName.setForeground(AppData.$white);
+		lblBurgerName.setForeground(StyleTheme.$white);
 		JLabel lblBurgerSize = new JLabel("Tamaño");
-		lblBurgerSize.setForeground(AppData.$white);
+		lblBurgerSize.setForeground(StyleTheme.$white);
 		JLabel lblBurgerCount = new JLabel("Cantidad");
-		lblBurgerCount.setForeground(AppData.$white);
+		lblBurgerCount.setForeground(StyleTheme.$white);
 		
-		String[] sizeArr = Utils.createComboBoxArray(Arrays.asList(SizeProduct.values()), "Selecciona una medida", size->size.toString());
+		String[] sizeArr = Utils.createComboBoxArray(Arrays.asList(ProductSize.values()), "Selecciona una medida", size->size.toString());
 		
-		cmbBurgerName = new JComboBox<String>(Utils.createComboBoxArray(AppData.burgersList, "Selecciona una hamburguesa", burger->burger.getName()));
+		cmbBurgerName = new JComboBox<String>(Utils.createComboBoxArray(StyleTheme.burgersList, "Selecciona una hamburguesa", burger->burger.getName()));
 		cmbBurgerSize = new JComboBox<String>(sizeArr);
 		txtBurgerCount = new JTextField();
 
 		JLabel lblPotatoesSize = new JLabel("Papas fritas");
-		lblPotatoesSize.setForeground(AppData.$white);
+		lblPotatoesSize.setForeground(StyleTheme.$white);
 		JLabel lblPotatoesCount = new JLabel("Cantidad");
-		lblPotatoesCount.setForeground(AppData.$white);
+		lblPotatoesCount.setForeground(StyleTheme.$white);
 		cmbPotatoesSize = new JComboBox<String>(sizeArr);
 		txtPotatoesCount = new JTextField();
 
 		JLabel lblSodaName = new JLabel("Bebida");
-		lblSodaName.setForeground(AppData.$white);
+		lblSodaName.setForeground(StyleTheme.$white);
 		JLabel lblSodaCount = new JLabel("Cantidad");
-		lblSodaCount.setForeground(AppData.$white);
-		cmbSodaName = new JComboBox<String>(Utils.createComboBoxArray(AppData.sodasList, "Selecciona una Bebida", soda->soda.getName()));
+		lblSodaCount.setForeground(StyleTheme.$white);
+		cmbSodaName = new JComboBox<String>(Utils.createComboBoxArray(StyleTheme.sodasList, "Selecciona una Bebida", soda->soda.getName()));
 		txtSodaCount = new JTextField();
 
 		JLabel lblPrice = new JLabel("Precio (S/.)");
-		lblPrice.setForeground(AppData.$white);
+		lblPrice.setForeground(StyleTheme.$white);
 		txtPrice = new JTextField();
 
 		JButton btnSave = new JButton("Guardar");
-		btnSave.setBackground(AppData.$secondaryColor);
-		btnSave.setForeground(AppData.$primaryColor);
+		btnSave.setBackground(StyleTheme.$secondaryColor);
+		btnSave.setForeground(StyleTheme.$primaryColor);
 		btnSave.addActionListener(e -> onSubmit(e));
 		
 		JButton btnClose = new JButton("Cerrar");
-		btnClose.setBackground(AppData.$primaryLightColor);
-		btnClose.setForeground(AppData.$white);
+		btnClose.setBackground(StyleTheme.$primaryLightColor);
+		btnClose.setForeground(StyleTheme.$white);
 		btnClose.addActionListener(e -> {
 			parent.dispose();
 		});
