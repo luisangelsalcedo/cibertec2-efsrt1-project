@@ -11,11 +11,9 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-
-import bembos.controllers.UserController;
-import bembos.models.User;
+import bembos.controllers.AuthController;
 import bembos.views.Home;
-import db.AppData;
+import db.StyleTheme;
 import interfaces.AlertType;
 
 public class LoginForm extends JPanel {
@@ -24,6 +22,7 @@ public class LoginForm extends JPanel {
 	private JTextField txtUserName;
 	private JPasswordField txtPassword;
 	private Home parent;
+	private MainMenu menuBar;
 	
 	public LoginForm(Home parent) {
 		this.parent = parent;
@@ -66,15 +65,15 @@ public class LoginForm extends JPanel {
 		
 		JButton btnSubmit = new JButton("Ingresar");
 		btnSubmit.setFont(fontLogin);
-		btnSubmit.setBackground(AppData.$primaryColor);
-		btnSubmit.setForeground(AppData.$white);
+		btnSubmit.setBackground(StyleTheme.$primaryColor);
+		btnSubmit.setForeground(StyleTheme.$white);
 		btnSubmit.addActionListener(e->submitAction());
 		
 		JLabel lblIcon = new JLabel();
-		lblIcon.setIcon(new ImageIcon(getClass().getResource(AppData.sourcePath + "icon-lock.png")));
+		lblIcon.setIcon(new ImageIcon(getClass().getResource(StyleTheme.sourcePath + "icon-lock.png")));
 		
 		
-		setBackground(AppData.$secondaryColor);
+		setBackground(StyleTheme.$secondaryColor);
 		setBorder(new EmptyBorder(10, 10, 10, 10));
 		setLayout(new BorderLayout(15,0));
 		add(lblIcon, BorderLayout.WEST);
@@ -84,39 +83,35 @@ public class LoginForm extends JPanel {
 	}
 
 	private Object submitAction() {
-		String userName = txtUserName.getText(); 
+		String userName = txtUserName.getText().trim(); 
 		char[] password = txtPassword.getPassword();			
 		
 		if(userName.length() < 2) {
-			new MainAlert("El Usuario debe tener min 2 caracteres", AlertType.NOTICE);
+			new CustomAlert("El Usuario debe tener min 2 caracteres", AlertType.NOTICE);
 			txtUserName.requestFocus();
 			return null;
 		}
 		if(password.length < 8) {
-			new MainAlert("La Contrasena debe tener min 8 caracteres", AlertType.NOTICE);
+			new CustomAlert("La Contraseña debe tener min 8 caracteres", AlertType.NOTICE);
 			txtPassword.requestFocus();
 			return null;
 		}
 		
-		UserController userControl = new UserController();
-		if(userControl.login(userName, new String(password))) {
-			parent.showLoginForm(false);
-			parent.showMenu(true);
-		} else {
-			User user = userControl.findUserByUserName(userName);
-			if(user == null) {				
-				new MainAlert("El usuario " + userName + " no existe", AlertType.ERROR);
-				
-			} else if(user.isUserLock() ) {
-				new MainAlert("Su usuario " + user.getUserName() + " ha sido bloqueado\nComunicate con el administrador para activarlo", AlertType.ERROR);
-				
-			} else {
-				new MainAlert("El usuario y la contrasena no coinciden", AlertType.ERROR);
-			}
-			
-			
-		}
+		AuthController controller = new AuthController();
 		
+		try {
+			controller.login(userName, new String(password));
+			// menu
+			menuBar = new MainMenu(parent);
+			parent.setJMenuBar(menuBar);
+			parent.showLoginForm(false);
+			
+			System.out.println(AuthController.getLoggedUser().getUserName());
+			
+		} catch (Exception e) {
+			new CustomAlert(e.getMessage(), AlertType.ERROR);
+		}
+
 		cleanTextFields();
 		return null;
 	}

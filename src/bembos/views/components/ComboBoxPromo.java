@@ -4,9 +4,11 @@ import java.awt.BorderLayout;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import bembos.controllers.ComboController;
 import bembos.utils.Utils;
 import interfaces.ComboBoxAction;
-import db.AppData;
+import db.StyleTheme;
 
 
 
@@ -18,11 +20,12 @@ public class ComboBoxPromo extends JPanel {
 
 	public ComboBoxPromo(ComboBoxAction callback) {		
 		JLabel lblPromo = new JLabel("Promos exclusivas:");
-		lblPromo.setForeground(AppData.$white);
+		lblPromo.setForeground(StyleTheme.$white);
 		
 		
 		// pasarlo a un controlador
-		String[] promosList = Utils.createComboBoxArray(AppData.menusList, "Selecciona un menu", menu -> menu.getName());
+		ComboController control = new ComboController();
+		String[] promosList = Utils.createComboBoxArray(control.getAllCombos(), "Selecciona un menu", menu -> menu.getName());
 		
 		
 		JComboBox<String> cmbPromo = new JComboBox<String>(promosList);

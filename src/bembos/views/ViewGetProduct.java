@@ -1,38 +1,31 @@
 package bembos.views;
 
 import java.awt.BorderLayout;
-import db.AppData;
+import db.StyleTheme;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import bembos.controllers.BembosMenuController;
-import bembos.models.BembosMenu;
-import bembos.models.Burger;
-import bembos.models.Potatoes;
-import bembos.models.Product;
-import bembos.models.Soda;
+import bembos.controllers.ComboController;
+import bembos.models.Combo;
 import bembos.views.components.ComboBoxPromo;
-import bembos.views.components.ViewGraphics;
-
+import bembos.views.components.MainDialog;
+import bembos.views.components.ProductGraphic;
 import javax.swing.JLabel;
 
 public class ViewGetProduct extends JPanel {
 
 	private static final long serialVersionUID = 1L;	
-	private JDialog parent;
-	private ViewGraphics graphicPanel;
+	private ProductGraphic productPanel;
+	private ComboController control = new ComboController();
 	private JTextField txtPrice;
 
-	public ViewGetProduct(JDialog parent) {
-		
-		this.parent = parent;
-		
-		graphicPanel = new ViewGraphics();		
+	public ViewGetProduct() {		
+
+		productPanel = new ProductGraphic();
 		ComboBoxPromo cmbPromoPanel = new ComboBoxPromo(item -> ComboBoxPromoAction(item));
 		
 		JLabel lblPrice = new JLabel("Precio:");
-		lblPrice.setForeground(AppData.$white);
+		lblPrice.setForeground(StyleTheme.$white);
 		txtPrice = new JTextField();
 		txtPrice.setEditable(false);		
 		
@@ -41,13 +34,13 @@ public class ViewGetProduct extends JPanel {
 		centerPanel.setOpaque(false);
 		centerPanel.add(lblPrice, BorderLayout.WEST);
 		centerPanel.add(txtPrice, BorderLayout.CENTER);
-		centerPanel.add(graphicPanel, BorderLayout.SOUTH);		
+		centerPanel.add(productPanel, BorderLayout.SOUTH);		
 		
 		JButton closeBtn = new JButton("Cerrar");
-		closeBtn.setBackground(AppData.$secondaryColor);
-		closeBtn.setForeground(AppData.$primaryColor);
+		closeBtn.setBackground(StyleTheme.$secondaryColor);
+		closeBtn.setForeground(StyleTheme.$primaryColor);
 		closeBtn.addActionListener(e->{
-			parent.dispose();
+			MainDialog.getInstance().dispose();
 		});		
 		
 		setLayout(new BorderLayout(10, 10));
@@ -57,53 +50,19 @@ public class ViewGetProduct extends JPanel {
 	}
 	
 	private void ComboBoxPromoAction(String selectedItem){
-		BembosMenuController menuController = new BembosMenuController();
-		// default
-		graphicPanel.clean();
-		txtPrice.setText(null);
 		
-		//select item
-		for(BembosMenu menu:menuController.getAllMenus()) {
-			if(selectedItem == menu.getName()) {
-				txtPrice.setText("S/. " + String.format("%,5.2f", menu.getPrice()));
-				
-				
-				//split products
-				for(Product product:menu.getAllProducts()) {
-					
-					// is burger
-					if(product instanceof Burger) {
-						graphicPanel.setBurger(
-							menu.getAllBurgers().size(),
-							product.getSlug() + ".png", 
-							product.getName(), 
-							((Burger) product).getSize()
-						);
-					}
-					
-					// is potatoes
-					if(product instanceof Potatoes) {
-						graphicPanel.setPotatoe(
-							menu.getAllPotatoes().size(),
-							((Potatoes) product).getSize()
-						);
-					}
-					
-					// is soda
-					if(product instanceof Soda) {
-						graphicPanel.setSoda(
-							menu.getAllSodas().size(),
-							product.getSlug() + ".png", 
-							product.getName()
-						);
-					}
-				}
-
+		productPanel.clean();
+		for(Combo combo : control.getAllCombos()) {
+			if(selectedItem == combo.getName()) {
+				combo.setItems(control.getAllItemsByComboID(combo.getId()));
+				productPanel.render(combo.getItems());
+				txtPrice.setText(String.format("%,5.2f", combo.getTotalPrice()));
+			} else if(selectedItem == "Selecciona un menu") {
+				txtPrice.setText("");
 			}
-		}
-		
+		}		
 		// resize jdialog		
-		this.parent.pack();
-		this.parent.setLocationRelativeTo(null);
+		MainDialog.getInstance().pack();
+		MainDialog.getInstance().setLocationRelativeTo(null);
 	}
 }

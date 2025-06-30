@@ -1,55 +1,55 @@
 package bembos.views;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.util.UUID;
+
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import bembos.controllers.BembosMenuController;
-import bembos.models.BembosMenu;
-import bembos.models.Burger;
-import bembos.models.Potatoes;
-import bembos.models.Product;
-import bembos.models.Soda;
+import bembos.controllers.ComboController;
+import bembos.controllers.SalesController;
+import bembos.models.Combo;
+import bembos.models.Sale;
 import bembos.views.components.ComboBoxPromo;
-import bembos.views.components.MainAlert;
-import bembos.views.components.ViewGraphics;
+import bembos.views.components.CustomAlert;
+import bembos.views.components.MainDialog;
+import bembos.views.components.ProductGraphic;
 import interfaces.AlertType;
-import db.AppData;
+import db.StyleTheme;
 
 public class ViewSellProduct extends JPanel {
 	
 	private static final long serialVersionUID = 1L;	
-	private JDialog parent;
-	private ViewGraphics graphicPanel;
+
+	private ProductGraphic productPanel;
+	private ComboController control = new ComboController();
 	private JButton sellBtn;
 	private JButton closeBtn;	
 	private JTextField txtPrice;
 	private JTextField txtCount;
 	private JTextArea txtResponse;
 	private JScrollPane scrollPane;	
-	private String selectedItem;	
+	private String selectedItem;
+	private Combo SelectedItemObject;
 
-	public ViewSellProduct(JDialog parent) {
-		
-		this.parent = parent;
-		
+	public ViewSellProduct() {	
+
+		productPanel = new ProductGraphic();
 		ComboBoxPromo cmbPromoPanel = new ComboBoxPromo(item -> ComboBoxPromoAction(item));
-
-		graphicPanel = new ViewGraphics();
 		
 		JLabel lblPrice = new JLabel("Precio (S/):");
-		lblPrice.setForeground(AppData.$white);
+		lblPrice.setForeground(Color.WHITE);
 		txtPrice = new JTextField();
 		txtPrice.setEditable(false);
 		
 		JLabel lblcount = new JLabel("Cantidad:");
-		lblcount.setForeground(AppData.$white);
+		lblcount.setForeground(Color.WHITE);
 		txtCount = new JTextField();
 
 		// panels
@@ -75,12 +75,12 @@ public class ViewSellProduct extends JPanel {
 		sellBtn = new JButton("Vender");
 		sellBtn.addActionListener(e -> sellAction(e));
 		sellBtn.setVisible(false);
-		sellBtn.setBackground(AppData.$secondaryColor);
-		sellBtn.setForeground(AppData.$primaryColor);
+		sellBtn.setBackground(StyleTheme.$secondaryColor);
+		sellBtn.setForeground(StyleTheme.$primaryColor);
 		closeBtn = new JButton("Cerrar");
 		closeBtn.addActionListener(e -> closeAction(e));
-		closeBtn.setBackground(AppData.$secondaryColor);
-		closeBtn.setForeground(AppData.$primaryColor);
+		closeBtn.setBackground(StyleTheme.$secondaryColor);
+		closeBtn.setForeground(StyleTheme.$primaryColor);
 
 		JPanel buttonsPanel = new JPanel();
 		buttonsPanel.setLayout(new GridLayout(2, 1, 0, 15));
@@ -105,152 +105,87 @@ public class ViewSellProduct extends JPanel {
 
 		setLayout(new BorderLayout());
 		add(topPanel, BorderLayout.NORTH);
-		add(graphicPanel, BorderLayout.CENTER);
+		add(productPanel, BorderLayout.CENTER);
 		add(scrollPane, BorderLayout.SOUTH);
 	}
 	
-	public void ComboBoxPromoAction(String selectedItem) {
-		BembosMenuController menuController = new BembosMenuController();
+	private void ComboBoxPromoAction(String selectedItem){
+		showSellControls(false);
 		this.selectedItem = selectedItem;
-		// default
-		clean();
-		sellBtn.setVisible(false);
-		scrollPane.setVisible(false);
-	
-		for(BembosMenu menu:menuController.getAllMenus()) {
-			if(selectedItem == menu.getName()) {
-				txtPrice.setText(String.format("%,5.2f", menu.getPrice()));
-				sellBtn.setVisible(true);
-				scrollPane.setVisible(true);
-				
-				//split products
-				for(Product product:menu.getAllProducts()) {
-					
-					// is burger
-					if(product instanceof Burger) {
-						graphicPanel.setBurger(
-							menu.getAllBurgers().size(),
-							product.getSlug() + ".png", 
-							product.getName(), 
-							((Burger) product).getSize()
-						);
-					}
-					
-					// is potatoes
-					if(product instanceof Potatoes) {
-						graphicPanel.setPotatoe(
-							menu.getAllPotatoes().size(),
-							((Potatoes) product).getSize()
-						);
-					}
-					
-					// is soda
-					if(product instanceof Soda) {
-						graphicPanel.setSoda(
-							menu.getAllSodas().size(),
-							product.getSlug() + ".png", 
-							product.getName()
-						);
-					}
-				}
+
+		productPanel.clean();
+		for(Combo combo : control.getAllCombos()) {
+			if(selectedItem == combo.getName()) {
+				SelectedItemObject = combo;
+				showSellControls(true);
+
+				combo.setItems(control.getAllItemsByComboID(combo.getId()));
+				productPanel.render(combo.getItems());
+				txtPrice.setText(String.format("%,5.2f", combo.getTotalPrice()));
+			}else if(selectedItem == "Selecciona un menu") {
+				txtPrice.setText("");
 			}
-		}
-		this.parent.pack();
-		this.parent.setLocationRelativeTo(null);
+		}		
+		// resize jdialog		
+		MainDialog.getInstance().pack();
+		MainDialog.getInstance().setLocationRelativeTo(null);
 	}
 	
 	private void sellAction(ActionEvent event) {
 		try {
-			double productPrice, buyAmount, discountAmount, paymentAmount;
-			int productCount;
-			String productName, gifts;
+			double comboPrice, buyAmount, discountAmount, paymentAmount;
+			int comboCount;
+			String comboName, gifts;
 			
-			productName = this.selectedItem;
-			productPrice = Double.parseDouble(txtPrice.getText());
-			productCount = Integer.parseInt(txtCount.getText());
+			comboName = this.selectedItem;
+			comboPrice = Double.parseDouble(txtPrice.getText());
+			comboCount = Integer.parseInt(txtCount.getText());
 			
-			if(productCount > 0) {
-				buyAmount = productPrice * productCount;
-				discountAmount = calculateDiscount(productCount, buyAmount);
+			if(comboCount > 0) {
+				buyAmount = comboPrice * comboCount;
+				discountAmount = SalesController.calculateDiscount(comboCount, buyAmount);
 				paymentAmount = buyAmount - discountAmount;
-				gifts = calculateGifts(productCount);
+				gifts = SalesController.calculateGifts(comboCount);
 				
 				txtResponse.setText("BOLETA DE VENTA\n----------------------------");
-				txtResponse.append("\nPromocion: " + productName);
-				txtResponse.append("\nPrecio: " + productPrice);
-				txtResponse.append("\nCantidad: " + productCount);
+				txtResponse.append("\nPromocion: " + comboName);
+				txtResponse.append("\nPrecio: " + comboPrice);
+				txtResponse.append("\nCantidad: " + comboCount);
 				txtResponse.append("\nImporte Compra: " + String.format("%,5.2f", buyAmount));
 				txtResponse.append("\nImporte Descuento: " + String.format("%,5.2f", discountAmount));
 				txtResponse.append("\nImporte a Pagar: " + String.format("%,5.2f", paymentAmount));
 				txtResponse.append("\nObsequio: 1 " + gifts);
-				
-				
-				
+
 				// add sale
-				calculateSales(paymentAmount);
+				Sale sale = new Sale(SelectedItemObject, comboCount, paymentAmount);
+				SalesController.addSale(sale);
+				
+				// view message
+				if(SalesController.generalSalesCount % 5 == 0) {
+					new CustomAlert(SalesController.SalesMessages, AlertType.DEFAULT, "Avance de ventas");
+				}
+				
+				System.out.println(SalesController.getAllsales().size());
 			} else {
-				new MainAlert("Ingresa al menos 1 producto", AlertType.NOTICE);
+				new CustomAlert("Ingresa la cantidad de tu pedido", AlertType.NOTICE);
 				txtCount.setText("");
 				txtCount.requestFocus();
 			}
 			
 		} catch (Exception e) {
-			new MainAlert("Ingresa una cantidad valida", AlertType.ERROR);
+			new CustomAlert("Ingresa una cantidad valida", AlertType.ERROR);
 			txtCount.setText("");
 			txtCount.requestFocus();
 		}		
 	}
 	
 	private void closeAction(ActionEvent event) {
-		parent.dispose();
+		MainDialog.getInstance().dispose();
 	}
-	
-	private double calculateDiscount(int count, double cost) {
-		if(count == 0)
-			return 0.0;
-		
-		else if(count <= 5)
-			return cost * (AppData.discount1 / 100);
-		
-		else if(count <= 10)
-			return cost * (AppData.discount2 / 100);
-		
-		else if(count <=15)
-			return cost * (AppData.discount3 / 100);
-		
-		else 
-			return cost * (AppData.discount4 / 100);
-	}
-	
-	private String calculateGifts(int count) {
-		if(count == 1)
-			return AppData.gift1;
-		
-		else if(count <= 5)
-			return AppData.gift2;
-		
-		else 
-			return AppData.gift3;
-	}
-	
-	private void calculateSales(double paymentAmount) {
-		AppData.generalSalesCount++;
-		AppData.generalSalesAmount += paymentAmount;
-		
-		if(AppData.generalSalesCount % 5 == 0) {
-			String message = "Venta Nro " + AppData.generalSalesCount;
-			message += "\nImporte total general acomulado: S/." + String.format("%,5.2f", AppData.generalSalesAmount);
-			message += "\nPorcentaje de la cuota diaria: " + String.format("%,5.2f", AppData.calculatePercentageDailyQuota()) + "%";
-			
-			new MainAlert(message, AlertType.DEFAULT, "Avance de ventas");
-		}
-	}
-	
-	private void clean() {
-		txtPrice.setText(null);
-		txtCount.setText(null);
-		txtResponse.setText(null);
-		graphicPanel.clean();
+
+	private void showSellControls(boolean bool){
+		sellBtn.setVisible(bool);
+		scrollPane.setVisible(bool);
 	}
 
 }

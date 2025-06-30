@@ -3,28 +3,27 @@ package bembos.views;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import bembos.controllers.BembosMenuController;
-import bembos.models.BembosMenu;
-import bembos.models.Burger;
-import bembos.models.Potatoes;
-import bembos.models.Soda;
-import db.AppData;
+import bembos.controllers.ComboController;
+import bembos.models.Combo;
+import bembos.models.ComboItem;
+import bembos.views.components.MainDialog;
+import db.StyleTheme;
 
 public class ViewGetAllProducts extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JTextArea txtProductList;
 	
-	public ViewGetAllProducts(JDialog parent) {
+	public ViewGetAllProducts() {
 
 		JLabel lblProductList = new JLabel("Listado de promociones");
-		lblProductList.setForeground(AppData.$white);
+		lblProductList.setForeground(StyleTheme.$white);
 		
 		txtProductList = new JTextArea();
 		txtProductList.setRows(20);
@@ -38,15 +37,15 @@ public class ViewGetAllProducts extends JPanel {
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); 
 
         JButton btnSave = new JButton("Listar");
-		btnSave.setBackground(AppData.$secondaryColor);
-		btnSave.setForeground(AppData.$primaryColor);
+		btnSave.setBackground(StyleTheme.$secondaryColor);
+		btnSave.setForeground(StyleTheme.$primaryColor);
 		btnSave.addActionListener(e -> onSubmit(e));
 		
 		JButton btnClose = new JButton("Cerrar");
-		btnClose.setBackground(AppData.$primaryLightColor);
-		btnClose.setForeground(AppData.$white);
+		btnClose.setBackground(StyleTheme.$primaryLightColor);
+		btnClose.setForeground(StyleTheme.$white);
 		btnClose.addActionListener(e -> {
-			parent.dispose();
+			MainDialog.getInstance().dispose();
 		});
 
 		// Button panel
@@ -64,35 +63,21 @@ public class ViewGetAllProducts extends JPanel {
 	
 	private void onSubmit(ActionEvent event) {
 		
-		BembosMenuController menuController = new BembosMenuController();
+		ComboController controller = new ComboController();
 		
 		txtProductList.append("LISTADO DE PROMOCIONES\n");
 		
-		for(BembosMenu menu:menuController.getAllMenus()) {
-			txtProductList.append("\nPromo: " + menu.getName());
-			
-			if(menu.getAllBurgers().size() > 0) {
-				txtProductList.append("\nHamburguesa");
-				for(Burger burger:menu.getAllBurgers()) {
-					txtProductList.append("\n	: 01 "  + burger.getName() + " " + burger.getSize());	
-				}			
-			}
-			if(menu.getAllPotatoes().size() > 0) {				
-				txtProductList.append("\nPapas");
-				for(Potatoes potatoes:menu.getAllPotatoes()) {
-					txtProductList.append("\n	: 01 "  + potatoes.getName() + " " + potatoes.getSize());	
-				}
-			}
-			
-			if(menu.getAllSodas().size() > 0) {
-				txtProductList.append("\nBebida");
-				for(Soda soda:menu.getAllSodas()) {
-					txtProductList.append("\n	: 01 "  + soda.getName());	
-				}
-			}
+		for(Combo combo : controller.getAllCombos()) {
+			txtProductList.append("\nPromo: " + combo.getName());
+			combo.setItems(controller.getAllItemsByComboID(combo.getId()));
+			List<ComboItem> items = combo.getItems();
+			for(ComboItem item : items) {
+				txtProductList.append(
+						"\n" + item.getCount() + " | " + item.getProduct().getType().toString() + ": " + item.getProduct().getName() + " | " + item.getSize().toString());
+			}			
 
-			txtProductList.append("\nCantidad	: " + menu.getAllProducts().size() + " productos");
-			txtProductList.append("\nPrecio Total	: S/. " + String.format("%,5.2f", menu.getPrice()));
+			txtProductList.append("\nCantidad: " + items.stream().mapToInt(item -> item.getCount()).sum() + " productos");
+			txtProductList.append("\nPrecio Total: S/. " + String.format("%,5.2f", combo.getTotalPrice()));
 			txtProductList.append("\n---------------------------------------------------------\n");
 		}
 	}		

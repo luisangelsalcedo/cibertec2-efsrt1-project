@@ -76,10 +76,8 @@ public class UserDao {
                 user.setUserLock(lock);
                 user.loginAttempt = loginAttempt;
                 userList.add(user);
-            }
+            } 
             
-            
-
         } catch (SQLException e) {
             System.out.println("Error al obtener usuarios: " + e.getMessage());
         }

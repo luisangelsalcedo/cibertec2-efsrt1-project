@@ -1,0 +1,14 @@
+10d64f67-5cc5-4ca1-b73c-55775ad20236,Extrema,25.9,hamburguesa
+7e4c47b7-158b-4db2-8723-ae9c431a3cdc,Parrillera,23.9,hamburguesa
+8ae107a8-ec6c-4996-9b33-f0d9b58d554d,Carretillera,23.9,hamburguesa
+2aeb1af9-75d4-42ae-a4c5-1e6772e9037e,Mexicana,21.9,hamburguesa
+90ed6c64-8be1-45e9-b357-a776c82849fd,Churrita,21.9,hamburguesa
+43a45f54-e0d7-455d-a8cf-868325c3f972,A lo Pobre,21.9,hamburguesa
+fada7da9-b8df-4444-9fda-2b2a2db0379f,Royal,20.9,hamburguesa
+62568e90-0395-47e3-aed4-00583e1cf93d,Queso Tocino,20.9,hamburguesa
+3a53184e-8fb6-49c3-9ad1-48e9d3e8ee87,Cheese,19.9,hamburguesa
+76a0eaad-249e-4453-ad26-b8b9875115dd,Clasica,17.9,hamburguesa
+31c8fb5f-a014-42b6-9f43-4f6f83ac1e65,Coca Cola,5.9,bebida
+1a264d92-2e36-41c7-8837-157bb7dd560e,Inca Kola,5.9,bebida
+e129ff1a-d812-46d1-8539-47c538514eec,Fanta,5.9,bebida
+9d622edd-1ba1-4af6-ab2a-1375b45ec9bc,Papitas,6.9,papas
