@@ -9,7 +9,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import bembos.controllers.SalesController;
 import bembos.models.Sale;
-import db.StyleTheme;
+import bembos.utils.StyleTheme;
 
 public class ViewTotalSalesProduct extends JPanel {
 

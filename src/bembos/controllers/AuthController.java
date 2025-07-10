@@ -3,9 +3,9 @@ package bembos.controllers;
 import java.util.ArrayList;
 import java.util.List;
 import bembos.dao.UserDao;
+import bembos.interfaces.Permission;
 import bembos.models.User;
-import db.StyleTheme;
-import interfaces.Permission;
+import bembos.utils.StyleTheme;
 
 public class AuthController {
 //	private List<User> userList = new ArrayList<>(AppData.usersList);

@@ -1,4 +1,4 @@
-package interfaces;
+package bembos.interfaces;
 
 public enum AlertType {
 	SUCCESS,

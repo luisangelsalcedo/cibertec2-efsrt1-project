@@ -7,6 +7,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import bembos.controllers.AuthController;
+import bembos.interfaces.AlertType;
+import bembos.interfaces.Permission;
+import bembos.utils.StyleTheme;
 import bembos.views.Home;
 import bembos.views.ViewAboutApp;
 import bembos.views.ViewDiscountsConfiguration;
@@ -15,11 +18,7 @@ import bembos.views.ViewGetProduct;
 import bembos.views.ViewGiftsConfiguration;
 import bembos.views.ViewNewProduct;
 import bembos.views.ViewSellProduct;
-import bembos.views.ViewSetProduct;
 import bembos.views.ViewTotalSalesProduct;
-import db.StyleTheme;
-import interfaces.AlertType;
-import interfaces.Permission;
 
 public class MainMenu extends JMenuBar implements ActionListener {
 	
@@ -128,7 +127,7 @@ public class MainMenu extends JMenuBar implements ActionListener {
 		mnUsuarios = new JMenu("Usuarios");
 		mnUsuarios.setFont(fontMenu);
 		mnUsuarios.setForeground(StyleTheme.$primaryColor);
-		for(CustomMenuItem item : new CustomMenuItem[] {mntmVerUsuario, mntmListarUsuarios, mntmCerrarSesion}) {
+		for(CustomMenuItem item : new CustomMenuItem[] {mntmCerrarSesion}) { // mntmVerUsuario, mntmListarUsuarios, 
 			if(hasMenuPermission(item)) mnUsuarios.add(item);
 		}
 		
@@ -169,7 +168,7 @@ public class MainMenu extends JMenuBar implements ActionListener {
 			MainDialog.getInstance().showView(new ViewGetProduct());
 		}
 		if(source == mntmModificar) {
-			MainDialog.getInstance().showView(new ViewSetProduct());
+//			MainDialog.getInstance().showView(new ViewSetProduct());
 		}
 		if(source == mntmListar) {
 			MainDialog.getInstance().showView(new ViewGetAllProducts());

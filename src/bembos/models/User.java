@@ -1,6 +1,6 @@
 package bembos.models;
 
-import interfaces.Permission;
+import bembos.interfaces.Permission;
 
 public class User {
 	private String name;

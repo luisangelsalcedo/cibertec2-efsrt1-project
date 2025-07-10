@@ -14,14 +14,14 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import bembos.controllers.ComboController;
 import bembos.controllers.SalesController;
+import bembos.interfaces.AlertType;
 import bembos.models.Combo;
 import bembos.models.Sale;
+import bembos.utils.StyleTheme;
 import bembos.views.components.ComboBoxPromo;
 import bembos.views.components.CustomAlert;
 import bembos.views.components.MainDialog;
 import bembos.views.components.ProductGraphic;
-import interfaces.AlertType;
-import db.StyleTheme;
 
 public class ViewSellProduct extends JPanel {
 	

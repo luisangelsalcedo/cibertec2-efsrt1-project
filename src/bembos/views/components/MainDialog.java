@@ -5,7 +5,8 @@ import java.awt.Toolkit;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import db.StyleTheme;
+
+import bembos.utils.StyleTheme;
 
 public class MainDialog extends JDialog {
 

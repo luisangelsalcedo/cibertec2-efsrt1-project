@@ -9,10 +9,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import bembos.controllers.SalesController;
+import bembos.interfaces.AlertType;
+import bembos.utils.StyleTheme;
 import bembos.views.components.CustomAlert;
 import bembos.views.components.MainDialog;
-import interfaces.AlertType;
-import db.StyleTheme;
 
 public class ViewDiscountsConfiguration extends JPanel {
 

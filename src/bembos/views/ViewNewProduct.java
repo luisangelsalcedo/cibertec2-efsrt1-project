@@ -17,15 +17,15 @@ import javax.swing.JTextField;
 import bembos.controllers.ComboController;
 import bembos.controllers.ProductController;
 import bembos.enums.ProductSize;
+import bembos.interfaces.AlertType;
 import bembos.models.Combo;
 import bembos.models.ComboItem;
 import bembos.models.Product;
+import bembos.utils.StyleTheme;
 import bembos.utils.Utils;
 import bembos.views.components.CustomAlert;
 import bembos.views.components.MainDialog;
 import bembos.views.components.ProductGraphic;
-import db.StyleTheme;
-import interfaces.AlertType;
 
 public class ViewNewProduct extends JPanel {
 

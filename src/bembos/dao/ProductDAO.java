@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
-import bembos.enums.ProductSize;
 import bembos.enums.ProductType;
 import bembos.models.Product;
 import bembos.utils.FileUtil;
