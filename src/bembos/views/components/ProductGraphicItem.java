@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import bembos.models.ComboItem;
-import db.StyleTheme;
+import bembos.utils.StyleTheme;
 
 public class ProductGraphicItem extends JPanel{
 

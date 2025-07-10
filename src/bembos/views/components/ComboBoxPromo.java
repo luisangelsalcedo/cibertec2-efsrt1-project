@@ -6,9 +6,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import bembos.controllers.ComboController;
+import bembos.interfaces.ComboBoxAction;
+import bembos.utils.StyleTheme;
 import bembos.utils.Utils;
-import interfaces.ComboBoxAction;
-import db.StyleTheme;
 
 
 

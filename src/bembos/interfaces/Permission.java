@@ -1,4 +1,4 @@
-package interfaces;
+package bembos.interfaces;
 
 public enum Permission {
 	USER(0, "usuario"),

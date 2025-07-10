@@ -2,7 +2,8 @@ package bembos.views.components;
 
 import java.awt.Font;
 import javax.swing.JMenuItem;
-import interfaces.Permission;
+
+import bembos.interfaces.Permission;
 
 public class CustomMenuItem extends JMenuItem {
 

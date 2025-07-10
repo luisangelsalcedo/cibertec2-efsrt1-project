@@ -12,9 +12,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import bembos.controllers.AuthController;
+import bembos.interfaces.AlertType;
+import bembos.utils.StyleTheme;
 import bembos.views.Home;
-import db.StyleTheme;
-import interfaces.AlertType;
 
 public class LoginForm extends JPanel {
 

@@ -8,7 +8,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.border.EmptyBorder;
-import db.StyleTheme;
+
+import bembos.utils.StyleTheme;
+
 import javax.swing.JTextPane;
 import java.awt.Color;
 import java.awt.Desktop;
@@ -72,7 +74,7 @@ public class ViewAboutApp extends JPanel {
 		showCodeBtn.setText("Ver Código");
 		showCodeBtn.addActionListener(e->{
 			try {
-				Desktop.getDesktop().browse(new URI("https://github.com/luisangelsalcedo/cibertec1-iaa-project"));
+				Desktop.getDesktop().browse(new URI("https://github.com/luisangelsalcedo/cibertec2-efsrt1-project"));
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
@@ -84,7 +86,7 @@ public class ViewAboutApp extends JPanel {
 		showDocumentsBtn.setText("Ver Informe");
 		showDocumentsBtn.addActionListener(e->{
 			try {
-				Desktop.getDesktop().browse(new URI("https://docs.google.com/document/d/1ijgHkcWHfNrNzJq32oP_TeeUgEiMkldcmiQY-miBVzo/edit?usp=sharing"));
+				Desktop.getDesktop().browse(new URI("https://docs.google.com/document/d/1wY-nTYh0vmRp2pIhB5aYnIiHSTLvXrnY/edit?usp=drive_link&ouid=110312081117589568623&rtpof=true&sd=true"));
 			} catch (Exception e3) {
 				e3.printStackTrace();
 			}

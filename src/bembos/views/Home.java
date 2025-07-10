@@ -12,11 +12,8 @@ import java.awt.Toolkit;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
-import bembos.models.User;
+import bembos.utils.StyleTheme;
 import bembos.views.components.LoginForm;
-import bembos.views.components.MainMenu;
-import db.StyleTheme;
-import interfaces.Permission;
 
 
 public class Home extends JFrame {

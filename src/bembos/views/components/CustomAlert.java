@@ -13,8 +13,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
-import interfaces.AlertType;
-import db.StyleTheme;
+
+import bembos.interfaces.AlertType;
+import bembos.utils.StyleTheme;
 
 public class CustomAlert extends JDialog {
 	

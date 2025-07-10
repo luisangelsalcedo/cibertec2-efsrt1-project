@@ -1,12 +1,13 @@
 package bembos.views;
 
 import java.awt.BorderLayout;
-import db.StyleTheme;
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import bembos.controllers.ComboController;
 import bembos.models.Combo;
+import bembos.utils.StyleTheme;
 import bembos.views.components.ComboBoxPromo;
 import bembos.views.components.MainDialog;
 import bembos.views.components.ProductGraphic;

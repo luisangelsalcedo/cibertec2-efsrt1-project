@@ -3,11 +3,12 @@ package bembos.dao;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import bembos.interfaces.Permission;
 import bembos.models.User;
-import interfaces.Permission;
 
 public class UserDao {
-	private String jdbcURL = "jdbc:sqlite:bembos.db";
+	private String jdbcURL = "jdbc:sqlite:./bembos.db";
 
 
     private Connection connect() throws SQLException {

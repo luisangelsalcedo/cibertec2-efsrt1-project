@@ -12,8 +12,8 @@ import javax.swing.JTextArea;
 import bembos.controllers.ComboController;
 import bembos.models.Combo;
 import bembos.models.ComboItem;
+import bembos.utils.StyleTheme;
 import bembos.views.components.MainDialog;
-import db.StyleTheme;
 
 public class ViewGetAllProducts extends JPanel {
 
